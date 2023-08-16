@@ -1,0 +1,275 @@
+@import "../styles/commonStyle/variables.scss";
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Manrope&family=Raleway&family=Roboto&family=Ubuntu:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter&family=Manrope&family=Raleway&family=Roboto&family=Ubuntu:ital@0;1&display=swap');
+
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 10px;
+
+
+    @media screen and (max-width: 1360px) {
+        font-size: 9px;
+    }
+
+    @media screen and (max-width: 1280px) {
+        font-size: 8px;
+    }
+
+    @media screen and (max-width: 1100px) {
+        font-size: 7.5px;
+    }
+
+    @media screen and (max-width: 992px) {
+        font-size: 6px;
+    }
+
+    @media screen and (max-width: 768px) {
+        font-size: 8px;
+    }
+
+    @media screen and (max-width: 580px) {
+        font-size: 7px;
+    }
+
+    @media screen and (max-width: 460px) {
+        font-size: 6px;
+    }
+}
+
+
+
+body {
+    font-family: 'Manrope', sans-serif;
+    background-color: $white;
+    font-size: 1.6rem;
+    font-weight: 400;
+    // color: $white;
+    display: flex;
+    // Line 2
+    flex-direction: column;
+    // Line 3
+    min-height: 100vh;
+    // height: auto;
+}
+
+#root {
+    flex: 1;
+}
+
+.row {
+    width: 100%;
+    margin: 0;
+
+    @media screen and (max-width: 768px) {
+        margin: 0;
+    }
+}
+
+.site_container {
+    max-width: 118rem;
+    width: 100%;
+    margin: 0 auto;
+
+    @media screen and (max-width: 992px) {
+        padding: 0 2rem;
+    }
+}
+
+.error {
+    font-size: 1.25rem;
+    color: red;
+}
+
+
+h1 {
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+h2 {
+    font-size: 3.6rem;
+    font-weight: 600;
+}
+
+h3 {
+    font-size: 3rem;
+    font-weight: 600;
+}
+
+h4 {
+    font-size: 2.4rem;
+    font-weight: 500;
+}
+
+h5 {
+    font-size: 2rem;
+    font-weight: 500;
+}
+
+h6 {
+    font-size: 1.8rem;
+    font-weight: 500;
+}
+
+ul {
+    list-style-type: none;
+    margin-bottom: 0;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+img {
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+
+label {
+    font-size: 1.4rem;
+    line-height: 2.1rem;
+    color: $black;
+}
+
+button {
+    cursor: pointer;
+
+    &:focus-within,
+    &:focus-visible,
+    &:focus {
+        outline: initial;
+        box-shadow: initial;
+        border: initial;
+    }
+}
+
+p {
+    margin-bottom: 0;
+}
+
+.input_blk {
+    position: relative;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    // display: flex;
+    // align-items: center;
+
+    .icon_blk {
+        position: absolute;
+        right: 2rem;
+        top: 35%;
+        transform: translateY(-35%);
+
+    }
+
+
+    input {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        height: 4rem;
+        padding: 0 3rem;
+        border-radius: 1.6rem;
+        background: #ffffff;
+        border: 0.1rem solid #BABABA;
+        border-radius: 0.8rem;
+        font-size: 1.8rem;
+        line-height: 100%;
+        // margin-bottom: 1.5rem;
+
+        &::placeholder {
+            font-size: 1.4rem;
+        }
+
+        &:hover {
+            border-color: #844AFF;
+            outline: none;
+        }
+
+        &:focus {
+            border-color: #844AFF;
+            outline: none;
+            box-shadow: initial;
+        }
+    }
+}
+
+.form-error-message {
+    color: red;
+}
+
+i.passwordVisibilityReset.fa.fa-eye-slash {
+    color: #844AFF;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+i.passwordVisibilityReset.fa.fa-eye {
+    color: #844AFF;
+    font-size: 13px;
+    cursor: pointer;
+}
+
+.loaderWrapper {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.7);
+    z-index: 9999999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.form-control {
+    border-radius: 15px !important;
+    font-size: 1.35rem !important;
+
+    &:hover {
+        border: 1px solid #844AFF !important;
+    }
+    &:target {
+        // border: 10px solid #844AFF;
+    }
+    &:focus-visible {
+        // border: 2px solid #844AFF;
+    }
+}
+
+.form-select {
+    border-radius: 15px !important;
+    font-size: 1.35rem !important;
+
+    &:hover {
+        border: 1px solid #844AFF;
+    }
+    &:focus-visible {
+        // border: 1px solid #844AFF !important;
+    }
+}
+
+.button-common {
+    border-radius: 17px !important;
+    font-size: 1.65rem;
+    font-weight: 600;
+    color: #ffffff;
+}
+label {
+     margin-bottom: 10px; 
+     font-size: 1.5rem;
+     font-weight: 600;
+}
+
+// .login-clip-loader {
+//     background-image: linear-gradient(red, yellow);
+//     background-clip: text;
+//     -webkit-text-fill-color: transparent;
+// }

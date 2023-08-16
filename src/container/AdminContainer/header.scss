@@ -1,0 +1,51 @@
+@import "../../styles/commonStyle/variables.scss";
+
+#panel_header {
+    background-color: white;
+    height: 6rem;
+    padding: 0 6rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+
+    .update_btn {
+        width: 14rem;
+        height: 4rem;
+        background-color: $primary_color;
+        color: $white;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border: transparent;
+        border-radius: .8rem;
+        font-size: 1.4rem;
+
+        &:hover {
+            border-color: $white;
+        }
+
+    }
+
+    .profile_btn {
+        width: 4.5rem;
+        height: 4.5rem;
+        border-radius: 75%;
+        background-color: $primary_color;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+
+        &.dropdown-toggle {
+            &::after {
+                display: none;
+            }
+        }
+
+        i {
+            color: $white;
+            font-size: 1.8rem;
+        }
+    }
+}
