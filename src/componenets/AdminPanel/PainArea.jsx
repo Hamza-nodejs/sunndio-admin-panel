@@ -24,22 +24,20 @@ const PainArea = () => {
     pointY: "",
     isLive : ""
   })
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
+
+  const handleSubmit = async () => {
+    const newErrors = {
       name: values.name.trim() === '' ? 'Please enter the name*' : '',
       nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
       position: values.position.trim() === '' ? 'Please select the position*' : '',
       pointX: values.pointX === '' ? 'Please enter the horizontal points*' : '',
       pointY: values.pointY === '' ? 'Please enter the vertical points*' : '',
       isLive : values.isLive === "" ? "Please select the pain area is live or not*" : "",
-    }));
-  };
-  const handleSubmit = async () => {
-    errorHandling()
-    if (!(values.name.trim() === '' || values.nameEs.trim() === ''
-      || values.position.trim() === '' || values.pointX === '' || values.pointY === '' || values.isLive === ""
-    )) {
+    }
+    setError(newErrors);
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if (!hasErrors) {
       const payload = {
         name: values.name,
         nameEs: values.nameEs,

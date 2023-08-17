@@ -16,23 +16,20 @@ const PainRelatedQuestion = () => {
   const [error, setError] = useState({
     question: "",
     questionEs: "",
-  
+
   })
 
-
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
+  const handleSubmit = async () => {
+    const newErrors = {
       question: values.question.trim() === '' ? 'Please enter the question*' : '',
       questionEs: values.questionEs.trim() === '' ? 'Please enter the question in Spanish*' : '',
-    }));
-  };
-  const handleSubmit = async () => {
-    errorHandling()
-    if (!(values.question.trim() === '' || values.questionEs.trim() === '')) {
+    }
+    setError(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+    if (!hasErrors) {
       dispatch(postQuestionDefinition(values))
     }
-
   }
 
   return (

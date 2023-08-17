@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import TextField from '../common/TextField';
 import SelectField from '../common/SelectField';
 import FileField from '../common/FileField';
-import {useSelector , useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { getPainArea } from '../../redux/slices/painArea';
 import { postPainDefinition } from '../../redux/slices/painDefinition';
 
@@ -24,31 +24,28 @@ const PainDefinition = () => {
   })
   useEffect(() => {
     dispatch(getPainArea());
-}, []);
+  }, []);
 
-const painAreaData = useSelector(state => state?.painArea?.painAreaData);
+  const painAreaData = useSelector(state => state?.painArea?.painAreaData);
 
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
+  const handleSubmit = async () => {
+    const newErrors = {
       name: values.name.trim() === '' ? 'Please enter the name*' : '',
       nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
       painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
       imageUrl: values.imageUrl === '' ? 'Please select the image*' : '',
-    }));
-  };
-  const handleSubmit = async () => {
-    errorHandling()
-    if (!(values.name.trim() === '' || values.nameEs.trim() === ''
-      || values.painAreaId.trim() === '' 
-      // values.imageUrl === ''
-    )) {
+    }
+    setError(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if (!hasErrors) {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("nameEs", values.nameEs);
       formData.append("painAreaId", values.painAreaId);
       formData.append("imageUrl", values.imageUrl)
-  
+
       dispatch(postPainDefinition(formData));
     }
 
@@ -56,18 +53,18 @@ const painAreaData = useSelector(state => state?.painArea?.painAreaData);
 
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
-           <div>
+      <div>
         <label className='form-label mt-4'>Select the pain area</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painAreaId: e.target.value })}>
           <option value="">Please select the pain name</option>
           {
-              painAreaData?.map(item => {
-               return <>
+            painAreaData?.map(item => {
+              return <>
                 <option value={item._id}>{item.name}</option>
-                </>
-              })
-            }
+              </>
+            })
+          }
 
         </SelectField>
         {error.painAreaId && <p className='error'>{error.painAreaId}</p>}

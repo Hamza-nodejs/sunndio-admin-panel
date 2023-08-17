@@ -7,6 +7,7 @@ import { getPainDeifnitionByPainAreaId } from '../../redux/slices/painDefinition
 import { getDiagnosisDefinition } from '../../redux/slices/diagnosis';
 import { getPainArea } from '../../redux/slices/painArea';
 import { postPossibleDiagnosis } from '../../redux/slices/possibleDiagnosis';
+import { postProbabilityDisease } from '../../redux/slices/probabilityDisease';
 
 const PossibleDiagnosis = () => {
     const dispatch = useDispatch();
@@ -51,32 +52,30 @@ const PossibleDiagnosis = () => {
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
 
-
-    const errorHandling = () => {
-        setError((prevError) => ({
-            ...prevError,
+    const handleSubmit = async () => {
+        const newErrors = {
             diagnosticsId: values.diagnosticsId.trim() === '' ? 'Please select the Id*' : '',
             isPossibleDiag: values.isPossibleDiag.trim() === '' ? 'Please select the possibble diagnosis*' : '',
             painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain behavior*' : '',
             painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
             painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
             initiaProbabilityl: values.initiaProbabilityl === '' ? 'Please enter the initial probability*' : '',
+        }
+        setError(newErrors);
 
-
-        }));
-    };
-    const handleSubmit = async () => {
-        errorHandling()
-        if (!(values.diagnosticsId.trim() === '' || values.isPossibleDiag.trim() === ''
-            || values.painBehaviorId.trim() === '' || values.painAreaId.trim() === ""
-            || values.painDefinitionId.trim() === "" || values.initiaProbabilityl === ""
-        )) {
+        const hasErrors = Object.values(newErrors).some(error => error !== '');
+        if (!hasErrors) {
             const payload = {
                 diagnosticsId: values.diagnosticsId,
                 painBehaviorId: values.painBehaviorId,
                 isPossibleDiag: values.isPossibleDiag,
             }
-           dispatch(postPossibleDiagnosis(payload))
+            const probability = {
+                painBehaviorId: values.painBehaviorId,
+                probability: values.initiaProbabilityl
+            }
+            // dispatch(postProbabilityDisease(probability));
+            dispatch(postPossibleDiagnosis(payload))
         }
 
     }

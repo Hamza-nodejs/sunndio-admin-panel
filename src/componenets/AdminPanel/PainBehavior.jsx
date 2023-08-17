@@ -28,39 +28,35 @@ const PainBehavior = () => {
 
   useEffect(() => {
     dispatch(getPainArea());
-  },[]);
+  }, []);
 
   const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
 
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
-      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
-      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
-      imageUrl: values.imageUrl === '' ? 'Please select the image*' : '',
-    }));
-  };
-
   const handlePainArea = (e) => {
-      setValues({...values, painAreaId: e.target.value});
-      dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+    setValues({ ...values, painAreaId: e.target.value });
+    dispatch(getPainDeifnitionByPainAreaId(e.target.value));
   }
 
   const painDefintionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionDataByAreaId);
 
   const handleSubmit = async () => {
-    errorHandling()
-    if (!(values.name.trim() === '' || values.nameEs.trim() === ''
-      || values.painDefinitionId.trim() === '' || values.imageUrl === '' || values.painAreaId.trim() ===""
-    )) {
+    const newErrors = {
+      name: values.name.trim() === '' ? 'Please enter the name*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
+      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
+      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
+      imageUrl: values.imageUrl === '' ? 'Please select the image*' : '',
+    }
+    setError(newErrors);
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if (!hasErrors) {
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("nameEs", values.nameEs);
       formData.append("painDefinitionId", values.painDefinitionId);
       formData.append("imageUrl", values.imageUrl);
-      console.log("pain: ", formData);
+
       dispatch(postpainBehavior(formData))
     }
 
@@ -68,17 +64,17 @@ const PainBehavior = () => {
 
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
-        
-        <div>
+
+      <div>
         <label className='form-label mt-4'>Please select the pain area</label>
         <SelectField
           onChange={handlePainArea}>
           <option value="">Please select the pain definition</option>
-           {
+          {
             painAreaData?.map(item => {
               return <option value={item._id}>{item?.name}</option>
             })
-           }
+          }
         </SelectField>
         {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
       </div>
@@ -87,13 +83,13 @@ const PainBehavior = () => {
         <SelectField
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
           <option value="">Please select the pain definition</option>
-             {
-              painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
-             }
+          {
+            painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
+          }
         </SelectField>
         {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
       </div>
-      
+
       <div>
         <label className='form-label mt-4' htmlFor="english">Enter pain behavior name in english </label>
         <TextField
@@ -112,7 +108,7 @@ const PainBehavior = () => {
         />
         {error.nameEs && <p className='error'>{error.nameEs}</p>}
       </div>
-      
+
 
       <div className='mt-2'>
         <label className='form-label mt-4' htmlFor="">Choose the image for pain behavior</label>

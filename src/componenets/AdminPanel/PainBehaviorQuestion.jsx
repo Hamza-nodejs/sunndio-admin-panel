@@ -35,7 +35,7 @@ const PainBehaviorQuestion = () => {
 
     const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
     const questionDefinitionData = useSelector(state => state?.questionDefinitionSlice?.questionDefinitionData);
-    
+
     const handlePainArea = (e) => {
         setValues({ ...values, painAreaId: e.target.value });
         dispatch(getPainDeifnitionByPainAreaId(e.target.value));
@@ -50,28 +50,24 @@ const PainBehaviorQuestion = () => {
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
 
-    const errorHandling = () => {
-        setError((prevError) => ({
-            ...prevError,
+    const handleSubmit = async () => {
+        const newErrors = {
             painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain Behavior*' : '',
             painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
             painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
             questionId: values.questionId.trim() === '' ? 'Please select the question*' : '',
             gifUrl: values.gifUrl === '' ? 'Please choose the gif*' : '',
+        }
 
-        }));
-    };
-    const handleSubmit = async () => {
-        errorHandling()
-        if (!(values.painBehaviorId.trim() === '' || values.questionId.trim() === ''
-            || values.gifUrl === '' || values.painAreaId.trim() ==="" || values.painDefinitionId.trim() ===""
-        )) {
-           const formData = new FormData();
-           formData.append("questionId", values.questionId);
-           formData.append("painBehaviorId", values.painBehaviorId);
-           formData.append("gifUrl", values.gifUrl);
+        setError(newErrors);
+        const hasErrors = Object.values(newErrors).some(error => error !== '');
+        if (!hasErrors) {
+            const formData = new FormData();
+            formData.append("questionId", values.questionId);
+            formData.append("painBehaviorId", values.painBehaviorId);
+            formData.append("gifUrl", values.gifUrl);
 
-           dispatch(postPainBehaviorQuestion(formData));
+            dispatch(postPainBehaviorQuestion(formData));
         }
 
     }

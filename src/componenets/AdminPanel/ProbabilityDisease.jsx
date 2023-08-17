@@ -13,18 +13,14 @@ const ProbabilityDisease = () => {
     possible: '',
     total: '',
     probability: '',
-    painBehaviorId: '',
-    painAreaId: "",
-    painDefinitionId: "",
+    painBehaviorId: "",
   })
 
   const [error, setError] = useState({
     possible: '',
     total: '',
     painBehaviorId: '',
-    painAreaId: "",
-    painDefinitionId: "",
-    probability: ''
+    probability: '',
   })
 
   useEffect(() => {
@@ -47,31 +43,32 @@ const ProbabilityDisease = () => {
 
   const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
 
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
+  const handlePainBehavior = (e) => {
+    setValues({ ...values, painBehaviorId: e.target.value });
+  }
+
+  const handleSubmit = async () => {
+    const newErrors = {
       possible: values.possible === '' ? 'Please enter the possible number*' : '',
       total: values.total === '' ? 'Please enter the total number*' : '',
-      painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain behavior*' : '',
-      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
-      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
       probability: values.probability === '' ? 'Please enter the probability number*' : '',
+      painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain behavior*' : '',
+    };
 
-    }));
-  };
-  const handleSubmit = async () => {
-    errorHandling()
-    if (!(values.possible === '' || values.total === ''
-      || values.painBehaviorId.trim() === '' || values.probability === ''
-      || values.painDefinitionId.trim() === "" || values.painAreaId.trim() === ""
-    )) {
-      const payload = {
+    setError(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if (!hasErrors) {
+      const probability = {
         possible: values.possible,
         total: values.total,
         painBehaviorId: values.painBehaviorId,
         probability: values.probability,
       }
-      dispatch(postProbabilityDisease(payload));
+
+      dispatch(postProbabilityDisease(probability));
+      console.log(values);
     }
   }
 
@@ -104,7 +101,7 @@ const ProbabilityDisease = () => {
       <div>
         <label className='form-label mt-4'>Select pain Behavior</label>
         <SelectField
-          onChange={(e) => setValues({ ...values, painBehaviorId: e.target.value })}>
+          onChange={handlePainBehavior}>
           <option value="">Please select the pain behavior</option>
           {
             painBehaviorDataById.map(item => <option value={item._id}>{item.name}</option>)
@@ -113,6 +110,7 @@ const ProbabilityDisease = () => {
         </SelectField>
         {error.painBehaviorId && <p className='error'>{error.painBehaviorId}</p>}
       </div>
+
       <div>
         <label className='form-label mt-4' htmlFor="possible">Enter the possibble quantity</label>
         <NumberField
@@ -141,7 +139,6 @@ const ProbabilityDisease = () => {
         />
         {error.probability && <p className='error'>{error.probability}</p>}
       </div>
-
 
       <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
     </div>

@@ -29,9 +29,8 @@ const Diagnosis = () => {
     treatmentTimeEs: ''
   })
 
-  const errorHandling = () => {
-    setError((prevError) => ({
-      ...prevError,
+  const handleSubmit = async () => {
+    const newErrors = {
       diagnosisName: values.diagnosisName.trim() === '' ? 'Please enter the diagnosis name*' : '',
       diagnosisNameEs: values.diagnosisNameEs.trim() === '' ? 'Please enter the diagnosis name Es*' : '',
       diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the description*' : '',
@@ -40,17 +39,11 @@ const Diagnosis = () => {
       treatedEs: values.treatedEs.trim() === '' ? 'Please enter the treated field*' : '',
       treatmentTime: values.treatmentTime.trim() === '' ? 'Please enter the treatment time*' : '',
       treatmentTimeEs: values.treatmentTimeEs.trim() === '' ? 'Please enter the treatment time*' : '',
-    }));
-  };
+    }
+    setError(newErrors);
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
 
-  const handleSubmit = async () => {
-    errorHandling()
-
-    if (!(values.diagnosisName.trim() === '' || values.diagnosisName.trim() === ''
-      || values.diagnosisDesc.trim() === '' || values.diagnosisDescEs.trim() === '' ||
-      values.treated.trim() === '' || values.treatedEs.trim() === '' ||
-      values.treatmentTime.trim() === '' || values.treatmentTimeEs.trim() === ''
-    )) {
+    if (!hasErrors) {
       dispatch(postDiagnosisDefinition(values))
     }
 
@@ -58,8 +51,7 @@ const Diagnosis = () => {
 
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
-      <div className='row'>
-      <div className='col-md-6' style={{paddingLeft : 0}}>
+      <div>
         <label className='form-label mt-4' htmlFor="diagnosis-eng">Enter pain diagnosis name in english </label>
         <TextField
           id="diagnosis-eng"
@@ -67,8 +59,7 @@ const Diagnosis = () => {
           onChange={(e) => setValues({ ...values, diagnosisName: e.target.value })} />
         {error.diagnosisName && <p className='error'>{error.diagnosisName}</p>}
       </div>
-
-      <div className='col-md-6' style={{paddingRight : 0}}>
+      <div>
         <label className='form-label mt-4' htmlFor="diagnosis-spanish">Enter the name of diagnosis name in spanish </label>
         <TextField
           id="diagnosis-spanish"
@@ -76,8 +67,6 @@ const Diagnosis = () => {
           onChange={(e) => setValues({ ...values, diagnosisNameEs: e.target.value })} />
         {error.diagnosisNameEs && <p className='error'>{error.diagnosisNameEs}</p>}
       </div>
-      </div>
-  
 
       <div>
         <label className='form-label mt-4' htmlFor="des-eng">Enter diagnosis description in english </label>
@@ -112,8 +101,8 @@ const Diagnosis = () => {
           onChange={(e) => setValues({ ...values, treatedEs: e.target.value })} />
         {error.treatedEs && <p className='error'>{error.treatedEs}</p>}
       </div>
-      <div className="row">
-      <div className='col-md-6' style={{paddingLeft : 0}}>
+      <div>
+
         <label className='form-label mt-4' htmlFor="traeted-time">Enter treatmentTime in english </label>
         <TextField
           id="traeted-time"
@@ -121,14 +110,13 @@ const Diagnosis = () => {
           onChange={(e) => setValues({ ...values, treatmentTime: e.target.value })} />
         {error.treatmentTime && <p className='error'>{error.treatmentTime}</p>}
       </div>
-      <div className='col-md-6' style={{paddingRight : 0}}>
+      <div>
         <label className='form-label mt-4' htmlFor="traeted-time-es">Enter treatmentTimeEs in english </label>
         <TextField
           id="traeted-time-es"
           placeholder='Enter the treatment time in spanish'
           onChange={(e) => setValues({ ...values, treatmentTimeEs: e.target.value })} />
         {error.treatmentTimeEs && <p className='error'>{error.treatmentTimeEs}</p>}
-      </div>
       </div>
 
       <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>

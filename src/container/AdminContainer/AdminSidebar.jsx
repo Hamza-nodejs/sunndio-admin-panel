@@ -9,7 +9,7 @@ const AdminSidebar = () => {
     <Sidebar className="sidebar-display">
       {/* <div className="side_bar"> */}
       <div style={{display: "flex", alignItems: "center", gap: "10px" , justifyContent: "center", padding:"10px"}}>
-      <img style={{height: "60px", width: "30px"}} src="/logo.png" alt="" />
+      <img style={{height: "40px", width: "30px"}} src="/logo.png" alt="" />
       <strong>Sunndio Health</strong>
       </div>
       

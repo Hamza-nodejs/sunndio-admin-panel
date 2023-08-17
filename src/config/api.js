@@ -21,10 +21,14 @@ const api = {
     getPainBehaviorByPainAreaId : async (id) => await axios.get(`${Host}/painBehaviorsByPainDefinition/en/${id}`),
 
     postPainBehaviorQuestion : async (payload) => await axios.post(`${Host}/addPainBehaviorQuestion`, payload),
+    getPainBehaviorQuestion : async (painBehaviorId) => axios.get(`${Host}/questionsByPainBehavior/en/${painBehaviorId}`),
  
     postPossibleDiagnosis : async (payload) => await axios.post(`${Host}/addPainPossibleDiagnosis`, payload),
+    getPossibleDiagnosis : async (painBehaviorId) => await axios.get(`${Host}/painPossibleDiagBypainBehaviorId/en/${painBehaviorId}`),
 
     postProbabilityDisease : async (payload) => await axios.post(`${Host}/Probability`, payload),
+
+    postAssignResult : async (payload) => await axios.post(`${Host}/assignResult`, payload),
 };
 
 
