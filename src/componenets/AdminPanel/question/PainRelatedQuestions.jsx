@@ -1,8 +1,8 @@
 import React from 'react'
-import TextField from '../common/TextField';
+import TextField from '../../common/TextField';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { postQuestionDefinition } from '../../redux/slices/questionDefinitionSlice';
+import { postQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
 
 const PainRelatedQuestion = () => {
   const dispatch = useDispatch();

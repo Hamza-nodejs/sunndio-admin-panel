@@ -4,6 +4,7 @@ import api from "../../config/api";
 
 const initialState = {
      questionDefinitionData : [],
+     allQuestionData : [],
 }
 
 const postQuestionDefinition = createAsyncThunk('QuestionDefinition', async (values) => {
@@ -16,6 +17,16 @@ const postQuestionDefinition = createAsyncThunk('QuestionDefinition', async (val
 
     return response.data
   })
+
+  const getAllQuestion = createAsyncThunk("getAllQuestion", async () => {
+    const response = await api.getAllQuestion();
+    return response.data
+  });
+
+  const deleteQuestion = createAsyncThunk("deleteQuestion", async (id) => {
+    const response = await api.deleteQuestion(id);
+    return response.data
+  });
 
 const questionDefinitionSlice = createSlice({
     name : "QuestionDefinitionSlice",
@@ -43,8 +54,20 @@ const questionDefinitionSlice = createSlice({
         builder.addCase(getQuestionDefinition.rejected, (state, action) => {
           toast.error("Error during fetching data");
         })
+
+        // Aall questions
+
+        builder.addCase(getAllQuestion.fulfilled, (state, action) => {
+          toast.success("Successful fetch data");
+          state.allQuestionData = action.payload
+          
+        })
+
+        builder.addCase(getAllQuestion.rejected, (state, action) => {
+          toast.error("Error during fetching data");
+        })
       },
 })
 export default questionDefinitionSlice.reducer;
 
-export { postQuestionDefinition, getQuestionDefinition }
+export { postQuestionDefinition, getQuestionDefinition, getAllQuestion, deleteQuestion }

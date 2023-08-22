@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector, } from "react-redux";
 import SelectField from '../common/SelectField';
 import NumberField from '../common/NumberField';
@@ -11,16 +11,17 @@ import { postAssignResult } from '../../redux/slices/assignResult';
 
 const Result = () => {
   const dispatch = useDispatch();
+
+  const inputRef = useRef(null);
+
   const [values, setValues] = useState({
     painBehaviorId: '',
     painAreaId: "",
     painDefinitionId: "",
-    possibleDiaId: "",
     behaviorQuestionId: "",
-    percentage: "",
-    diaAnswer: "",
-    possibleDiagnosis: []
   })
+
+  let [possibleDiagnosis, setPossibleDiagnosis] = useState([]);
 
   const [error, setError] = useState({
     painBehaviorId: '',
@@ -75,36 +76,34 @@ const Result = () => {
     const hasErrors = Object.values(newErrors).some(error => error !== '');
 
     if (!hasErrors) {
-      if (possibleDiagnosisData.length === values.possibleDiagnosis.length) {
-        values?.possibleDiagnosis?.map(item => {
-          const payload = {
+      
+      if (possibleDiagnosisData.length === possibleDiagnosis.length) {
+    
+        possibleDiagnosis?.map(item => {
+          const payloadTrue = {
             painBehaviorId: values.painBehaviorId,
             painBehaviorQuestionId: values.behaviorQuestionId,
-            DiagAnswer: item.diaAnswer,
-            Percentage: item.percentage,
-            possibleDiagnosticId: item.possibleDiaId
+            DiagAnswer: true,
+            possibleDiagnosticId: item.diagnosisId,
+            Percentage: item.percentageTrue
           }
-          dispatch(postAssignResult(payload))
+          const payloadFalse = {
+            painBehaviorId: values.painBehaviorId,
+            painBehaviorQuestionId: values.behaviorQuestionId,
+            DiagAnswer: false,
+            possibleDiagnosticId: item.diagnosisId,
+            Percentage: item.percentageFalse
+          }
+  
+          dispatch(postAssignResult(payloadTrue));
+          dispatch(postAssignResult(payloadFalse));
         })
 
       } else {
-        setDiagnosisError("Please enter the all filed data");
+        setDiagnosisError("Please enter the all field data");
       }
 
     }
-  }
-
-  const handlePossibleDiagnosis = (id, answer, percentage) => {
-    const newPossibleDiagnosis = {
-      possibleDiaId: id,
-      diaAnswer: answer,
-      percentage: percentage
-    };
-    setValues({
-      ...values,
-      possibleDiagnosis: [...values.possibleDiagnosis, newPossibleDiagnosis]
-    });
-    setDiagnosisError("")
   }
 
   return (
@@ -162,41 +161,49 @@ const Result = () => {
         <thead >
           <tr>
             <th>Possible Diagnosis</th>
-            <th>Question Answer</th>
-            <th>Percentage</th>
-            <th>Submit Data</th>
+            <th>Yes</th>
+            <th>No</th>
           </tr>
         </thead>
-        {diagnosisError && <p className='error'>{diagnosisError}</p>}
+        {diagnosisError && <tr className='error'>{diagnosisError}</tr>}
         <tbody>
           {
             possibleDiagnosisData?.map(item => {
               return <tr>
                 <td>{item.diagnosisName}</td>
-                <td><div class="form-check">
-                  <input class="form-check-input" type="radio" value="true" name={item._id}
-                    onChange={(e) => setValues({ ...values, diaAnswer: e.target.value })} />
-                  <label class="form-check-label">
-                    Yes
-                  </label>
-                </div>
-                  <div className="form-check">
-                    <input class="form-check-input" type="radio" value="false" name={item._id}
-                      onChange={(e) => setValues({ ...values, diaAnswer: e.target.value })}
-                    />
-                    <label class="form-check-label">
-                      No
-                    </label>
-                  </div>
-                </td>
+                 <td>
+                  <NumberField 
+                  placeholder="Enter the percentage for yes" 
+                  onBlur={(e) => {
+                    const {value } = e.target;
+                    const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
+                    if (index !== -1) {
+                      possibleDiagnosis[index].percentageTrue = value
+                    } else  {
+                      possibleDiagnosis.push({
+                        diagnosisId : item._id,
+                        percentageTrue: value,
+                      })
+                    }
+                  }}
+                  />
+                 </td>
                 <td>
                   <NumberField
-                    placeholder="Enter the percentage"
-                    onChange={(e) => setValues({ ...values, percentage: e.target.value })}
+                    placeholder="Enter the percentage for no"
+                    onBlur={(e) => {
+                      const {value } = e.target;
+                      const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
+                    if(index !== -1) {
+                      possibleDiagnosis[index].percentageFalse = value
+                    } else  {
+                      possibleDiagnosis.push({
+                        diagnosisId : item._id,
+                        percentageFalse: value,
+                      })
+                    }
+                    }}
                   />
-                </td>
-                <td>
-                  <button className='btn btn-success' onClick={() => handlePossibleDiagnosis(item._id, values.diaAnswer, values.percentage)}>Enter data</button>
                 </td>
               </tr>
             })
