@@ -8,13 +8,15 @@ import PainBehavior from './componenets/AdminPanel/painBehavior/PainBehavior';
 import PainRelatedQuestions from './componenets/AdminPanel/question/PainRelatedQuestions';
 import ProbabilityDisease from './componenets/AdminPanel/ProbabilityDisease';
 import Result from './componenets/AdminPanel/Result';
-import Diagnosis from './componenets/AdminPanel/Diagnosis';
+import Diagnosis from './componenets/AdminPanel/diagnosisDefinition/Diagnosis';
 import PossibleDiagnosis from './componenets/AdminPanel/PossibleDiagnosis';
-import PainBehaviorQuestion from './componenets/AdminPanel/PainBehaviorQuestion';
+import PainBehaviorQuestion from './componenets/AdminPanel/painBehaviorQuestion/PainBehaviorQuestion';
 import GetPainArea from './componenets/AdminPanel/painArea/GetPainArea';
 import GetPainDefinition from './componenets/AdminPanel/painDefinition/GetPainDefinition';
 import GetPainBehavior from './componenets/AdminPanel/painBehavior/GetPainBehavior';
 import GetAllQuestion from './componenets/AdminPanel/question/GetAllQuestion';
+import GetDiagnosisDefinitions from './componenets/AdminPanel/diagnosisDefinition/GetDiagnosisDefinitions';
+import GetPainBehaviorQuestion from './componenets/AdminPanel/painBehaviorQuestion/GetPainBehaviorQuestion';
 
 function App() {
   return (
@@ -99,6 +101,14 @@ function App() {
               </AdminLayout>
             }
           />
+             <Route
+            path={routes.panel.editQuestion}
+            element={
+              <AdminLayout>
+                <PainRelatedQuestions />
+              </AdminLayout>
+            }
+          />
             <Route
             path={routes.panel.getQuestions}
             element={
@@ -115,7 +125,37 @@ function App() {
               </AdminLayout>
             }
           />
+              <Route
+            path={routes.panel.editDiagnosisDefinition}
+            element={
+              <AdminLayout>
+                <Diagnosis />
+              </AdminLayout>
+            }
+          />
+              <Route
+            path={routes.panel.getDiagnosisDefinition}
+            element={
+              <AdminLayout>
+                <GetDiagnosisDefinitions/>
+              </AdminLayout>
+            }
+          />
           <Route path={routes.panel.painBehaviorQuestion}
+            element={
+              <AdminLayout>
+                <PainBehaviorQuestion />
+              </AdminLayout>
+            }
+          />
+              <Route path={routes.panel.getPainBehaviorQuestion}
+            element={
+              <AdminLayout>
+                <GetPainBehaviorQuestion />
+              </AdminLayout>
+            }
+          />
+              <Route path={routes.panel.editPainBehaviorQuestion}
             element={
               <AdminLayout>
                 <PainBehaviorQuestion />

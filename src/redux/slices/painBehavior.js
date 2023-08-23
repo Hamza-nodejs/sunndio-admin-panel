@@ -58,58 +58,58 @@ const painBehaviorSlice = createSlice({
 
     // Handle the fulfilled action
     builder.addCase(postpainBehavior.fulfilled, (state, action) => {
-      toast.success("successfully saved")
+      // toast.success("successfully saved")
     });
 
     // Handle the rejected action
     builder.addCase(postpainBehavior.rejected, (state, action) => {
-      toast.error("Api call is faild")
+      // toast.error("Api call is faild")
     });
 
     // Get pain area data 
 
     builder.addCase(getPainBehavior.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.painBehaviorData = action.payload
 
     })
 
     builder.addCase(getPainBehavior.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
 
     // pain behavior by id
     builder.addCase(getPainBehaviorByPainAreaId.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.painBehaviorDataById = action.payload
 
     })
 
     builder.addCase(getPainBehaviorByPainAreaId.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
     // All pain Behavior data
 
     builder.addCase(getAllPainBehaviorData.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.allPainBehaviorData = action.payload
 
     })
 
     builder.addCase(getAllPainBehaviorData.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
 
     // Pain Behavior data by id
 
     builder.addCase(getPainBehaviorById.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.allPainBehaviorDataById = action.payload
 
     })
 
     builder.addCase(getPainBehaviorById.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
   },
 })

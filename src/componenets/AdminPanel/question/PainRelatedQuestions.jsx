@@ -1,17 +1,30 @@
 import React from 'react'
 import TextField from '../../common/TextField';
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
-import { postQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getQuestionById, patchQuestionDefinition, postQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
+import { useParams } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const PainRelatedQuestion = () => {
   const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const [values, setValues] = useState({
-    question: "",
-    questionEs: "",
+  useEffect(() => {
+      dispatch(getQuestionById(id));
+  },[id])
 
-  })
+  const updatedValues = useSelector(state => state?.questionDefinitionSlice?.questionDataById);
+
+
+  const [values, setValues] = useState({})
+
+  useEffect(() => {
+    setValues({
+      question : updatedValues?.question ? updatedValues?.question : "",
+      questionEs : updatedValues?.questionEs ? updatedValues?.questionEs : "",
+    })
+  }, [updatedValues]);
 
   const [error, setError] = useState({
     question: "",
@@ -32,6 +45,24 @@ const PainRelatedQuestion = () => {
     }
   }
 
+  const handleUpdate = () => {
+    const newErrors = {
+      question: values.question.trim() === '' ? 'Please enter the question*' : '',
+      questionEs: values.questionEs.trim() === '' ? 'Please enter the question in Spanish*' : '',
+    }
+    setError(newErrors);
+
+    const hasErrors = Object.values(newErrors).some(error => error !== '');
+
+    if(!hasErrors) {
+       const payload = {
+        question : values.question,
+        questionEs : values.questionEs,
+       }
+       dispatch(patchQuestionDefinition({id: updatedValues._id, payload}));
+    }
+  }
+
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       <div>
@@ -39,7 +70,9 @@ const PainRelatedQuestion = () => {
         <TextField
           id="english"
           placeholder='Enter the pain related question in english '
-          onChange={(e) => setValues({ ...values, question: e.target.value })} />
+          onChange={(e) => setValues({ ...values, question: e.target.value })} 
+          value={values.question}
+          />
         {error.question && <p className='error'>{error.question}</p>}
       </div>
 
@@ -49,11 +82,15 @@ const PainRelatedQuestion = () => {
           id="spanish"
           placeholder='Enter the pain related question in spanish'
           onChange={(e) => setValues({ ...values, questionEs: e.target.value })}
+          value={values.questionEs}
         />
         {error.questionEs && <p className='error'>{error.questionEs}</p>}
       </div>
-
-      <button className='btn w-100 btn-primary p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
+      {
+          updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+          :
+          <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
+        }
 
     </div>
   )

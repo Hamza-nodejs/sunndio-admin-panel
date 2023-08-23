@@ -4,6 +4,7 @@ import api from "../../config/api";
 
 const initialState = {
     painBehaviorQuestionData: [],
+    allPainBehaviorQuestion : [],
 }
 
 const postPainBehaviorQuestion = createAsyncThunk('painBehavior', async (values) => {
@@ -17,6 +18,18 @@ const getPainBehaviorQuestion = createAsyncThunk("getPainBehaviorQuestion", asyn
     return  response.data;
 })
 
+const getAllPainBehaviorQuestion = createAsyncThunk("getAllPainBehaviorQuestion", async () => {
+    const response = await api.getAllPainBehaviorQuestion();
+
+    return  response.data;
+})
+
+const deletePainBehaviorQuestion = createAsyncThunk("deletePainBehaviorQuestion", async (id) => {
+    const response = await api.deletePainBehaviorQuestion(id);
+
+    return  response.data;
+})
+
 const painBehaviorQuestionSlice = createSlice({
     name: "painBehaviorSlice",
     initialState: initialState,
@@ -24,12 +37,12 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postPainBehaviorQuestion.fulfilled, (state, action) => {
-            toast.success("successfully saved")
+            // toast.success("successfully saved")
         });
 
         // Handle the rejected action
         builder.addCase(postPainBehaviorQuestion.rejected, (state, action) => {
-            toast.error("Api call is faild")
+            // toast.error("Api call is faild")
         });
 
         // get pain Behavior question
@@ -40,10 +53,19 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPainBehaviorQuestion.rejected, (state, action) => {
-            toast.error("Api call is faild")
+            // toast.error("Api call is faild")
         });
+     // all pain behavior questions
+        builder.addCase(getAllPainBehaviorQuestion.fulfilled, (state, action) => {
+            state.allPainBehaviorQuestion = action.payload;
+       });
+
+       // Handle the rejected action
+       builder.addCase(getAllPainBehaviorQuestion.rejected, (state, action) => {
+        //    toast.error("Api call is faild")
+       });
     },
 })
 export default painBehaviorQuestionSlice.reducer;
 
-export { postPainBehaviorQuestion, getPainBehaviorQuestion }
+export { postPainBehaviorQuestion, getPainBehaviorQuestion, getAllPainBehaviorQuestion, deletePainBehaviorQuestion}

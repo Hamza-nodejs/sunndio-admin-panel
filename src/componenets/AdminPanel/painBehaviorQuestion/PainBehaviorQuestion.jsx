@@ -1,13 +1,13 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import SelectField from '../common/SelectField';
-import FileField from '../common/FileField';
+import SelectField from '../../common/SelectField';
+import FileField from '../../common/FileField';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPainBehaviorByPainAreaId, postpainBehavior } from '../../redux/slices/painBehavior';
-import { getPainArea } from '../../redux/slices/painArea';
-import { getPainDeifnitionByPainAreaId } from '../../redux/slices/painDefinition';
-import { getQuestionDefinition } from '../../redux/slices/questionDefinitionSlice';
-import { postPainBehaviorQuestion } from '../../redux/slices/painBehaviorQuestion';
+import { getPainBehaviorByPainAreaId, postpainBehavior } from '../../../redux/slices/painBehavior';
+import { getPainArea } from '../../../redux/slices/painArea';
+import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinition';
+import { getQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
+import { postPainBehaviorQuestion } from '../../../redux/slices/painBehaviorQuestion';
 
 const PainBehaviorQuestion = () => {
     const dispatch = useDispatch();

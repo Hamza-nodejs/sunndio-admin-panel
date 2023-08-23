@@ -22,9 +22,15 @@ const api = {
     getQuestionDefinition: async () => await axios.get(`${Host}/questions/en`),
     getAllQuestion : async () => await axios.get(`${Host}/getAllQuestion`),
     deleteQuestion : async (id) => await axios.delete(`${Host}/question/${id}`),
+    getQuestionById : async (id) => await axios.get(`${Host}/question/${id}`),
+    patchQuestionDefinition : async ({id, payload}) => await axios.patch(`${Host}/question/${id}`, payload),
 
     postDiagnosisDefinition: async (payload) => await axios.post(`${Host}/diagnostic`, payload),
     getDiagnosisDefinition: async () => await axios.get(`${Host}/diagnostic/en`),
+    getAllDiagnosisDefinition : async () => await axios.get(`${Host}/getAlldiagnosis`),
+    deleteDianosisDefinition : async (id) => await axios.delete(`${Host}/diagnostic/${id}`),
+    getDiagnosisDefinitonById : async (id) => await axios.get(`${Host}/diagnostics/${id}`),
+    patchDiagnosisDefiniton : async ({id, payload}) => await axios.patch(`${Host}/diagnostic/${id}`, payload),
 
     postPainBehavior: async (payload) => await axios.post(`${Host}/painbehavior`, payload),
     getPainBehavior: async () => await axios.get(`${Host}/painBehaviors/en`),
@@ -35,7 +41,9 @@ const api = {
     patchPainBehavior: async ({ id, payload }) => await axios.put(`${Host}/painbehavior/${id}`, payload),
 
     postPainBehaviorQuestion: async (payload) => await axios.post(`${Host}/addPainBehaviorQuestion`, payload),
-    getPainBehaviorQuestion: async (painBehaviorId) => axios.get(`${Host}/questionsByPainBehavior/en/${painBehaviorId}`),
+    getPainBehaviorQuestion: async (painBehaviorId) => await axios.get(`${Host}/questionsByPainBehavior/en/${painBehaviorId}`),
+    getAllPainBehaviorQuestion : async () => await axios.get(`${Host}/getAllPainBheaviorQuestion`),
+    deletePainBehaviorQuestion : async (id) => await axios.delete(`${Host}/painBehaviorDelete/${id}`),
 
     postPossibleDiagnosis: async (payload) => await axios.post(`${Host}/addPainPossibleDiagnosis`, payload),
     getPossibleDiagnosis: async (painBehaviorId) => await axios.get(`${Host}/painPossibleDiagBypainBehaviorId/en/${painBehaviorId}`),

@@ -18,12 +18,12 @@ const assignResultSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postAssignResult.fulfilled, (state, action) => {
-            toast.success("successfully saved")
+            // toast.success("successfully saved")
         });
 
         // Handle the rejected action
         builder.addCase(postAssignResult.rejected, (state, action) => {
-            toast.error("Api call is faild")
+            // toast.error("Api call is faild")
         });
     },
 })

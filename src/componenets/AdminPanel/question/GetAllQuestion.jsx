@@ -22,7 +22,7 @@ const GetAllQuestion = () => {
     }
 
     const handlePainAreaUpdate = (Values) => {
-         navigate(`/pain-area/${Values._id}?edit=true`)
+         navigate(`/questions/${Values._id}?edit=true`)
     }
 
     return (

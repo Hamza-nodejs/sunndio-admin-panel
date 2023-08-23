@@ -24,12 +24,12 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postPossibleDiagnosis.fulfilled, (state, action) => {
-            toast.success("successfully saved")
+            // toast.success("successfully saved")
         });
 
         // Handle the rejected action
         builder.addCase(postPossibleDiagnosis.rejected, (state, action) => {
-            toast.error("Api call is faild")
+            // toast.error("Api call is faild")
         });
 
         builder.addCase(getPossibleDiagnosis.fulfilled, (state, action) => {
@@ -38,7 +38,7 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPossibleDiagnosis.rejected, (state, action) => {
-            toast.error("Api call is faild")
+            // toast.error("Api call is faild")
         });
     },
 })

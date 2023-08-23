@@ -57,7 +57,7 @@ export const PanelSidebar = [
         id: '0', name: 'Diagnosis Definition', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All Diagnosis Definition",
-                route: routes.panel.diagnosisDefinition
+                route: routes.panel.getDiagnosisDefinition
             },
             addItem: {
                 name: "Add Diagnosis Definition",
@@ -70,7 +70,7 @@ export const PanelSidebar = [
         id: '0', name: 'Pain Behavior Question', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All Behavior Question",
-                route: routes.panel.painBehaviorQuestion
+                route: routes.panel.getPainBehaviorQuestion
             },
             addItem: {
                 name: "Add Behavior Question",

@@ -3,71 +3,100 @@ import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
-     questionDefinitionData : [],
-     allQuestionData : [],
+  questionDefinitionData: [],
+  allQuestionData: [],
+  questionDataById: "",
 }
 
 const postQuestionDefinition = createAsyncThunk('QuestionDefinition', async (values) => {
-      const response = await api.postQuestionDefinition(values);
-      return response.data
-  });
+  const response = await api.postQuestionDefinition(values);
+  return response.data
+});
 
-  const getQuestionDefinition = createAsyncThunk("getQuestionDefinition", async () => {
-    const response = await api.getQuestionDefinition();
+const getQuestionDefinition = createAsyncThunk("getQuestionDefinition", async () => {
+  const response = await api.getQuestionDefinition();
 
-    return response.data
-  })
+  return response.data
+})
 
-  const getAllQuestion = createAsyncThunk("getAllQuestion", async () => {
-    const response = await api.getAllQuestion();
-    return response.data
-  });
+const getAllQuestion = createAsyncThunk("getAllQuestion", async () => {
+  const response = await api.getAllQuestion();
+  return response.data
+});
 
-  const deleteQuestion = createAsyncThunk("deleteQuestion", async (id) => {
-    const response = await api.deleteQuestion(id);
-    return response.data
-  });
+const deleteQuestion = createAsyncThunk("deleteQuestion", async (id) => {
+  const response = await api.deleteQuestion(id);
+  return response.data
+});
+
+const getQuestionById = createAsyncThunk("getQuestionById", async (id) => {
+  const response = await api.getQuestionById(id);
+  return response.data
+});
+
+const patchQuestionDefinition = createAsyncThunk("patchQuestionDefinition", async ({id, payload}) => {
+  const response = await api.patchQuestionDefinition({id, payload});
+  return response.data
+});
 
 const questionDefinitionSlice = createSlice({
-    name : "QuestionDefinitionSlice",
-    initialState : initialState,
-    extraReducers: builder => {
- 
-        // Handle the fulfilled action
-        builder.addCase(postQuestionDefinition.fulfilled, (state, action) => {
-            toast.success("Question successfully saved")
-        });
-    
-        // Handle the rejected action
-        builder.addCase(postQuestionDefinition.rejected, (state, action) => {
-          toast.error("Api call is faild")
-        });
+  name: "QuestionDefinitionSlice",
+  initialState: initialState,
+  extraReducers: builder => {
 
-        // Get pain area data 
-     
-        builder.addCase(getQuestionDefinition.fulfilled, (state, action) => {
-          toast.success("Successful fetch data");
-          state.questionDefinitionData = action.payload
-          
-        })
+    // Handle the fulfilled action
+    builder.addCase(postQuestionDefinition.fulfilled, (state, action) => {
+      // toast.success("Question successfully saved")
+    });
 
-        builder.addCase(getQuestionDefinition.rejected, (state, action) => {
-          toast.error("Error during fetching data");
-        })
+    // Handle the rejected action
+    builder.addCase(postQuestionDefinition.rejected, (state, action) => {
+      // toast.error("Api call is faild")
+    });
 
-        // Aall questions
+    // Get pain area data 
 
-        builder.addCase(getAllQuestion.fulfilled, (state, action) => {
-          toast.success("Successful fetch data");
-          state.allQuestionData = action.payload
-          
-        })
+    builder.addCase(getQuestionDefinition.fulfilled, (state, action) => {
+      // toast.success("Successful fetch data");
+      state.questionDefinitionData = action.payload
 
-        builder.addCase(getAllQuestion.rejected, (state, action) => {
-          toast.error("Error during fetching data");
-        })
-      },
+    })
+
+    builder.addCase(getQuestionDefinition.rejected, (state, action) => {
+      // toast.error("Error during fetching data");
+    })
+
+    // Aall questions
+
+    builder.addCase(getAllQuestion.fulfilled, (state, action) => {
+      // toast.success("Successful fetch data");
+      state.allQuestionData = action.payload
+
+    })
+
+    builder.addCase(getAllQuestion.rejected, (state, action) => {
+      // toast.error("Error during fetching data");
+    })
+
+    // Question data by id
+
+    builder.addCase(getQuestionById.fulfilled, (state, action) => {
+      // toast.success("Successful fetch data");
+      state.questionDataById = action.payload
+    })
+
+    builder.addCase(getQuestionById.rejected, (state, action) => {
+      // toast.error("Error during fetching data");
+    })
+  },
 })
 export default questionDefinitionSlice.reducer;
 
-export { postQuestionDefinition, getQuestionDefinition, getAllQuestion, deleteQuestion }
+export {
+  postQuestionDefinition,
+  getQuestionDefinition,
+  getAllQuestion,
+  deleteQuestion,
+  getQuestionById,
+  patchQuestionDefinition
+}

@@ -47,6 +47,10 @@ const PainBehavior = () => {
 
   const selectedPainArea = painAreaData?.find(item => item._id === updateValues?.painDefinitionId?.painAreaId);
 
+  useEffect(() => {
+    dispatch(getPainDeifnitionByPainAreaId(selectedPainArea?._id));
+  }, [selectedPainArea]);
+
   const handlePainArea = (e) => {
     setValues({ ...values, painAreaId: e.target.value });
     dispatch(getPainDeifnitionByPainAreaId(e.target.value));

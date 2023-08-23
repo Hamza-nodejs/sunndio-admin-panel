@@ -52,59 +52,59 @@ const painDefinitionSlice = createSlice({
 
     // Handle the fulfilled action
     builder.addCase(postPainDefinition.fulfilled, (state, action) => {
-      toast.success("successfully saved")
+      // toast.success("successfully saved")
     });
 
     // Handle the rejected action
     builder.addCase(postPainDefinition.rejected, (state, action) => {
-      toast.error("Api call is faild")
+      // toast.error("Api call is faild")
     });
 
     // Get pain area data 
 
     builder.addCase(getPainDefintion.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.painDefintionData = action.payload
 
     })
 
     builder.addCase(getPainDefintion.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
     // Pain Defintion by id
 
     builder.addCase(getPainDeifnitionByPainAreaId.fulfilled, (state, action) => {
-      toast.success("Successful fetch data");
+      // toast.success("Successful fetch data");
       state.painDefinitionDataByAreaId = action.payload
 
     })
 
     builder.addCase(getPainDeifnitionByPainAreaId.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
 
     // delete pain definition
 
     builder.addCase(deletePainDefinition.fulfilled, (state, action) => {
-      toast.success("Successful delete");
+      // toast.success("Successful delete");
 
     })
 
     builder.addCase(deletePainDefinition.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
 
     // pain definition by id
 
     builder.addCase(getPainDefinitionById.fulfilled, (state, action) => {
-      toast.success("Successful updated");
+      // toast.success("Successful updated");
 
       state.painDefinitionById = action.payload
 
     })
 
     builder.addCase(getPainDefinitionById.rejected, (state, action) => {
-      toast.error("Error during fetching data");
+      // toast.error("Error during fetching data");
     })
   },
 })
