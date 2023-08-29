@@ -83,7 +83,7 @@ export const PanelSidebar = [
         id: '0', name: 'Possible Diagnosis', icon: 'fa-regular fa-solid fa-money-bill', route: routes.panel.possibleDiagnosis, subItem: {
             allItem: {
                 name: "All Possible Diagnosis ",
-                route: routes.panel.painDefinition
+                route: routes.panel.getPossibleDiagnosis
             },
             addItem: {
                 name: "Add Possible Diagosis",
@@ -109,7 +109,7 @@ export const PanelSidebar = [
         id: '0', name: ' Result', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All result",
-                route: routes.panel.result
+                route: routes.panel.getResult
             },
             addItem: {
                 name: "Add Result",

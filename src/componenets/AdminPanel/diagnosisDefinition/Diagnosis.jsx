@@ -59,6 +59,16 @@ const Diagnosis = () => {
 
     if (!hasErrors) {
       dispatch(postDiagnosisDefinition(values))
+      setValues({
+        diagnosisName: '',
+        diagnosisNameEs: '',
+        diagnosisDesc: '',
+        diagnosisDescEs: '',
+        treated: '',
+        treatedEs: '',
+        treatmentTime: '',
+        treatmentTimeEs: ''
+      })
     }
 
   }
@@ -79,6 +89,16 @@ const Diagnosis = () => {
 
     if (!hasErrors) {
       dispatch(patchDiagnosisDefiniton({id: updateValues?._id, payload : values}))
+      setValues({
+        diagnosisName: '',
+        diagnosisNameEs: '',
+        diagnosisDesc: '',
+        diagnosisDescEs: '',
+        treated: '',
+        treatedEs: '',
+        treatmentTime: '',
+        treatmentTimeEs: ''
+      })
     }
   }
 

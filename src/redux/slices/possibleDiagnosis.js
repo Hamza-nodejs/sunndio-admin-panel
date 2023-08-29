@@ -4,6 +4,8 @@ import api from "../../config/api";
 
 const initialState = {
     possibleDiagnosisData: [],
+    allPossibleDiagnosisData: [],
+    possibleDiagnosisDataById : "",
 
 }
 
@@ -16,6 +18,27 @@ const getPossibleDiagnosis = createAsyncThunk('getPossibleDiagnosis', async (pai
     const response = await api.getPossibleDiagnosis(painBehaviorId);
     return response.data
 });
+
+const getAllPossibleDiagnosis = createAsyncThunk('getAllPossibleDiagnosis', async () => {
+    const response = await api.getAllPossibleDiagnosis();
+    return response.data
+});
+
+const deletePossibleDaignosis = createAsyncThunk('deletePossibleDaignosis', async (id) => {
+    const response = await api.deletePossibleDaignosis(id);
+    return response.data
+});
+
+const getPossibleDiagnosisById =  createAsyncThunk('getPossibleDiagnosisById', async (id) => {
+    const response = await api.getPossibleDiagnosisById(id);
+    return response.data
+}); 
+
+const patchPossibleDiagnosis =  createAsyncThunk('patchPossibleDiagnosis', async ({id, payload}) => {
+    const response = await api.patchPossibleDiagnosis({id, payload});
+    console.log(payload)
+    return response.data
+}); 
 
 const possibleDiagnosisSlice = createSlice({
     name: "possibleDiagnosisSlice",
@@ -33,15 +56,39 @@ const possibleDiagnosisSlice = createSlice({
         });
 
         builder.addCase(getPossibleDiagnosis.fulfilled, (state, action) => {
-             state.possibleDiagnosisData = action.payload
+            state.possibleDiagnosisData = action.payload
         });
 
         // Handle the rejected action
         builder.addCase(getPossibleDiagnosis.rejected, (state, action) => {
             // toast.error("Api call is faild")
         });
+        builder.addCase(getAllPossibleDiagnosis.fulfilled, (state, action) => {
+            state.allPossibleDiagnosisData = action.payload
+        });
+
+        // Handle the rejected action
+        builder.addCase(getAllPossibleDiagnosis.rejected, (state, action) => {
+            // toast.error("Api call is faild")
+        });
+
+        builder.addCase(getPossibleDiagnosisById.fulfilled, (state, action) => {
+            state.possibleDiagnosisDataById = action.payload
+        });
+
+        // Handle the rejected action
+        builder.addCase(getPossibleDiagnosisById.rejected, (state, action) => {
+            // toast.error("Api call is faild")
+        });
     },
 })
 export default possibleDiagnosisSlice.reducer;
 
-export { postPossibleDiagnosis, getPossibleDiagnosis }
+export {
+    postPossibleDiagnosis,
+    getPossibleDiagnosis,
+    getAllPossibleDiagnosis,
+    deletePossibleDaignosis,
+    getPossibleDiagnosisById,
+    patchPossibleDiagnosis
+}

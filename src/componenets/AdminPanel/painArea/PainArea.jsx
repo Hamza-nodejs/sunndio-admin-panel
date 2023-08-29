@@ -4,7 +4,7 @@ import { patchPainArea, postPainArea, getPainAaraeById } from '../../../redux/sl
 import TextField from '../../common/TextField';
 import NumberField from '../../common/NumberField';
 import SelectField from '../../common/SelectField';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const PainArea = () => {
   const dispatch = useDispatch();
@@ -60,6 +60,14 @@ const PainArea = () => {
         isLive : values.isLive,
       }
       dispatch(postPainArea(payload));
+      setValues({
+        name: "",
+        nameEs: "", 
+        position: "",
+        pointX: "",
+        pointY: "",
+        isLive : ""
+      })
     }
 
   }
@@ -85,7 +93,15 @@ const PainArea = () => {
         isLive : values.isLive,
       }
       dispatch(patchPainArea({id :updateValue._id, payload: payload}));
-    
+      setValues({
+        name: "",
+        nameEs: "", 
+        position: "",
+        pointX: "",
+        pointY: "",
+        isLive : ""
+      })
+          
     }
    
   }
@@ -118,9 +134,9 @@ const PainArea = () => {
           <label className='form-label mt-4'>Select the position of pain</label>
           <SelectField
             onChange={(e) => setValues({ ...values, position: e.target.value })}>
-            <option value="">{values.position ? values.position : "Please select the position"}</option>
-            <option value="back">Back</option>
-            <option value="front">Front</option>
+            <option value="" selected={values.position === ""}>Please select the position</option>
+            <option value="back" selected={values.position === "back"}>Back</option>
+            <option value="front" selected={values.position === "front"}>Front</option>
           </SelectField>
           {error.position && <p className='error'>{error.position}</p>}
         </div>
@@ -149,9 +165,9 @@ const PainArea = () => {
           <label className='form-label mt-4' htmlFor="isLive">Select the pain area is live or not</label>
           <SelectField
             onChange={(e) => setValues({ ...values, isLive: e.target.value })}>
-            <option value="">{values.isLive ? values.isLive : "Please select the isLive or not"}</option>
-            <option value="true">True</option>
-            <option value="false">False</option>
+            <option value="" selected={values.isLive === ""}>Please select the isLive or not</option>
+            <option value="true" selected={values.isLive === "true"}>True</option>
+            <option value="false" selected={values.isLive === "false"}>False</option>
           </SelectField>
           {error.isLive && <p className='error'>{error.isLive}</p>}
         </div>

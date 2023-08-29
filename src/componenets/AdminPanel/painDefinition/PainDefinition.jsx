@@ -7,7 +7,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDefinitionById, patchPainDefinition, postPainDefinition } from '../../../redux/slices/painDefinition';
 import { useParams } from 'react-router-dom';
-import { Value } from 'sass';
 
 const PainDefinition = () => {
   const dispatch = useDispatch();
@@ -61,7 +60,12 @@ const PainDefinition = () => {
       formData.append("imageUrl", values.imageUrl)
 
       dispatch(postPainDefinition(formData));
-      setValues({})
+      setValues({
+        name: "",
+        nameEs: "",
+        painAreaId: "",
+        imageUrl: "",
+      })
     }
 
   }
@@ -85,6 +89,13 @@ const PainDefinition = () => {
           imageUrl : painDefinitionDataById.imageUrl,
         }
       dispatch(patchPainDefinition({id: painDefinitionDataById._id, payload: payload}));
+      setValues({
+        name: "",
+        nameEs: "",
+        painAreaId: "",
+        imageUrl: "",
+      })
+      
       } else {
         const payload = new FormData();
         payload.append("name", values.name);
@@ -92,6 +103,12 @@ const PainDefinition = () => {
         payload.append("painAreaId", values.painAreaId);
         payload.append("imageUrl", values.imageUrl);
         dispatch(patchPainDefinition({id: painDefinitionDataById._id, payload: payload}));
+        setValues({
+          name: "",
+          nameEs: "",
+          painAreaId: "",
+          imageUrl: "",
+        })
       }
 
     }
@@ -103,7 +120,7 @@ const PainDefinition = () => {
         <label className='form-label mt-4'>Select the pain area</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painAreaId: e.target.value })}>
-          <option value="">Please select the pain name</option>
+          <option value="" selected={values.painAreaId === ""}>Please select the pain name</option>
           {
             painAreaData?.map(item => {
               return <>
@@ -141,6 +158,7 @@ const PainDefinition = () => {
         <label htmlFor="">Choose the image for pain definition</label>
         <FileField
           onChange={(e) => setValues({ ...values, imageUrl: e.target.files[0] })}
+        
         />
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
         {

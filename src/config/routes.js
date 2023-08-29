@@ -17,7 +17,11 @@ const routes = {
       editDiagnosisDefinition : "/diagnosis/:id",
       probabilityDisease : "/probability-disease",
       possibleDiagnosis : "/possible-diagnosis",
+      getPossibleDiagnosis : "/all-possible-diagnosis",
+      editPossibleDiagnosis : "/possible-diagnosis/:id",
       result : "/result",
+      getResult : "/all-assign-result",
+      editResult : "/result/:id",
       painBehaviorQuestion : "/pain-behavior-question",
       getPainBehaviorQuestion : "/all-pain-behavior-question",
       editPainBehaviorQuestion : "/pain-behavior-question/:id"

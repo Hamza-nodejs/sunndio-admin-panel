@@ -77,6 +77,13 @@ const PainBehavior = () => {
       formData.append("imageUrl", values.imageUrl);
 
       dispatch(postpainBehavior(formData))
+      setValues({
+        name: "",
+        nameEs: "",
+        painAreaId: "",
+        painDefinitionId: "",
+        imageUrl: "",
+      })
     }
 
   }
@@ -99,6 +106,13 @@ const PainBehavior = () => {
           imageUrl : updateValues.imageUrl,
         }
        dispatch(patchPainBehavior({id: updateValues._id, payload}))
+       setValues({
+        name: "",
+        nameEs: "",
+        painAreaId: "",
+        painDefinitionId: "",
+        imageUrl: "",
+      })
       } else {
         const payload = new FormData();
         payload.append("name", values.name);
@@ -106,6 +120,13 @@ const PainBehavior = () => {
         payload.append("painDefinitionId", values.painDefinitionId);
         payload.append("imageUrl", values.imageUrl);
         dispatch(patchPainBehavior({id: updateValues._id, payload: payload}));
+        setValues({
+          name: "",
+          nameEs: "",
+          painAreaId: "",
+          painDefinitionId: "",
+          imageUrl: "",
+        })
       }
     }
   }
@@ -117,7 +138,7 @@ const PainBehavior = () => {
         <label className='form-label mt-4'>Please select the pain area</label>
         <SelectField
           onChange={handlePainArea}>
-          <option value=""> Please select the pain area</option>
+          <option value="" selected={values.painAreaId=== ""}> Please select the pain area</option>
           {
             painAreaData?.map(item => {
               return <option value={item._id} selected={selectedPainArea?._id === item._id}>{item?.name}</option>
@@ -130,7 +151,7 @@ const PainBehavior = () => {
         <label className='form-label mt-4'>Select the pain definition</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
-          <option value=""> Please select the pain definition </option>
+          <option value="" selected={values.painDefinitionId === ""}> Please select the pain definition </option>
           {
             painDefintionDataById.map(item => <option value={item._id} 
               selected={updateValues?.painDefinitionId?._id === item._id}>{item.name}</option>)

@@ -42,6 +42,11 @@ const PainRelatedQuestion = () => {
     const hasErrors = Object.values(newErrors).some(error => error !== '');
     if (!hasErrors) {
       dispatch(postQuestionDefinition(values))
+      setValues({
+        question: "",
+        questionEs: "",
+    
+      })
     }
   }
 
@@ -60,6 +65,10 @@ const PainRelatedQuestion = () => {
         questionEs : values.questionEs,
        }
        dispatch(patchQuestionDefinition({id: updatedValues._id, payload}));
+       setValues({
+        question: "",
+        questionEs: "",
+      })
     }
   }
 

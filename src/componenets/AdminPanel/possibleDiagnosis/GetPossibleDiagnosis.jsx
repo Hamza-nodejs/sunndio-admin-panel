@@ -1,28 +1,28 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { deletePainDefinition, getPainDefintion } from '../../../redux/slices/painDefinition';
+import { deletePossibleDaignosis, getAllPossibleDiagnosis } from '../../../redux/slices/possibleDiagnosis';
 import Loader from '../../common/Loader';
 
-const GetPainDefinition = () => {
+const GetPossibleDiagnosis = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getPainDefintion());
+        dispatch(getAllPossibleDiagnosis());
     }, [dispatch]);
 
-    const painDefinitionData = useSelector(state => state?.painDefinitionSlice?.painDefintionData);
+    const possibleDiagnosisData = useSelector(state => state?.possibleDiagnosisSlice?.allPossibleDiagnosisData);
 
     const [firstNumber, setFirstNumber] = useState(0);
     const [secondNumber, setSecondNumber] = useState(15);
     const [showData, setShowData] = useState([]);
 
     useEffect(() => {
-        if (Array.isArray(painDefinitionData)) {
-          setShowData(painDefinitionData?.slice(firstNumber, secondNumber));
+        if (Array.isArray(possibleDiagnosisData)) {
+          setShowData(possibleDiagnosisData?.slice(firstNumber, secondNumber));
         }
-      }, [painDefinitionData, firstNumber, secondNumber]);
+      }, [possibleDiagnosisData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -36,26 +36,25 @@ const GetPainDefinition = () => {
         setSecondNumber(secondNumber + 15);
     }
 
-    const handlePainDefinitionDelete = (id) => {
-        dispatch(deletePainDefinition(id));
-        window.location.reload()
+    const handlePossibleDiagnosisDelete = (id) => {
+        dispatch(deletePossibleDaignosis(id));
+        window.location.reload();
     }
 
-    const handlePainDefinitionUpdate = (Values) => {
-        navigate(`/pain-difinition/${Values._id}?edit=true`)
+    const handlePossibleDiagnosisUpdate = (Values) => {
+        navigate(`/possible-diagnosis/${Values._id}?edit=true`)
     }
 
     return (
-        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
+        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
             {
                 showData.length > 0 ? <table class="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Spanish Name</th>
-                            <th scope="col">Pain Area name</th>
-                            <th scope="col">Image</th>
+                            <th scope="col">Pain Behavior Name</th>
+                            <th scope="col">Diagnosis name</th>
+                            <th scope="col">Possible Diagnosis</th>
                             <th scope='col'>Update</th>
                             <th scope='col'>Delete</th>
                         </tr>
@@ -65,12 +64,11 @@ const GetPainDefinition = () => {
                             showData?.map((item, index) => {
                                 return <tr>
                                     <th scope="row">{firstNumber + index + 1}</th>
-                                    <td>{item.name}</td>
-                                    <td>{item.nameEs}</td>
-                                    <td>{item.painAreaId.name ? item.painAreaId.name : "-"}</td>
-                                    <td><img src={item.imageUrl} alt="pain-definition" style={{ width: "75px", height: "75px" }} /></td>
-                                    <td onClick={() => handlePainDefinitionUpdate(item)}><i className='fa fa-pencil-square'></i></td>
-                                    <td onClick={() => handlePainDefinitionDelete(item._id)}><i className='fa fa-trash'></i></td>
+                                    <td>{item.painBehaviorId?.name}</td>
+                                    <td>{item?.diagnosticsId?.diagnosisName}</td>
+                                    <td>{item?.isPossibleDiag ? "true" : "false"}</td>
+                                    <td onClick={() => handlePossibleDiagnosisUpdate(item)}><i className='fa fa-pencil-square'></i></td>
+                                    <td onClick={() => handlePossibleDiagnosisDelete(item._id)}><i className='fa fa-trash'></i></td>
                                 </tr>
                             })
                         }
@@ -83,7 +81,7 @@ const GetPainDefinition = () => {
                     Previous
                 </button>
 
-                <button disabled={secondNumber > painDefinitionData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
+                <button disabled={secondNumber > possibleDiagnosisData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
                     Next
                 </button>
             </div>
@@ -91,4 +89,4 @@ const GetPainDefinition = () => {
     )
 }
 
-export default GetPainDefinition;
+export default GetPossibleDiagnosis;
