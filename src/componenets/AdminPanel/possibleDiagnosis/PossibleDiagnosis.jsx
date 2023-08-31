@@ -48,6 +48,7 @@ const PossibleDiagnosis = () => {
     }, []);
 
     const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
+
     const diagnosisData = useSelector(state => state?.diagnosis?.diagnosisData);
 
     const handlePainArea = (e) => {

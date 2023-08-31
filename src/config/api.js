@@ -61,6 +61,8 @@ const api = {
     assignResultDelete : async (id) => await axios.delete(`${Host}/AssignResult/${id}`),
     getAssignResultById : async (id) => await axios.get(`${Host}/assignResult/${id}`),
     patchAssignResult : async ({id, payload}) => await axios.patch(`${Host}/AssignResult/${id}`, payload),
+
+    postTreatment : async (payload) => await axios.post(`${Host}/addTreatment`, payload),
 };
 
 

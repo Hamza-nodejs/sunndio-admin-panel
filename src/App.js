@@ -19,6 +19,7 @@ import GetDiagnosisDefinitions from './componenets/AdminPanel/diagnosisDefinitio
 import GetPainBehaviorQuestion from './componenets/AdminPanel/painBehaviorQuestion/GetPainBehaviorQuestion';
 import GetPossibleDiagnosis from './componenets/AdminPanel/possibleDiagnosis/GetPossibleDiagnosis';
 import GetResult from './componenets/AdminPanel/assignResult/GetResult';
+import Treatment from './componenets/AdminPanel/treatment/Treatment';
 
 function App() {
   return (
@@ -203,7 +204,7 @@ function App() {
               </AdminLayout>
             }
           />
-             <Route
+          <Route
             path={routes.panel.editResult}
             element={
               <AdminLayout>
@@ -211,12 +212,20 @@ function App() {
               </AdminLayout>
             }
           />
-          <Route 
-          path={routes.panel.getResult}
-          element={
-          <AdminLayout>
-             <GetResult/>
-          </AdminLayout>}
+          <Route
+            path={routes.panel.getResult}
+            element={
+              <AdminLayout>
+                <GetResult />
+              </AdminLayout>}
+          />
+          <Route
+            path={routes.panel.treatment}
+            element={
+              <AdminLayout>
+                <Treatment />
+              </AdminLayout>
+            }
           />
         </Routes>
       </BrowserRouter>

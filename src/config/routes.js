@@ -24,8 +24,10 @@ const routes = {
       editResult : "/result/:id",
       painBehaviorQuestion : "/pain-behavior-question",
       getPainBehaviorQuestion : "/all-pain-behavior-question",
-      editPainBehaviorQuestion : "/pain-behavior-question/:id"
-
+      editPainBehaviorQuestion : "/pain-behavior-question/:id",
+      treatment : "/treatment",
+      getTreatment : "/all-treatment",
+      editTreatment : "/treatment/:id",
 }
 };
 

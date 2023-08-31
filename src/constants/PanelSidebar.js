@@ -118,5 +118,18 @@ export const PanelSidebar = [
           
         }
     },
+    {
+        id: '0', name: ' Treatment', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+            allItem: {
+                name: "All Treatment",
+                route: routes.panel.getTreatment
+            },
+            addItem: {
+                name: "Add Treatment",
+                route: routes.panel.treatment
+            },
+          
+        }
+    },
 
 ];
