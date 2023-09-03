@@ -3,26 +3,27 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
 import { deleteQuestion, getAllQuestion } from '../../../redux/slices/questionDefinitionSlice';
 import Loader from '../../common/Loader';
+import { deleteTreatment, getAllTreatment } from '../../../redux/slices/treatment';
 
-const GetAllQuestion = () => {
+const GetTreatment = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     useEffect(() => {
-        dispatch(getAllQuestion());
+        dispatch(getAllTreatment());
     }, [dispatch]);
 
-    const allQuestionData = useSelector(state => state?.questionDefinitionSlice?.allQuestionData);
+    const allTreatmentData = useSelector(state => state?.treatmentSlice?.allTreatmentData);
 
     const [firstNumber, setFirstNumber] = useState(0);
     const [secondNumber, setSecondNumber] = useState(15);
     const [showData, setShowData] = useState([]);
 
     useEffect(() => {
-        if (Array.isArray(allQuestionData)) {
-          setShowData(allQuestionData?.slice(firstNumber, secondNumber));
+        if (Array.isArray(allTreatmentData)) {
+          setShowData(allTreatmentData?.slice(firstNumber, secondNumber));
         }
-      }, [allQuestionData, firstNumber, secondNumber]);
+      }, [allTreatmentData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -36,13 +37,13 @@ const GetAllQuestion = () => {
         setSecondNumber(secondNumber + 15);
     }
 
-    const handleDeleteQuestion = (id) => {
-        dispatch(deleteQuestion(id));
+    const handleTreatmentDelete = (id) => {
+        dispatch(deleteTreatment(id));
         window.location.reload()
     }
 
-    const handleUpdateQuestion = (Values) => {
-        navigate(`/questions/${Values._id}?edit=true`)
+    const handlePainAreaUpdate = (Values) => {
+        navigate(`/treatment/${Values._id}?edit=true`)
     }
 
     return (
@@ -52,8 +53,12 @@ const GetAllQuestion = () => {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Question in English</th>
-                            <th scope="col">Question in Spanish</th>
+                            <th scope="col">Diagnosis Name</th>
+                            <th scope="col">Title in English</th>
+                            <th scope='col'>Title in Spanish</th>
+                            <th scope='col'>Treatment Level</th>
+                            <th scope='col'>Video Duration</th>
+                            <th scope='col'>Video</th>
                             <th scope='col'>Update</th>
                             <th scope='col'>Delete</th>
                         </tr>
@@ -63,10 +68,14 @@ const GetAllQuestion = () => {
                             showData?.map((item, index) => {
                                 return <tr>
                                     <th scope="row">{index + 1 + firstNumber}</th>
-                                    <td>{item.question}</td>
-                                    <td>{item.questionEs}</td>
-                                    <td onClick={() => handleUpdateQuestion(item)}><i className='fa fa-pencil-square'></i></td>
-                                    <td onClick={() => handleDeleteQuestion(item._id)}><i className='fa fa-trash'></i></td>
+                                    <td>{item?.diagnosticId?.diagnosisName}</td>
+                                    <td>{item?.title}</td>
+                                    <td>{item?.titleEs}</td>
+                                    <td>{item?.treatmentLevel}</td>
+                                    <td>{item?.duration}</td>
+                                    <td><video style={{width: "75px", height: "75px", padding: "0px"}} src={item?.treatmentUrl}></video></td>
+                                    <td onClick={() => handlePainAreaUpdate(item)}><i className='fa fa-pencil-square'></i></td>
+                                    <td onClick={() => handleTreatmentDelete(item._id)}><i className='fa fa-trash'></i></td>
                                 </tr>
                             })
                         }
@@ -79,7 +88,7 @@ const GetAllQuestion = () => {
                     Previous
                 </button>
 
-                <button disabled={secondNumber > allQuestionData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
+                <button disabled={secondNumber > allTreatmentData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
                     Next
                 </button>
             </div>
@@ -87,5 +96,5 @@ const GetAllQuestion = () => {
     )
 }
 
-export default GetAllQuestion;
+export default GetTreatment;
 

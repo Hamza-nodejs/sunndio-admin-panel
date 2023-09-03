@@ -63,6 +63,10 @@ const api = {
     patchAssignResult : async ({id, payload}) => await axios.patch(`${Host}/AssignResult/${id}`, payload),
 
     postTreatment : async (payload) => await axios.post(`${Host}/addTreatment`, payload),
+    getAllTreatment : async () => await axios.get(`${Host}/getAllTreatment`),
+    updateTreatment : async ({id, payload}) => await axios.put(`${Host}/updateTheTreatment/${id}`, payload),
+    getTreatmentById : async (id) => await axios.get(`${Host}/getTreatmentById/${id}`),
+    deleteTreatment : async (id) => await axios.delete(`${Host}/deleteTreatment/${id}`),
 };
 
 
