@@ -5,6 +5,7 @@ import api from "../../config/api";
 const initialState = {
     allTreatmentData: [],
     treatmentDataById: "",
+    isLoading: false,
 
 }
 const postTreatment = createAsyncThunk('postTreatment', async (values) => {
@@ -36,6 +37,18 @@ const treatmentSlice = createSlice({
     name: "treatmentSlice",
     initialState: initialState,
     extraReducers: builder => {
+        // post treatment
+        builder.addCase(postTreatment.pending, (state, action) => {
+            state.isLoading = true;
+        })
+        builder.addCase(postTreatment.fulfilled, (state, action) => {
+            state.isLoading = false;
+        });
+
+        builder.addCase(postTreatment.rejected, (state, action) => {
+            state.isLoading = false
+        });
+
         builder.addCase(getAllTreatment.fulfilled, (state, action) => {
             state.allTreatmentData = action.payload
 

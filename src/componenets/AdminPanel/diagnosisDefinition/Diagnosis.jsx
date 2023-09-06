@@ -103,7 +103,7 @@ const Diagnosis = () => {
   }
 
   return (
-    <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
+    <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', padding: "30px" }}>
       <div>
         <label className='form-label mt-4' htmlFor="diagnosis-eng">Enter pain diagnosis name in english </label>
         <TextField
@@ -168,7 +168,7 @@ const Diagnosis = () => {
       </div>
       <div>
 
-        <label className='form-label mt-4' htmlFor="traeted-time">Enter treatmentTime in english </label>
+        <label className='form-label mt-4' htmlFor="traeted-time">Enter treatment time in English </label>
         <TextField
           id="traeted-time"
           placeholder='Enter the treatment time in English'
@@ -178,7 +178,7 @@ const Diagnosis = () => {
         {error.treatmentTime && <p className='error'>{error.treatmentTime}</p>}
       </div>
       <div>
-        <label className='form-label mt-4' htmlFor="traeted-time-es">Enter treatmentTimeEs in english </label>
+        <label className='form-label mt-4' htmlFor="traeted-time-es">Enter treatment  in Spanish</label>
         <TextField
           id="traeted-time-es"
           placeholder='Enter the treatment time in spanish'

@@ -3,6 +3,7 @@ import SelectField from '../../common/SelectField';
 import NumberField from '../../common/NumberField';
 import TextField from '../../common/TextField';
 import FileField from '../../common/FileField';
+import Loader from "../../common/Loader";
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
@@ -19,6 +20,7 @@ const Treatment = () => {
   }, [id])
 
   const updatedValues = useSelector(state => state?.treatmentSlice?.treatmentDataById);
+  const isLoading = useSelector(state => state?.treatmentSlice?.isLoading);
 
   const [values, setValues] = useState({});
 
@@ -128,7 +130,9 @@ const Treatment = () => {
   }
   return (
     <>
-      <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
+      {
+        isLoading ? <Loader/> : 
+        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
         <div>
           <label className='form-label mt-4'>Select the diagnosis definition</label>
           <SelectField
@@ -197,7 +201,7 @@ const Treatment = () => {
           />
           {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
           {
-            updatedValues.treatmentUrl &&
+            updatedValues?.treatmentUrl &&
             <div style={{ display: "flex", justifyContent: "center" }}>
               <video style={{ width: "100px", height: "100px", alignSelf: "center" }} src={updatedValues?.treatmentUrl} alt="" />
             </div>
@@ -211,6 +215,7 @@ const Treatment = () => {
         }
 
       </div>
+      }
     </>
   )
 }

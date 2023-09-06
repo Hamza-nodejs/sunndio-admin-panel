@@ -92,19 +92,19 @@ export const PanelSidebar = [
            
         }
     },
-    {
-        id: '0', name: ' probability', icon: 'fa-regular fa-solid fa-money-bill',  subItem: {
-            allItem: {
-                name: "All Probability",
-                route: routes.panel.probabilityDisease
-            },
-            addItem: {
-                name: "Add Probability",
-                route: routes.panel.probabilityDisease
-            },
+    // {
+    //     id: '0', name: ' probability', icon: 'fa-regular fa-solid fa-money-bill',  subItem: {
+    //         allItem: {
+    //             name: "All Probability",
+    //             route: routes.panel.probabilityDisease
+    //         },
+    //         addItem: {
+    //             name: "Add Probability",
+    //             route: routes.panel.probabilityDisease
+    //         },
             
-        }
-    },
+    //     }
+    // },
     {
         id: '0', name: ' Result', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {

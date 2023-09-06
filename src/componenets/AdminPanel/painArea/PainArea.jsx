@@ -166,8 +166,8 @@ const PainArea = () => {
           <SelectField
             onChange={(e) => setValues({ ...values, isLive: e.target.value })}>
             <option value="" selected={values.isLive === ""}>Please select the isLive or not</option>
-            <option value="true" selected={values.isLive === "true"}>True</option>
-            <option value="false" selected={values.isLive === "false"}>False</option>
+            <option value="true" selected={values.isLive}>True</option>
+            <option value="false" selected={!values.isLive}>False</option>
           </SelectField>
           {error.isLive && <p className='error'>{error.isLive}</p>}
         </div>
