@@ -48,6 +48,7 @@ const PossibleDiagnosis = () => {
     }, []);
 
     const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
+
     const diagnosisData = useSelector(state => state?.diagnosis?.diagnosisData);
 
     const handlePainArea = (e) => {
@@ -203,8 +204,8 @@ const PossibleDiagnosis = () => {
                 <SelectField
                     onChange={(e) => setValues({ ...values, isPossibleDiag: e.target.value })}>
                     <option value="" selected={values.isPossibleDiag === ""}>Please select the possibble diagnosis</option>
-                    <option value="true">true</option>
-                    <option value="false">false</option>
+                    <option value="true" selected={values.isPossibleDiag}>true</option>
+                    <option value="false" selected={!values.isPossibleDiag}>false</option>
                 </SelectField>
                 {error.isPossibleDiag && <p className='error'>{error.isPossibleDiag}</p>}
             </div>

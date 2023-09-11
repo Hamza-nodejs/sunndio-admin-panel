@@ -8,10 +8,10 @@ const AdminSidebar = () => {
   return (
     <Sidebar className="sidebar-display">
       {/* <div className="side_bar"> */}
-      <div style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", padding: "10px" }}>
+      <Link to="/" style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", padding: "10px", color:"black" }}>
         <img style={{ height: "40px", width: "30px" }} src="/logo.png" alt="" />
         <strong>Sunndio Health</strong>
-      </div>
+      </Link>
 
       <Menu>
         {PanelSidebar.map((item) => (

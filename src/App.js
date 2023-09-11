@@ -19,12 +19,19 @@ import GetDiagnosisDefinitions from './componenets/AdminPanel/diagnosisDefinitio
 import GetPainBehaviorQuestion from './componenets/AdminPanel/painBehaviorQuestion/GetPainBehaviorQuestion';
 import GetPossibleDiagnosis from './componenets/AdminPanel/possibleDiagnosis/GetPossibleDiagnosis';
 import GetResult from './componenets/AdminPanel/assignResult/GetResult';
+import Treatment from './componenets/AdminPanel/treatment/Treatment';
+import GetTreatment from './componenets/AdminPanel/treatment/GetTreatment';
+import HomePage from './componenets/AdminPanel/HomePage';
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <Routes>
+          <Route 
+          path='/'
+          element={<AdminLayout><HomePage/></AdminLayout>}
+          />
           <Route
             path={routes?.panel.painArea}
             element={
@@ -203,7 +210,7 @@ function App() {
               </AdminLayout>
             }
           />
-             <Route
+          <Route
             path={routes.panel.editResult}
             element={
               <AdminLayout>
@@ -211,12 +218,36 @@ function App() {
               </AdminLayout>
             }
           />
-          <Route 
-          path={routes.panel.getResult}
-          element={
-          <AdminLayout>
-             <GetResult/>
-          </AdminLayout>}
+          <Route
+            path={routes.panel.getResult}
+            element={
+              <AdminLayout>
+                <GetResult />
+              </AdminLayout>}
+          />
+          <Route
+            path={routes.panel.treatment}
+            element={
+              <AdminLayout>
+                <Treatment />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path={routes.panel.getTreatment}
+            element={
+              <AdminLayout>
+                <GetTreatment />
+              </AdminLayout>
+            }
+          />
+          <Route
+            path={routes.panel.editTreatment}
+            element={
+              <AdminLayout>
+                <Treatment />
+              </AdminLayout>
+            }
           />
         </Routes>
       </BrowserRouter>

@@ -46,7 +46,7 @@ const GetPossibleDiagnosis = () => {
     }
 
     return (
-        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
+        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
                 showData.length > 0 ? <table class="table">
                     <thead>

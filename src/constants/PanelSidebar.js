@@ -92,19 +92,19 @@ export const PanelSidebar = [
            
         }
     },
-    {
-        id: '0', name: ' probability', icon: 'fa-regular fa-solid fa-money-bill',  subItem: {
-            allItem: {
-                name: "All Probability",
-                route: routes.panel.probabilityDisease
-            },
-            addItem: {
-                name: "Add Probability",
-                route: routes.panel.probabilityDisease
-            },
+    // {
+    //     id: '0', name: ' probability', icon: 'fa-regular fa-solid fa-money-bill',  subItem: {
+    //         allItem: {
+    //             name: "All Probability",
+    //             route: routes.panel.probabilityDisease
+    //         },
+    //         addItem: {
+    //             name: "Add Probability",
+    //             route: routes.panel.probabilityDisease
+    //         },
             
-        }
-    },
+    //     }
+    // },
     {
         id: '0', name: ' Result', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
@@ -114,6 +114,19 @@ export const PanelSidebar = [
             addItem: {
                 name: "Add Result",
                 route: routes.panel.result
+            },
+          
+        }
+    },
+    {
+        id: '0', name: ' Treatment', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+            allItem: {
+                name: "All Treatment",
+                route: routes.panel.getTreatment
+            },
+            addItem: {
+                name: "Add Treatment",
+                route: routes.panel.treatment
             },
           
         }
