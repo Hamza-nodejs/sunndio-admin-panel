@@ -8,28 +8,28 @@ const AdminSidebar = () => {
   return (
     <Sidebar className="sidebar-display">
       {/* <div className="side_bar"> */}
-      <div style={{display: "flex", alignItems: "center", gap: "10px" , justifyContent: "center", padding:"10px"}}>
-      <img style={{height: "60px", width: "30px"}} src="/logo.png" alt="" />
-      <strong>Sunndio Health</strong>
-      </div>
-      
+      <Link to="/" style={{ display: "flex", alignItems: "center", gap: "10px", justifyContent: "center", padding: "10px", color:"black" }}>
+        <img style={{ height: "40px", width: "30px" }} src="/logo.png" alt="" />
+        <strong>Sunndio Health</strong>
+      </Link>
+
       <Menu>
         {PanelSidebar.map((item) => (
           <SubMenu label={item.name} key={item.id}>
+
+            <MenuItem
+              className={window.location.pathname.includes(item.subItem.allItem.route) ? 'active' : ''}
+              active={window.location.pathname.includes(item.subItem.allItem.route)}
+              component={<Link to={item.subItem.allItem.route} />}>
+              {item.subItem.allItem.name}
+            </MenuItem>
+
             <MenuItem
               className={window.location.pathname.includes(item.subItem.addItem.route) ? 'active' : ''}
               component={<Link to={item.subItem.addItem.route} />}
             >
               {item.subItem.addItem.name}
             </MenuItem>
-
-            <MenuItem
-              // className={window.location.pathname.includes(item.subItem.allItem.route) ? 'active' : ''}
-              active={window.location.pathname.includes(item.subItem.allItem.route)}
-              component={<Link to={item.subItem.allItem.route} />}>
-              {item.subItem.allItem.name}
-            </MenuItem>
-
 
           </SubMenu>
         ))}

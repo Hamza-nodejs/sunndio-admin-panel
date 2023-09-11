@@ -7,6 +7,8 @@ import painBehavior from "../slices/painBehavior";
 import painBehaviorQuestionSlice from "../slices/painBehaviorQuestion";
 import possibleDiagnosisSlice from "../slices/possibleDiagnosis";
 import probabilityDiseaseSlice from "../slices/probabilityDisease";
+import assignResultSlice from "../slices/assignResult";
+import treatmentSlice from '../slices/treatment';
 
 const store = configureStore({
   reducer: {
@@ -17,7 +19,9 @@ const store = configureStore({
       painBehavior,
       painBehaviorQuestionSlice,
       possibleDiagnosisSlice,
-      probabilityDiseaseSlice
+      probabilityDiseaseSlice,
+      assignResultSlice,
+      treatmentSlice
   },
 });
 

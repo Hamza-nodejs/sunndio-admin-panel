@@ -1,6 +1,6 @@
 import React from 'react'
 
-const NumberField = ({ className, onChange, value, name, placeholder, id }) => {
+const NumberField = ({ className, onChange, value, name, placeholder, id, onBlur, ref }) => {
     return (
         <>
             <input
@@ -12,6 +12,8 @@ const NumberField = ({ className, onChange, value, name, placeholder, id }) => {
                 placeholder={placeholder}
                 onChange={onChange}
                 value={value}
+                onBlur={onBlur}
+                ref={ref}
             />
         </>
     )

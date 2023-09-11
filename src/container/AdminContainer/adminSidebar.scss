@@ -6,14 +6,17 @@
 }
 
 .css-dip3t8 {
-    position: relative;
-    height: 100%;
+    position: fixed !important;
+    inset: 0;
+    max-width: 16.7%;
+    // height: 100vh !important;
     overflow-y: auto;
     overflow-x: hidden;
     z-index: 3;
     // padding-top: 20%;
-    background-color: rgba(42, 40, 40, 0.7) !important;
-    color: rgb(225, 223, 221);
+    background-color: rgba(72, 68, 68, 0.7) !important;
+    // color: rgb(225, 223, 221);
+    color: black;
 }
 
 .css-1wvake5 {
