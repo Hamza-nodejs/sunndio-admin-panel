@@ -1,0 +1,101 @@
+import React, { useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom';
+import { assignResultDelete, getAssignResult } from '../../../redux/slices/assignResult';
+import { useState } from 'react';
+import Loader from '../../common/Loader';
+
+const GetResult = () => {
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        dispatch(getAssignResult());
+    }, [dispatch]);
+
+    const [firstNumber, setFirstNumber] = useState(0);
+    const [secondNumber, setSecondNumber] = useState(15);
+
+    const assignResultData = useSelector(state => state?.assignResultSlice?.assignResultData);
+
+    const [showData, setShowData] = useState([]);
+
+    useEffect(() => {
+        if (Array.isArray(assignResultData)) {
+            setShowData(assignResultData.slice(firstNumber, secondNumber));
+        }
+    }, [assignResultData, firstNumber, secondNumber]);
+
+    const handleAssignResultDelete = (id) => {
+        dispatch(assignResultDelete(id));
+        window.location.reload();
+    }
+
+    const handleAssignResultUpdate = (Values) => {
+        navigate(`/result/${Values._id}?edit=true`)
+    }
+
+    const handlePrevious = (e) => {
+        e.preventDefault();
+        setFirstNumber(firstNumber - 15);
+        setSecondNumber(secondNumber - 15);
+    }
+
+    const handleNext = (e) => {
+        e.preventDefault();
+        setFirstNumber(firstNumber + 15);
+        setSecondNumber(secondNumber + 15);
+    }
+
+    return (
+        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
+            {
+                showData.length > 0 ? <table class="table" height='200px'>
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pain Behavior</th>
+                            <th scope="col">Question</th>
+                            <th>Possible Diagnosis</th>
+                            <th scope='col'>Percentage</th>
+                            <th scope='col'>Diagnosis Answer</th>
+                            <th scope='col'>Update</th>
+                            <th scope='col'>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {
+                            showData?.map((item, index) => {
+                                return <tr>
+                                    <th scope="row">{firstNumber + index + 1}</th>
+                                    <td>{item.painBehaviorId?.name}</td>
+                                    <td>{item.painBehaviorQuestionId?.questionId?.question}</td>
+                                    <td>{item?.possibleDiagnosticId?.diagnosticsId?.diagnosisName}</td>
+                                    <td>{item?.Percentage}</td>
+                                    <td>{item?.DiagAnswer ? "true" : "false"}</td>
+                                    <td onClick={() => handleAssignResultUpdate(item)}><i className='fa fa-pencil-square'></i></td>
+                                    <td onClick={() => handleAssignResultDelete(item._id)}><i className='fa fa-trash'></i></td>
+                                </tr>
+                            })
+                        }
+
+                    </tbody>
+                </table> : <Loader />
+            }
+
+            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                <button disabled={firstNumber <= 0} className='btn btn-primary px-5 p-3' onClick={handlePrevious}>
+                    Previous
+                </button>
+
+                <button disabled={secondNumber >= assignResultData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
+                    Next
+                </button>
+            </div>
+
+
+        </div>
+    )
+}
+
+export default GetResult;
