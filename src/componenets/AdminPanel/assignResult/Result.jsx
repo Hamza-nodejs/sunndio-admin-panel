@@ -16,9 +16,10 @@ const Result = () => {
 
   useEffect(() => {
     dispatch(getAssignResultById(id))
-  }, [id]);
+  }, [id, dispatch]);
 
   const updateValues = useSelector(state => state?.assignResultSlice?.assignResultDataById);
+  const isLoading = useSelector(state => state?.assignResultSlice?.isLoading);
 
   const [values, setValues] = useState({
     painBehaviorId: '',
@@ -46,7 +47,7 @@ const Result = () => {
 
   useEffect(() => {
     dispatch(getPainArea());
-  }, []);
+  }, [dispatch]);
 
   const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
 
@@ -91,7 +92,7 @@ const Result = () => {
 
       if (possibleDiagnosisData.length === possibleDiagnosis.length) {
 
-        possibleDiagnosis?.map(item => {
+        possibleDiagnosis?.forEach(item => {
           const payloadTrue = {
             painBehaviorId: values.painBehaviorId,
             painBehaviorQuestionId: values.behaviorQuestionId,
@@ -121,7 +122,6 @@ const Result = () => {
       } else {
         setDiagnosisError("Please enter the all field data");
       }
-
     }
   }
 
@@ -241,7 +241,8 @@ const Result = () => {
             </tbody>
           </table>
 
-          <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
+          <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>
+            {isLoading ? "Loading..." : "Submit"}</button>
         </> :
           <>
             <label className='form-label mt-4'>Enter the percentage</label>

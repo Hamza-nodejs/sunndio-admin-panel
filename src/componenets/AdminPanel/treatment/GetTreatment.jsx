@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom';
-import { deleteQuestion, getAllQuestion } from '../../../redux/slices/questionDefinitionSlice';
 import Loader from '../../common/Loader';
 import { deleteTreatment, getAllTreatment } from '../../../redux/slices/treatment';
 

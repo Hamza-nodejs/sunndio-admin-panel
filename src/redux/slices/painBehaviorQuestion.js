@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
@@ -48,12 +47,12 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postPainBehaviorQuestion.fulfilled, (state, action) => {
-            // toast.success("successfully saved")
+           
         });
 
         // Handle the rejected action
         builder.addCase(postPainBehaviorQuestion.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+         
         });
 
         // get pain Behavior question
@@ -64,7 +63,7 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPainBehaviorQuestion.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+         
         });
         // all pain behavior questions
         builder.addCase(getAllPainBehaviorQuestion.fulfilled, (state, action) => {
@@ -73,7 +72,7 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getAllPainBehaviorQuestion.rejected, (state, action) => {
-            //    toast.error("Api call is faild")
+      
         });
 
         // get Pain Behavior question by id
@@ -84,7 +83,7 @@ const painBehaviorQuestionSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPainBehaviorQuestionById.rejected, (state, action) => {
-            //    toast.error("Api call is faild")
+         
         });
     },
 })

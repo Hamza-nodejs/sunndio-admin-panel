@@ -25,7 +25,7 @@ const ProbabilityDisease = () => {
 
   useEffect(() => {
     dispatch(getPainArea());
-  }, []);
+  }, [dispatch]);
 
   const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
 

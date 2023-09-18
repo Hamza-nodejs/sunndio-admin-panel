@@ -12,7 +12,7 @@ const PainRelatedQuestion = () => {
 
   useEffect(() => {
       dispatch(getQuestionById(id));
-  },[id])
+  },[id, dispatch])
 
   const updatedValues = useSelector(state => state?.questionDefinitionSlice?.questionDataById);
 

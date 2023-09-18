@@ -10,7 +10,7 @@ const GetPainArea = () => {
 
     useEffect(() => {
         dispatch(getAllPainArea());
-    }, []);
+    }, [dispatch]);
 
     
     const handlePainAreaDelete = (id) => {

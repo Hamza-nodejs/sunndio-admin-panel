@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
@@ -52,59 +51,55 @@ const painDefinitionSlice = createSlice({
 
     // Handle the fulfilled action
     builder.addCase(postPainDefinition.fulfilled, (state, action) => {
-      // toast.success("successfully saved")
+      
     });
 
     // Handle the rejected action
     builder.addCase(postPainDefinition.rejected, (state, action) => {
-      // toast.error("Api call is faild")
+  
     });
 
     // Get pain area data 
 
     builder.addCase(getPainDefintion.fulfilled, (state, action) => {
-      // toast.success("Successful fetch data");
+     
       state.painDefintionData = action.payload
 
     })
 
     builder.addCase(getPainDefintion.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+     
     })
     // Pain Defintion by id
 
     builder.addCase(getPainDeifnitionByPainAreaId.fulfilled, (state, action) => {
-      // toast.success("Successful fetch data");
       state.painDefinitionDataByAreaId = action.payload
 
     })
 
     builder.addCase(getPainDeifnitionByPainAreaId.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+  
     })
 
     // delete pain definition
 
     builder.addCase(deletePainDefinition.fulfilled, (state, action) => {
-      // toast.success("Successful delete");
 
     })
 
     builder.addCase(deletePainDefinition.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+    
     })
 
     // pain definition by id
 
     builder.addCase(getPainDefinitionById.fulfilled, (state, action) => {
-      // toast.success("Successful updated");
-
       state.painDefinitionById = action.payload
 
     })
 
     builder.addCase(getPainDefinitionById.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+  
     })
   },
 })
