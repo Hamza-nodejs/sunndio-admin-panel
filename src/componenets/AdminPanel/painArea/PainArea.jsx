@@ -12,7 +12,7 @@ const PainArea = () => {
    
   useEffect(() => {
     dispatch(getPainAaraeById(id))
-  }, [id])
+  }, [id, dispatch])
 
   const updateValue = useSelector(state => state?.painArea?.painAreaDataById);
 

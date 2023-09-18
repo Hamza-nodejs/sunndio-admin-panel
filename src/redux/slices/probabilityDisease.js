@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
@@ -18,12 +17,12 @@ const probabilityDiseaseSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postProbabilityDisease.fulfilled, (state, action) => {
-            // toast.success("successfully saved")
+          
         });
 
         // Handle the rejected action
         builder.addCase(postProbabilityDisease.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+        
         });
     },
 })

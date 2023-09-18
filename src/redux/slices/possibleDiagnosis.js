@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
@@ -47,12 +46,12 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the fulfilled action
         builder.addCase(postPossibleDiagnosis.fulfilled, (state, action) => {
-            // toast.success("successfully saved")
+           
         });
 
         // Handle the rejected action
         builder.addCase(postPossibleDiagnosis.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+       
         });
 
         builder.addCase(getPossibleDiagnosis.fulfilled, (state, action) => {
@@ -61,7 +60,7 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPossibleDiagnosis.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+        
         });
         builder.addCase(getAllPossibleDiagnosis.fulfilled, (state, action) => {
             state.allPossibleDiagnosisData = action.payload
@@ -69,7 +68,7 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getAllPossibleDiagnosis.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+        
         });
 
         builder.addCase(getPossibleDiagnosisById.fulfilled, (state, action) => {
@@ -78,7 +77,7 @@ const possibleDiagnosisSlice = createSlice({
 
         // Handle the rejected action
         builder.addCase(getPossibleDiagnosisById.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+        
         });
     },
 })

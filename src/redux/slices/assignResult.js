@@ -1,10 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
     assignResultData: [],
     assignResultDataById: "",
+    isLoading : false,
 
 }
 const postAssignResult = createAsyncThunk('postAssignResult', async (values) => {
@@ -37,33 +37,36 @@ const assignResultSlice = createSlice({
     initialState: initialState,
     extraReducers: builder => {
 
+        builder.addCase(postAssignResult.pending , (state, action) => {
+                 state.isLoading = true;
+        })
         // Handle the fulfilled action
         builder.addCase(postAssignResult.fulfilled, (state, action) => {
-            // toast.success("successfully saved")
+                state.isLoading = false;
         });
 
         // Handle the rejected action
         builder.addCase(postAssignResult.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+             state.isLoading = false;
         });
 
         builder.addCase(getAssignResult.fulfilled, (state, action) => {
             state.assignResultData = action.payload
-            // toast.success("successfully saved")
+           
         });
 
         // Handle the rejected action
         builder.addCase(getAssignResult.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+            
         });
         builder.addCase(getAssignResultById.fulfilled, (state, action) => {
             state.assignResultDataById = action.payload
-            // toast.success("successfully saved")
+          
         });
 
         // Handle the rejected action
         builder.addCase(getAssignResultById.rejected, (state, action) => {
-            // toast.error("Api call is faild")
+            
         });
     },
 })

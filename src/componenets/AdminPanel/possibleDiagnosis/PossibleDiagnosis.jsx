@@ -16,7 +16,7 @@ const PossibleDiagnosis = () => {
 
     useEffect(() => {
         dispatch(getPossibleDiagnosisById(id))
-    }, [id]);
+    }, [id, dispatch]);
 
     const updateValues = useSelector(state => state?.possibleDiagnosisSlice?.possibleDiagnosisDataById);
 
@@ -45,7 +45,7 @@ const PossibleDiagnosis = () => {
     useEffect(() => {
         dispatch(getPainArea());
         dispatch(getDiagnosisDefinition());
-    }, []);
+    }, [dispatch]);
 
     const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
 
@@ -65,7 +65,7 @@ const PossibleDiagnosis = () => {
 
     useEffect(() => {
         dispatch(getPainBehaviorByPainAreaId(updateValues?.painBehaviorId?.painDefinitionId));
-    }, [updateValues])
+    }, [updateValues, dispatch])
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
 
