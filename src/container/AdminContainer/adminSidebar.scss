@@ -30,6 +30,11 @@
     color: white
 }
 
+.active :hover {
+    background-color:  #575252 !important;
+    color: white !important;
+}
+
 .menu-item {
     color: hsla(0,0%,100%,.6);
     background-color: #3c4b64 !important;
