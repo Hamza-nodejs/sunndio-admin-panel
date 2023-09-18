@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import SelectField from '../../common/SelectField';
 import FileField from '../../common/FileField';
 import { useDispatch, useSelector } from 'react-redux';
-import { getPainBehaviorByPainAreaId, postpainBehavior } from '../../../redux/slices/painBehavior';
+import { getPainBehaviorByPainAreaId } from '../../../redux/slices/painBehavior';
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinition';
 import { getQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
@@ -17,7 +17,7 @@ const PainBehaviorQuestion = () => {
 
     useEffect(() => {
         dispatch(getPainBehaviorQuestionById(id));
-    }, [id]);
+    }, [id, dispatch]);
 
     const updateValue = useSelector(state => state?.painBehaviorQuestionSlice?.painBehaviorDataById);
 
@@ -44,7 +44,7 @@ const PainBehaviorQuestion = () => {
     useEffect(() => {
         dispatch(getPainArea());
         dispatch(getQuestionDefinition());
-    }, []);
+    }, [dispatch]);
 
     const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
     const questionDefinitionData = useSelector(state => state?.questionDefinitionSlice?.questionDefinitionData);
@@ -63,7 +63,7 @@ const PainBehaviorQuestion = () => {
 
     useEffect(() => {
         dispatch(getPainBehaviorByPainAreaId(updateValue?.painBehaviorId?.painDefinitionId));
-    }, [updateValue])
+    }, [updateValue, dispatch])
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
 

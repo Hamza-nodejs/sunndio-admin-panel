@@ -15,7 +15,7 @@ const PainBehavior = () => {
 
   useEffect(() => {
     dispatch(getPainBehaviorById(id))
-  },[id])
+  },[id, dispatch])
 
   const updateValues = useSelector(state => state?.painBehavior?.allPainBehaviorDataById);
 
@@ -41,7 +41,7 @@ const PainBehavior = () => {
 
   useEffect(() => {
     dispatch(getPainArea());
-  }, []);
+  }, [dispatch]);
 
   const painAreaData = useSelector((state) => state?.painArea?.painAreaData);
 
@@ -49,7 +49,7 @@ const PainBehavior = () => {
 
   useEffect(() => {
     dispatch(getPainDeifnitionByPainAreaId(selectedPainArea?._id));
-  }, [selectedPainArea]);
+  }, [selectedPainArea, dispatch]);
 
   const handlePainArea = (e) => {
     setValues({ ...values, painAreaId: e.target.value });

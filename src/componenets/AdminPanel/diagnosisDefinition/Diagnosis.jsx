@@ -11,12 +11,9 @@ const Diagnosis = () => {
 
   useEffect(() => {
     dispatch(getDiagnosisDefinitonById(id))
-  }, [id]);
+  }, [id, dispatch]);
 
   const updateValues = useSelector(state => state?.diagnosis?.diagnosisDefinitonById);
-
-  console.log("dianosis by id: ", updateValues)
-
   const [values, setValues] = useState({})
 
   useEffect(() => {

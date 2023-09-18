@@ -1,6 +1,5 @@
 import React from 'react';
 import SelectField from '../../common/SelectField';
-import NumberField from '../../common/NumberField';
 import TextField from '../../common/TextField';
 import FileField from '../../common/FileField';
 import Loader from "../../common/Loader";
@@ -17,7 +16,7 @@ const Treatment = () => {
 
   useEffect(() => {
     dispatch(getTreatmentById(id))
-  }, [id])
+  }, [id, dispatch])
 
   const updatedValues = useSelector(state => state?.treatmentSlice?.treatmentDataById);
   const isLoading = useSelector(state => state?.treatmentSlice?.isLoading);
@@ -39,7 +38,7 @@ const Treatment = () => {
 
   useEffect(() => {
     dispatch(getDiagnosisDefinition())
-  }, [])
+  }, [dispatch])
 
   const diagnosisData = useSelector(state => state?.diagnosis?.diagnosisData);
 

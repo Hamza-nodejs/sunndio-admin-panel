@@ -14,7 +14,7 @@ const PainDefinition = () => {
 
   useEffect(() => {
     dispatch(getPainDefinitionById(id));
-  }, [id])
+  }, [id, dispatch])
 
   const painDefinitionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionById)
 
@@ -37,7 +37,7 @@ const PainDefinition = () => {
   })
   useEffect(() => {
     dispatch(getPainArea());
-  }, []);
+  }, [dispatch]);
 
   const painAreaData = useSelector(state => state?.painArea?.painAreaData);
 

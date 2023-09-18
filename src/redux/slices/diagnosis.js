@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { toast } from "react-toastify";
 import api from "../../config/api";
 
 const initialState = {
@@ -55,47 +54,44 @@ const diagnosisDefinitionSlice = createSlice({
 
     // Handle the fulfilled action
     builder.addCase(postDiagnosisDefinition.fulfilled, (state, action) => {
-      // toast.success("Diagnosis successfully saved")
+  
     });
 
     // Handle the rejected action
     builder.addCase(postDiagnosisDefinition.rejected, (state, action) => {
-      // toast.error("Api call is faild")
+    
     });
 
     // Get pain area data 
 
     builder.addCase(getDiagnosisDefinition.fulfilled, (state, action) => {
-      // toast.success("Successful fetch data");
       state.diagnosisData = action.payload
 
     })
 
     builder.addCase(getDiagnosisDefinition.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+      
     })
 
     // get all diagnosis definition
 
     builder.addCase(getAllDiagnosisDefinition.fulfilled, (state, action) => {
-      // toast.success("Successful fetch data");
       state.allDiagnosisData = action.payload
 
     })
 
     builder.addCase(getAllDiagnosisDefinition.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+    
     })
 
     // get diagnosis definition by id
     builder.addCase(getDiagnosisDefinitonById.fulfilled, (state, action) => {
-      // toast.success("Successful fetch data");
       state.diagnosisDefinitonById = action.payload
 
     })
 
     builder.addCase(getDiagnosisDefinitonById.rejected, (state, action) => {
-      // toast.error("Error during fetching data");
+    
     })
   },
 })
