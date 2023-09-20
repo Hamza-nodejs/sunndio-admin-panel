@@ -112,7 +112,7 @@ const PainArea = () => {
           <label className='form-label mt-4' htmlFor="english" >Enter pain area name in english</label>
           <TextField
             id="english"
-            placeholder='Enter the name of pain area in English'
+            placeholder='Enter pain area name in english'
             onChange={(e) => setValues({ ...values, name: e.target.value })}
             value={values.name}
              />
@@ -123,7 +123,7 @@ const PainArea = () => {
           <label className='form-label mt-4' htmlFor="spanish">Enter pain area name in spanish </label>
           <TextField
             id="spanish"
-            placeholder='Enter the name of pain area in spanish'
+            placeholder='Enter pain area name in spanish'
             onChange={(e) => setValues({ ...values, nameEs: e.target.value })}
             value={values.nameEs}
           />
@@ -134,14 +134,14 @@ const PainArea = () => {
           <label className='form-label mt-4'>Select the position of pain</label>
           <SelectField
             onChange={(e) => setValues({ ...values, position: e.target.value })}>
-            <option value="" selected={values.position === ""}>Please select the position</option>
+            <option value="" selected={values.position === ""}>Select the position</option>
             <option value="back" selected={values.position === "back"}>Back</option>
             <option value="front" selected={values.position === "front"}>Front</option>
           </SelectField>
           {error.position && <p className='error'>{error.position}</p>}
         </div>
         <div>
-          <label htmlFor="pointY" className='form-label mt-4'>Enter the points for vertical </label>
+          <label htmlFor="pointY" className='form-label mt-4'>Enter the value vertically </label>
           <NumberField
             id="pointY"
             placeholder='Enter the value vertically'
@@ -165,7 +165,7 @@ const PainArea = () => {
           <label className='form-label mt-4' htmlFor="isLive">Select the pain area is live or not</label>
           <SelectField
             onChange={(e) => setValues({ ...values, isLive: e.target.value })}>
-            <option value="" selected={values.isLive === ""}>Please select the isLive or not</option>
+            <option value="" selected={values.isLive === ""}>Select the isLive or not</option>
             <option value="true" selected={values.isLive}>True</option>
             <option value="false" selected={!values.isLive}>False</option>
           </SelectField>

@@ -148,7 +148,7 @@ const PainBehavior = () => {
         {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
       </div>
       <div>
-        <label className='form-label mt-4'>Select the pain definition</label>
+        <label className='form-label mt-4'>Please select the pain definition</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
           <option value="" selected={values.painDefinitionId === ""}> Please select the pain definition </option>

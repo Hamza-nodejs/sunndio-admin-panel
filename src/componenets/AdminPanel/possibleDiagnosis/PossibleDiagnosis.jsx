@@ -166,7 +166,7 @@ const PossibleDiagnosis = () => {
             }
 
             <div>
-                <label className='form-label mt-4'>Select pain Behavior</label>
+                <label className='form-label mt-4'>Please Select pain behavior</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, painBehaviorId: e.target.value })}>
                     <option value="" selected={values.painBehaviorId === ""}>Please select the pain behavior</option>
@@ -200,10 +200,10 @@ const PossibleDiagnosis = () => {
                 {error.diagnosticsId && <p className='error'>{error.diagnosticsId}</p>}
             </div>
             <div>
-                <label className='form-label mt-4'>Select the possibble diagnosis</label>
+                <label className='form-label mt-4'>Select the possible diagnosis</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, isPossibleDiag: e.target.value })}>
-                    <option value="" selected={values.isPossibleDiag === ""}>Please select the possibble diagnosis</option>
+                    <option value="" selected={values.isPossibleDiag === ""}>Please select the possible diagnosis</option>
                     <option value="true" selected={values.isPossibleDiag}>true</option>
                     <option value="false" selected={!values.isPossibleDiag}>false</option>
                 </SelectField>

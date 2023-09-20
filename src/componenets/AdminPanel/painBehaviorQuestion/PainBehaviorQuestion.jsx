@@ -146,7 +146,7 @@ const PainBehaviorQuestion = () => {
                     <label className='form-label mt-4'>Please select the pain area</label>
                     <SelectField
                         onChange={handlePainArea}>
-                        <option value="" selected={values.painAreaId === ""}>Please select the pain definition</option>
+                        <option value="" selected={values.painAreaId === ""}>Please select the pain area</option>
                         {
                             painAreaData?.map(item => {
                                 return <option value={item?._id}>{item?.name}</option>
@@ -159,7 +159,7 @@ const PainBehaviorQuestion = () => {
             {
                 !updateValue &&
                  <div>
-                    <label className='form-label mt-4'>Select the pain definition</label>
+                    <label className='form-label mt-4'>Please select the pain definition</label>
                     <SelectField
                         onChange={handlePainDefinition}>
                         <option value="" selected={values.painDefinitionId === ""}>Please select the pain definition</option>
@@ -172,7 +172,7 @@ const PainBehaviorQuestion = () => {
             }
 
             <div>
-                <label className='form-label mt-4'>Select pain Behavior</label>
+                <label className='form-label mt-4'>Please select pain behavior</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, painBehaviorId: e.target.value })}>
                     <option value="" selected={values.painBehaviorId === ""}>Please select the pain behavior</option>
@@ -187,7 +187,7 @@ const PainBehaviorQuestion = () => {
                 {error.painBehaviorId && <p className='error'>{error.painBehaviorId}</p>}
             </div>
             <div>
-                <label className='form-label mt-4'>Select the question</label>
+                <label className='form-label mt-4'>Please select the question</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, questionId: e.target.value })}>
                     <option value="" selected={values.questionId === ""}>Please select the question</option>

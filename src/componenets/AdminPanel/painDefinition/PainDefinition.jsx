@@ -117,10 +117,10 @@ const PainDefinition = () => {
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       <div>
-        <label className='form-label mt-4'>Select the pain area</label>
+        <label className='form-label mt-4'>Please select the pain area name</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painAreaId: e.target.value })}>
-          <option value="" selected={values.painAreaId === ""}>Please select the pain name</option>
+          <option value="" selected={values.painAreaId === ""}>Please select the pain area name</option>
           {
             painAreaData?.map(item => {
               return <>
