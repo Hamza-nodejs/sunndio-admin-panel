@@ -115,7 +115,7 @@ const Treatment = () => {
         payload.append("treatmentLevel", values.treatmentLevel);
         payload.append("diagnosticId", values.diagnosticId);
         payload.append("treatmentUrl", values.treatmentUrl);
-        dispatch(updateTreatment({ _id: updatedValues?._id, payload }))
+        dispatch(updateTreatment({ id: updatedValues?._id, payload }))
         setValues({
           diagnosticId: "",
           title: "",
