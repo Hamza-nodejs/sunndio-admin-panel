@@ -165,9 +165,9 @@ const PainArea = () => {
           <label className='form-label mt-4' htmlFor="isLive">Pain Area status</label>
           <SelectField
             onChange={(e) => setValues({ ...values, isLive: e.target.value })}>
-            <option value="" selected={values.isLive === ""}>Please select the Status</option>
-            <option value="true" selected={values.isLive}>True</option>
-            <option value="false" selected={!values.isLive}>False</option>
+            <option value="" selected={values.isLive === ""}>Please select the status</option>
+            <option value="true" selected={values.isLive}>Active</option>
+            <option value="false" selected={!values.isLive}>In-Active</option>
           </SelectField>
           {error.isLive && <p className='error'>{error.isLive}</p>}
         </div>
