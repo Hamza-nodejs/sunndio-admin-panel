@@ -69,11 +69,11 @@ const PainBehaviorQuestion = () => {
 
     const handleSubmit = async () => {
         const newErrors = {
-            painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain Behavior*' : '',
-            painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
-            painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
-            questionId: values.questionId.trim() === '' ? 'Please select the question*' : '',
-            gifUrl: values.gifUrl === '' ? 'Please choose the gif*' : '',
+            painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the Pain Behavior*' : '',
+            painAreaId: values.painAreaId.trim() === '' ? 'Please select the Pain Area*' : '',
+            painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the Pain Definition*' : '',
+            questionId: values.questionId.trim() === '' ? 'Please select the Question*' : '',
+            gifUrl: values.gifUrl === '' ? 'Please choose the GIF*' : '',
         }
 
         setError(newErrors);
@@ -98,8 +98,8 @@ const PainBehaviorQuestion = () => {
 
     const handleUpdate = () => {
         const newErrors = {
-            painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain Behavior*' : '',
-            questionId: values.questionId.trim() === '' ? 'Please select the question*' : '',
+            painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the Pain Behavior*' : '',
+            questionId: values.questionId.trim() === '' ? 'Please select the Question*' : '',
         }
         setError(newErrors);
         const hasErrors = Object.values(newErrors).some(error => error !== '');
@@ -143,10 +143,10 @@ const PainBehaviorQuestion = () => {
             {
                 !updateValue &&
                  <div>
-                    <label className='form-label mt-4'>Please select the pain area</label>
+                    <label className='form-label mt-4'>Pain Area</label>
                     <SelectField
                         onChange={handlePainArea}>
-                        <option value="" selected={values.painAreaId === ""}>Please select the pain definition</option>
+                        <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
                         {
                             painAreaData?.map(item => {
                                 return <option value={item?._id}>{item?.name}</option>
@@ -159,10 +159,10 @@ const PainBehaviorQuestion = () => {
             {
                 !updateValue &&
                  <div>
-                    <label className='form-label mt-4'>Select the pain definition</label>
+                    <label className='form-label mt-4'>Pain Definition</label>
                     <SelectField
                         onChange={handlePainDefinition}>
-                        <option value="" selected={values.painDefinitionId === ""}>Please select the pain definition</option>
+                        <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
                         {
                             painDefintionDataById.map(item => <option value={item?._id}>{item?.name}</option>)
                         }
@@ -172,10 +172,10 @@ const PainBehaviorQuestion = () => {
             }
 
             <div>
-                <label className='form-label mt-4'>Select pain Behavior</label>
+                <label className='form-label mt-4'>Pain Behavior</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, painBehaviorId: e.target.value })}>
-                    <option value="" selected={values.painBehaviorId === ""}>Please select the pain behavior</option>
+                    <option value="" selected={values.painBehaviorId === ""}>Please select the Pain Behavior</option>
                     {
                         painBehaviorDataById?.map(item => <option
                              value={item?._id}
@@ -187,10 +187,10 @@ const PainBehaviorQuestion = () => {
                 {error.painBehaviorId && <p className='error'>{error.painBehaviorId}</p>}
             </div>
             <div>
-                <label className='form-label mt-4'>Select the question</label>
+                <label className='form-label mt-4'>Question</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, questionId: e.target.value })}>
-                    <option value="" selected={values.questionId === ""}>Please select the question</option>
+                    <option value="" selected={values.questionId === ""}>Please select the Question</option>
                     {
                         questionDefinitionData?.map(item => <option
                              value={item?._id}
@@ -203,7 +203,7 @@ const PainBehaviorQuestion = () => {
             </div>
 
             <div className='mt-2'>
-                <label className='form-label mt-4' htmlFor="">Choose the gif</label>
+                <label className='form-label mt-4' htmlFor="">Choose the GIF</label>
                 <FileField
                     onChange={(e) => setValues({ ...values, gifUrl: e.target.files[0] })}
                 />

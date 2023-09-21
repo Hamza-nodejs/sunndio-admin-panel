@@ -53,12 +53,12 @@ const GetPainArea = () => {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Spanish Name</th>
+                            <th scope="col">Name in English</th>
+                            <th scope="col">Name in Spanish</th>
                             <th scope="col">Position</th>
-                            <th scope="col">pointX</th>
-                            <th scope="col">pointY</th>
-                            <th scope='col'>isLive</th>
+                            <th scope="col">PointX</th>
+                            <th scope="col">PointY</th>
+                            <th scope='col'>Status</th>
                             <th scope='col'>Update</th>
                             <th scope='col'>Delete</th>
                         </tr>

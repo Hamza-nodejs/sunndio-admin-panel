@@ -40,12 +40,12 @@ const PainArea = () => {
 
   const handleSubmit = async () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
       position: values.position.trim() === '' ? 'Please select the position*' : '',
       pointX: values.pointX === '' ? 'Please enter the horizontal points*' : '',
       pointY: values.pointY === '' ? 'Please enter the vertical points*' : '',
-      isLive : values.isLive === "" ? "Please select the pain area is live or not*" : "",
+      isLive : values.isLive === "" ? "Please select the Pain Area status*" : "",
     }
     setError(newErrors);
 
@@ -74,12 +74,12 @@ const PainArea = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
       position: values.position.trim() === '' ? 'Please select the position*' : '',
       pointX: values.pointX === '' ? 'Please enter the horizontal points*' : '',
       pointY: values.pointY === '' ? 'Please enter the vertical points*' : '',
-      isLive : values.isLive === "" ? "Please select the pain area is live or not*" : "",
+      isLive : values.isLive === "" ? "Please select the Pain Area status*" : "",
     }
     setError(newErrors);
     const hasErrors = Object.values(newErrors).some(error => error !== '');
@@ -109,10 +109,10 @@ const PainArea = () => {
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
         <div>
-          <label className='form-label mt-4' htmlFor="english" >Enter pain area name in english</label>
+          <label className='form-label mt-4' htmlFor="english" >Pain Area name in English</label>
           <TextField
             id="english"
-            placeholder='Enter the name of pain area in English'
+            placeholder='Please enter Pain Area name in English'
             onChange={(e) => setValues({ ...values, name: e.target.value })}
             value={values.name}
              />
@@ -120,10 +120,10 @@ const PainArea = () => {
         </div>
 
         <div >
-          <label className='form-label mt-4' htmlFor="spanish">Enter pain area name in spanish </label>
+          <label className='form-label mt-4' htmlFor="spanish">Pain Area name in Spanish</label>
           <TextField
             id="spanish"
-            placeholder='Enter the name of pain area in spanish'
+            placeholder='Please enter Pain Area name in Spanish'
             onChange={(e) => setValues({ ...values, nameEs: e.target.value })}
             value={values.nameEs}
           />
@@ -131,20 +131,20 @@ const PainArea = () => {
         </div>
 
         <div>
-          <label className='form-label mt-4'>Select the position of pain</label>
+          <label className='form-label mt-4'>Position of pain</label>
           <SelectField
             onChange={(e) => setValues({ ...values, position: e.target.value })}>
-            <option value="" selected={values.position === ""}>Please select the position</option>
+            <option value="" selected={values.position === ""}>Select the position</option>
             <option value="back" selected={values.position === "back"}>Back</option>
             <option value="front" selected={values.position === "front"}>Front</option>
           </SelectField>
           {error.position && <p className='error'>{error.position}</p>}
         </div>
         <div>
-          <label htmlFor="pointY" className='form-label mt-4'>Enter the points for vertical </label>
+          <label htmlFor="pointY" className='form-label mt-4'>Vertical points of pain</label>
           <NumberField
             id="pointY"
-            placeholder='Enter the value vertically'
+            placeholder='Please enter the vertical points of pain'
             onChange={(e) => setValues({ ...values, pointY: parseInt(e.target.value) })}
             value={values.pointY}
           />
@@ -152,22 +152,22 @@ const PainArea = () => {
         </div>
 
         <div>
-          <label htmlFor="pointX" className='form-label mt-4'>Enter the value horizontally </label>
+          <label htmlFor="pointX" className='form-label mt-4'>Horizontal points of pain</label>
           <NumberField
             id="pointX"
-            placeholder='Enter the value horizontally'
+            placeholder='Please enter the horizontal points of pain'
             onChange={(e) => setValues({ ...values, pointX: parseInt(e.target.value) })}
             value={values.pointX}
           />
           {error.pointX && <p className='error'>{error.pointX}</p>}
         </div>
         <div>
-          <label className='form-label mt-4' htmlFor="isLive">Select the pain area is live or not</label>
+          <label className='form-label mt-4' htmlFor="isLive">Pain Area status</label>
           <SelectField
             onChange={(e) => setValues({ ...values, isLive: e.target.value })}>
-            <option value="" selected={values.isLive === ""}>Please select the isLive or not</option>
-            <option value="true" selected={values.isLive}>True</option>
-            <option value="false" selected={!values.isLive}>False</option>
+            <option value="" selected={values.isLive === ""}>Please select the status</option>
+            <option value="true" selected={values.isLive}>Active</option>
+            <option value="false" selected={!values.isLive}>In-Active</option>
           </SelectField>
           {error.isLive && <p className='error'>{error.isLive}</p>}
         </div>

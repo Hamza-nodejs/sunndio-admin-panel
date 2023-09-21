@@ -52,7 +52,7 @@ const GetPainBehaviorQuestion = () => {
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Pain Behavior Name</th>
-                    <th scope="col">Question name</th>
+                    <th scope="col">Question</th>
                     <th scope="col">Image</th>
                     <th scope='col'>Update</th>
                     <th scope='col'>Delete</th>
