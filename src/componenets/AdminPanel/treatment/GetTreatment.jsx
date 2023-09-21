@@ -52,7 +52,7 @@ const GetTreatment = () => {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Diagnosis Name</th>
+                            <th scope="col">Diagnosis Name in English</th>
                             <th scope="col">Title in English</th>
                             <th scope='col'>Title in Spanish</th>
                             <th scope='col'>Treatment Level</th>

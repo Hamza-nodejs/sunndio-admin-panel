@@ -142,7 +142,7 @@ const Result = () => {
             <label className='form-label mt-4'>Please select the pain area</label>
             <SelectField
               onChange={handlePainArea}>
-              <option value="">Please select the pain definition</option>
+              <option value="">Please select the pain area</option>
               {
                 painAreaData?.map(item => {
                   return <option value={item._id}>{item?.name}</option>
@@ -155,7 +155,7 @@ const Result = () => {
             <label className='form-label mt-4'>Select the pain definition</label>
             <SelectField
               onChange={handlePainDefinition}>
-              <option value="">Please select the pain definition</option>
+              <option value="">Select the pain definition</option>
               {
                 painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
               }
@@ -163,10 +163,10 @@ const Result = () => {
             {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
           </div>
           <div>
-            <label className='form-label mt-4'>Select pain Behavior</label>
+            <label className='form-label mt-4'>Select pain behavior</label>
             <SelectField
               onChange={handlePainBehavior}>
-              <option value="">Please select the pain behavior</option>
+              <option value="">Select pain behavior</option>
               {
                 painBehaviorDataById.map(item => <option value={item._id}>{item.name}</option>)
               }
@@ -178,7 +178,7 @@ const Result = () => {
             <label className='form-label mt-4'>Select the pain related question</label>
             <SelectField
               onChange={(e) => setValues({ ...values, behaviorQuestionId: e.target.value })}>
-              <option value="">Please select the pain related question</option>
+              <option value="">Select the pain related question</option>
               {
                 painBehaviorQuestionData.map(item => <option value={item._id}>{item.question}</option>)
               }

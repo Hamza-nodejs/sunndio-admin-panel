@@ -34,8 +34,8 @@ const PainRelatedQuestion = () => {
 
   const handleSubmit = async () => {
     const newErrors = {
-      question: values.question.trim() === '' ? 'Please enter the question*' : '',
-      questionEs: values.questionEs.trim() === '' ? 'Please enter the question in Spanish*' : '',
+      question: values.question.trim() === '' ? 'Please enter the Question in English*' : '',
+      questionEs: values.questionEs.trim() === '' ? 'Please enter the Question in Spanish*' : '',
     }
     setError(newErrors);
 
@@ -52,8 +52,8 @@ const PainRelatedQuestion = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      question: values.question.trim() === '' ? 'Please enter the question*' : '',
-      questionEs: values.questionEs.trim() === '' ? 'Please enter the question in Spanish*' : '',
+      question: values.question.trim() === '' ? 'Please enter the Question in English*' : '',
+      questionEs: values.questionEs.trim() === '' ? 'Please enter the Question in Spanish*' : '',
     }
     setError(newErrors);
 
@@ -75,10 +75,10 @@ const PainRelatedQuestion = () => {
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       <div>
-        <label className='form-label mt-4' htmlFor="english">Enter the pain related question in english </label>
+        <label className='form-label mt-4' htmlFor="english">Question in English</label>
         <TextField
           id="english"
-          placeholder='Enter the pain related question in english '
+          placeholder='Enter the Question in English '
           onChange={(e) => setValues({ ...values, question: e.target.value })} 
           value={values.question}
           />
@@ -86,10 +86,10 @@ const PainRelatedQuestion = () => {
       </div>
 
       <div className='mt-2'>
-        <label className='form-label mt-4' htmlFor="spanish">Enter the pain related question in spanish </label>
+        <label className='form-label mt-4' htmlFor="spanish">Question in Spanish</label>
         <TextField
           id="spanish"
-          placeholder='Enter the pain related question in spanish'
+          placeholder='Enter the Question in Spanish'
           onChange={(e) => setValues({ ...values, questionEs: e.target.value })}
           value={values.questionEs}
         />

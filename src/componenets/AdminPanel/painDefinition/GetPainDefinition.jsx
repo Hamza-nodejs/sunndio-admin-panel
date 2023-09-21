@@ -52,8 +52,8 @@ const GetPainDefinition = () => {
                     <thead>
                         <tr>
                             <th scope="col">#</th>
-                            <th scope="col">Name</th>
-                            <th scope="col">Spanish Name</th>
+                            <th scope="col">Name in English</th>
+                            <th scope="col">Name in Spanish</th>
                             <th scope="col">Pain Area name</th>
                             <th scope="col">Image</th>
                             <th scope='col'>Update</th>

@@ -33,7 +33,7 @@ const Treatment = () => {
       treatmentUrl: "",
     })
   }, [updatedValues])
-  
+
   const [error, setError] = useState({})
 
   useEffect(() => {
@@ -88,16 +88,16 @@ const Treatment = () => {
 
     const hasErrors = Object.values(newErrors).some(error => error !== '');
     if (!hasErrors) {
-      if(values.treatmentUrl === "") {
+      if (values.treatmentUrl === "") {
         const payload = {
-          diagnosticId : values.diagnosticId,
-          title : values.title,
-          titleEs : values.titleEs,
-          duration : values.duration,
-          treatmentLevel : values.treatmentLevel,
-          treatmentUrl : updatedValues?.treatmentUrl
+          diagnosticId: values.diagnosticId,
+          title: values.title,
+          titleEs: values.titleEs,
+          duration: values.duration,
+          treatmentLevel: values.treatmentLevel,
+          treatmentUrl: updatedValues?.treatmentUrl
         };
-        dispatch(updateTreatment({id : updatedValues?._id, payload}))
+        dispatch(updateTreatment({ id: updatedValues?._id, payload }))
         setValues({
           diagnosticId: "",
           title: "",
@@ -115,7 +115,7 @@ const Treatment = () => {
         payload.append("treatmentLevel", values.treatmentLevel);
         payload.append("diagnosticId", values.diagnosticId);
         payload.append("treatmentUrl", values.treatmentUrl);
-        dispatch(updateTreatment({_id : updatedValues?._id, payload}))
+        dispatch(updateTreatment({ _id: updatedValues?._id, payload }))
         setValues({
           diagnosticId: "",
           title: "",
@@ -130,90 +130,97 @@ const Treatment = () => {
   return (
     <>
       {
-        isLoading ? <Loader/> : 
-        <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
-        <div>
-          <label className='form-label mt-4'>Select the diagnosis definition</label>
-          <SelectField
-            onChange={(e) => setValues({ ...values, diagnosticId: e.target.value })}>
-            <option value="" selected={values.diagnosticId === ""}>select the diagnosis definition</option>
-            {
-              diagnosisData?.map(item => {
-                return <>
-                  <option
-                    value={item.id}
-                    selected={updatedValues?.diagnosticId?._id === item.id}
-                  >{item?.diagnostic}</option>
-                </>
+        isLoading ? <Loader /> :
+          <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
+            <div>
+              <label className='form-label mt-4'>Select the diagnosis definition</label>
+              <SelectField
+                onChange={(e) => setValues({ ...values, diagnosticId: e.target.value })}>
+                <option value="" selected={values.diagnosticId === ""}>select the diagnosis definition</option>
+                {
+                  diagnosisData?.map(item => {
+                    return <>
+                      <option
+                        value={item.id}
+                        selected={updatedValues?.diagnosticId?._id === item.id}
+                      >{item?.diagnostic}</option>
+                    </>
 
-              })
-            }
-          </SelectField>
-          {error.diagnosticId && <p className='error'>{error.diagnosticId}</p>}
-        </div>
-        <div>
-          <label className='form-label mt-4' htmlFor="english">Enter the title in english </label>
-          <TextField
-            id="english"
-            placeholder='Enter the title in english'
-            onChange={(e) => setValues({ ...values, title: e.target.value })}
-            value={values.title}
-          />
-          {error.title && <p className='error'>{error.title}</p>}
-        </div>
-        <div>
-          <label className='form-label mt-4' htmlFor="spanish">Enter the title in Spanish </label>
-          <TextField
-            id="spanish"
-            placeholder='Enter the title in spainsh'
-            onChange={(e) => setValues({ ...values, titleEs: e.target.value })}
-            value={values.titleEs}
-          />
-          {error.titleEs && <p className='error'>{error.titleEs}</p>}
-        </div>
-
-        <div className='mt-2'>
-          <label className='form-label mt-4' htmlFor="duration">Enter the video duration</label>
-          <TextField
-            id="duration"
-            placeholder='Enter the video duration'
-            onChange={(e) => setValues({ ...values, duration: e.target.value })}
-            value={values.duration}
-          />
-          {error.duration && <p className='error'>{error.duration}</p>}
-        </div>
-        <div className='mt-2'>
-          <label className='form-label mt-4' htmlFor="level">Enter the treatment level</label>
-          <TextField
-            id="level"
-            placeholder='Enter the treatment level'
-            onChange={(e) => setValues({ ...values, treatmentLevel: e.target.value })}
-            value={values.treatmentLevel}
-          />
-          {error.treatmentLevel && <p className='error'>{error.treatmentLevel}</p>}
-        </div>
-        <div className='mt-2'>
-          <label htmlFor="">Choose the video for treatment</label>
-          <FileField
-            onChange={(e) => setValues({ ...values, treatmentUrl: e.target.files[0] })}
-
-          />
-          {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
-          {
-            updatedValues?.treatmentUrl &&
-            <div style={{ display: "flex", justifyContent: "center" }}>
-              <video style={{ width: "100px", height: "100px", alignSelf: "center" }} src={updatedValues?.treatmentUrl} alt="" />
+                  })
+                }
+              </SelectField>
+              {error.diagnosticId && <p className='error'>{error.diagnosticId}</p>}
             </div>
-          }
-        </div>
+            <div>
+              <label className='form-label mt-4' htmlFor="english">Enter the title in english </label>
+              <TextField
+                id="english"
+                placeholder='Enter the title in english'
+                onChange={(e) => setValues({ ...values, title: e.target.value })}
+                value={values.title}
+              />
+              {error.title && <p className='error'>{error.title}</p>}
+            </div>
+            <div>
+              <label className='form-label mt-4' htmlFor="spanish">Enter the title in Spanish </label>
+              <TextField
+                id="spanish"
+                placeholder='Enter the title in spainsh'
+                onChange={(e) => setValues({ ...values, titleEs: e.target.value })}
+                value={values.titleEs}
+              />
+              {error.titleEs && <p className='error'>{error.titleEs}</p>}
+            </div>
 
-        {
-          updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
-            :
-            <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
-        }
+            <div className='mt-2'>
+              <label className='form-label mt-4' htmlFor="duration">Enter the video duration</label>
+              <TextField
+                id="duration"
+                placeholder='Enter the video duration'
+                onChange={(e) => setValues({ ...values, duration: e.target.value })}
+                value={values.duration}
+              />
+              {error.duration && <p className='error'>{error.duration}</p>}
+            </div>
+            <div className='mt-2'>
+              <label className='form-label mt-4' htmlFor="level">Enter the treatment level</label>
+              <TextField
+                id="level"
+                placeholder='Enter the treatment level'
+                onChange={(e) => setValues({ ...values, treatmentLevel: e.target.value })}
+                value={values.treatmentLevel}
+              />
+              {error.treatmentLevel && <p className='error'>{error.treatmentLevel}</p>}
+            </div>
+            <div className='mt-2'>
+              <label htmlFor="">Choose the video for treatment</label>
+              <FileField
+                onChange={(e) => setValues({ ...values, treatmentUrl: e.target.files[0] })}
 
-      </div>
+              />
+              {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
+              {
+                updatedValues?.treatmentUrl &&
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <video
+                    style={{ width: "100px", height: "100px", alignSelf: "center" }}
+                    autoPlay
+                    controls
+                  >
+                    Your browser does not support the video tag.
+                    <source src={updatedValues?.treatmentUrl} type="video/mp4" />
+                  </video>
+                </div>
+              }
+            </div>
+
+            {
+              updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+                :
+                <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
+            }
+
+          </div>
       }
     </>
   )

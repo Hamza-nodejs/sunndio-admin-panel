@@ -60,10 +60,10 @@ const PainBehavior = () => {
 
   const handleSubmit = async () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
-      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
-      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
+      painAreaId: values.painAreaId.trim() === '' ? 'Please select the Pain Area*' : '',
+      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the Pain Definition*' : '',
       imageUrl: values.imageUrl === '' ? 'Please select the image*' : '',
     }
     setError(newErrors);
@@ -90,10 +90,10 @@ const PainBehavior = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
-      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
-      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the pain definition*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
+      painAreaId: values.painAreaId.trim() === '' ? 'Please select the Pain Area*' : '',
+      painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the Pain Definition*' : '',
     }
     setError(newErrors);
     const hasErrors = Object.values(newErrors).some(error => error !== '');
@@ -135,10 +135,10 @@ const PainBehavior = () => {
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
 
       <div>
-        <label className='form-label mt-4'>Please select the pain area</label>
+        <label className='form-label mt-4'>Pain Area</label>
         <SelectField
           onChange={handlePainArea}>
-          <option value="" selected={values.painAreaId=== ""}> Please select the pain area</option>
+          <option value="" selected={values.painAreaId=== ""}>Please select the Pain Area</option>
           {
             painAreaData?.map(item => {
               return <option value={item._id} selected={selectedPainArea?._id === item._id}>{item?.name}</option>
@@ -148,10 +148,10 @@ const PainBehavior = () => {
         {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
       </div>
       <div>
-        <label className='form-label mt-4'>Select the pain definition</label>
+        <label className='form-label mt-4'>Pain Definition</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
-          <option value="" selected={values.painDefinitionId === ""}> Please select the pain definition </option>
+          <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
           {
             painDefintionDataById.map(item => <option value={item._id} 
               selected={updateValues?.painDefinitionId?._id === item._id}>{item.name}</option>)
@@ -161,10 +161,10 @@ const PainBehavior = () => {
       </div>
 
       <div>
-        <label className='form-label mt-4' htmlFor="english">Enter pain behavior name in english </label>
+        <label className='form-label mt-4' htmlFor="english">Pain Behavior name in English</label>
         <TextField
           id="english"
-          placeholder='Enter pain behavior name in english'
+          placeholder='Please enter Pain Behavior name in English'
           onChange={(e) => setValues({ ...values, name: e.target.value })} 
           value={values.name}
           />
@@ -172,10 +172,10 @@ const PainBehavior = () => {
       </div>
 
       <div className='mt-2'>
-        <label className='form-label mt-4' htmlFor="spanish">Enter pain behavior name in spanish</label>
+        <label className='form-label mt-4' htmlFor="spanish">Pain Behavior name in Spanish</label>
         <TextField
           id="spanish"
-          placeholder='Enter pain behavior name in spanish'
+          placeholder='Please enter Pain Behavior name in Spanish'
           onChange={(e) => setValues({ ...values, nameEs: e.target.value })}
           value={values.nameEs}
         />
@@ -184,7 +184,7 @@ const PainBehavior = () => {
 
 
       <div className='mt-2'>
-        <label className='form-label mt-4' htmlFor="">Choose the image for pain behavior</label>
+        <label className='form-label mt-4' htmlFor="">Choose the image for Pain Behavior</label>
         <FileField
           onChange={(e) => setValues({ ...values, imageUrl: e.target.files[0] })}
         />

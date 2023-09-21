@@ -43,9 +43,9 @@ const PainDefinition = () => {
 
   const handleSubmit = async () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
-      painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
+      painAreaId: values.painAreaId.trim() === '' ? 'Please select the Pain Area*' : '',
       imageUrl: values.imageUrl === '' ? 'Please select the image*' : '',
     }
     setError(newErrors);
@@ -72,9 +72,9 @@ const PainDefinition = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the Spanish name*' : '',
-      painAreaId: values.painAreaId === '' ? 'Please select the pain area*' : '',
+      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
+      painAreaId: values.painAreaId === '' ? 'Please select the Pain Area*' : '',
     }
     setError(newErrors);
 
@@ -117,10 +117,10 @@ const PainDefinition = () => {
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       <div>
-        <label className='form-label mt-4'>Select the pain area</label>
+        <label className='form-label mt-4'>Pain Area</label>
         <SelectField
           onChange={(e) => setValues({ ...values, painAreaId: e.target.value })}>
-          <option value="" selected={values.painAreaId === ""}>Please select the pain name</option>
+          <option value="" selected={values.painAreaId === ""}>Please select the Pain Area name</option>
           {
             painAreaData?.map(item => {
               return <>
@@ -133,10 +133,10 @@ const PainDefinition = () => {
         {error.painAreaId && <p className='error'>{error.painAreaId}</p>}
       </div>
       <div>
-        <label className='form-label mt-4' htmlFor="english">Enter pain definition name in english </label>
+        <label className='form-label mt-4' htmlFor="english">Pain Definition name in English</label>
         <TextField
           id="english"
-          placeholder='Enter pain definition name in english'
+          placeholder='Please enter Pain Definition name in English'
           onChange={(e) => setValues({ ...values, name: e.target.value })} 
           value={values.name}
           />
@@ -144,10 +144,10 @@ const PainDefinition = () => {
       </div>
 
       <div className='mt-2'>
-        <label className='form-label mt-4' htmlFor="spanish">Enter pain definition name in spanish </label>
+        <label className='form-label mt-4' htmlFor="spanish">Pain Definition name in Spanish</label>
         <TextField
           id="spanish"
-          placeholder='Enter pain definition name in spanish'
+          placeholder='Please enter Pain Definition name in Spanish'
           onChange={(e) => setValues({ ...values, nameEs: e.target.value })}
           value={values.nameEs}
         />
@@ -155,7 +155,7 @@ const PainDefinition = () => {
       </div>
 
       <div className='mt-2'>
-        <label htmlFor="">Choose the image for pain definition</label>
+        <label htmlFor="">Choose the image for Pain Definition</label>
         <FileField
           onChange={(e) => setValues({ ...values, imageUrl: e.target.files[0] })}
         
