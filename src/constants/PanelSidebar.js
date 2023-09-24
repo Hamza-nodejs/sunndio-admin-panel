@@ -2,7 +2,7 @@ import routes from "../config/routes";
 
 export const PanelSidebar = [
     {
-        id: '0', name: 'Pain Area', icon: 'fa-solid fa-house', subItem: {
+        id: 'Pain Area', name: 'Pain Area', icon: 'fa-solid fa-house', subItem: {
             allItem: {
                 name: "All Pain Area",
                 route: routes.panel.getPainArea
@@ -15,7 +15,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Pain Definition', icon: 'fa-brands fa-rocketchat', subItem: {
+        id: 'Pain Definition', name: 'Pain Definition', icon: 'fa-brands fa-rocketchat', subItem: {
             allItem: {
                 name: "All Pain Definition",
                 route: routes.panel.getPainDefinition
@@ -28,7 +28,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Pain Behavior', icon: 'fa-solid fa-database', subItem: {
+        id: 'Pain Bheavior', name: 'Pain Behavior', icon: 'fa-solid fa-database', subItem: {
             allItem: {
                 name: "All Pain Behavior",
                 route: routes.panel.getPainBehavior
@@ -41,7 +41,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Question Definition', icon: 'fa-sharp fa-solid fa-gear', subItem: {
+        id: 'Question', name: 'Question Definition', icon: 'fa-sharp fa-solid fa-gear', subItem: {
             allItem: {
                 name: "All Questions",
                 route: routes.panel.getQuestions
@@ -54,7 +54,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Diagnosis Definition', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+        id: 'Diagnosis', name: 'Diagnosis Definition', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All Diagnosis Definition",
                 route: routes.panel.getDiagnosisDefinition
@@ -67,7 +67,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Pain Behavior Question', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+        id: 'Pain behavior Qquestion', name: 'Pain Behavior Question', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All Behavior Question",
                 route: routes.panel.getPainBehaviorQuestion
@@ -80,7 +80,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: 'Possible Diagnosis', icon: 'fa-regular fa-solid fa-money-bill', route: routes.panel.possibleDiagnosis, subItem: {
+        id: 'Possible diagnosis', name: 'Possible Diagnosis', icon: 'fa-regular fa-solid fa-money-bill', route: routes.panel.possibleDiagnosis, subItem: {
             allItem: {
                 name: "All Possible Diagnosis ",
                 route: routes.panel.getPossibleDiagnosis
@@ -106,7 +106,7 @@ export const PanelSidebar = [
     //     }
     // },
     {
-        id: '0', name: ' Result', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+        id: 'result', name: ' Result', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All result",
                 route: routes.panel.getResult
@@ -119,7 +119,7 @@ export const PanelSidebar = [
         }
     },
     {
-        id: '0', name: ' Treatment', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
+        id: 'treatment', name: ' Treatment', icon: 'fa-regular fa-solid fa-money-bill', subItem: {
             allItem: {
                 name: "All Treatment",
                 route: routes.panel.getTreatment

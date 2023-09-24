@@ -10,10 +10,12 @@ import { useParams } from 'react-router-dom';
 
 const PainDefinition = () => {
   const dispatch = useDispatch();
-  const { id } =  useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getPainDefinitionById(id));
+    if (id) {
+      dispatch(getPainDefinitionById(id));
+    }
   }, [id, dispatch])
 
   const painDefinitionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionById)
@@ -21,13 +23,13 @@ const PainDefinition = () => {
   const [values, setValues] = useState({});
 
   useEffect(() => {
-     setValues({
-      name:  painDefinitionDataById?.name ? painDefinitionDataById?.name :  "",
+    setValues({
+      name: painDefinitionDataById?.name ? painDefinitionDataById?.name : "",
       nameEs: painDefinitionDataById?.nameEs ? painDefinitionDataById?.nameEs : "",
       painAreaId: painDefinitionDataById?.painAreaId ? painDefinitionDataById?.painAreaId?._id : "",
-      imageUrl:  "",
-     })
-  },[painDefinitionDataById])
+      imageUrl: "",
+    })
+  }, [painDefinitionDataById])
 
   const [error, setError] = useState({
     name: "",
@@ -81,28 +83,28 @@ const PainDefinition = () => {
     const hasErrors = Object.values(newErrors).some(error => error !== '');
 
     if (!hasErrors) {
-      if(values.imageUrl === "") {
+      if (values.imageUrl === "") {
         const payload = {
-          name : values.name,
-          nameEs : values.nameEs,
+          name: values.name,
+          nameEs: values.nameEs,
           painAreaId: values.painAreaId,
-          imageUrl : painDefinitionDataById.imageUrl,
+          imageUrl: painDefinitionDataById.imageUrl,
         }
-      dispatch(patchPainDefinition({id: painDefinitionDataById._id, payload: payload}));
-      setValues({
-        name: "",
-        nameEs: "",
-        painAreaId: "",
-        imageUrl: "",
-      })
-      
+        dispatch(patchPainDefinition({ id: painDefinitionDataById._id, payload: payload }));
+        setValues({
+          name: "",
+          nameEs: "",
+          painAreaId: "",
+          imageUrl: "",
+        })
+
       } else {
         const payload = new FormData();
         payload.append("name", values.name);
         payload.append("nameEs", values.nameEs);
         payload.append("painAreaId", values.painAreaId);
         payload.append("imageUrl", values.imageUrl);
-        dispatch(patchPainDefinition({id: painDefinitionDataById._id, payload: payload}));
+        dispatch(patchPainDefinition({ id: painDefinitionDataById._id, payload: payload }));
         setValues({
           name: "",
           nameEs: "",
@@ -137,9 +139,9 @@ const PainDefinition = () => {
         <TextField
           id="english"
           placeholder='Please enter Pain Definition name in English'
-          onChange={(e) => setValues({ ...values, name: e.target.value })} 
+          onChange={(e) => setValues({ ...values, name: e.target.value })}
           value={values.name}
-          />
+        />
         {error.name && <p className='error'>{error.name}</p>}
       </div>
 
@@ -158,22 +160,22 @@ const PainDefinition = () => {
         <label htmlFor="">Choose the image for Pain Definition</label>
         <FileField
           onChange={(e) => setValues({ ...values, imageUrl: e.target.files[0] })}
-        
+
         />
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
         {
-        
+
           painDefinitionDataById?.imageUrl &&
-          <div style={{display: "flex" , justifyContent: "center"}}>
-           <img style={{width: "200px", height: "200px", alignSelf: "center"}} src={painDefinitionDataById?.imageUrl} alt="" />
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img style={{ width: "200px", height: "200px", alignSelf: "center" }} src={painDefinitionDataById?.imageUrl} alt="" />
           </div>
         }
       </div>
       {
-          painDefinitionDataById ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        painDefinitionDataById ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
-        }
+      }
     </div>
 
   )

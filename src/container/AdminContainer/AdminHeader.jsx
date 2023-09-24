@@ -6,9 +6,9 @@ const AdminHeader = () => {
   return (
     <>
       <header id="panel_header">
-        <div className="dropdown show" style={{position: "absolute", right: 20}}>
+        {/* <div className="dropdown show" style={{position: "absolute", right: 20}}>
           <button className="btn btn-primary">Logout</button>
-        </div>
+        </div> */}
       </header>
     </>
   );

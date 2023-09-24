@@ -11,8 +11,10 @@ const PainRelatedQuestion = () => {
   const { id } = useParams();
 
   useEffect(() => {
+    if (id) {
       dispatch(getQuestionById(id));
-  },[id, dispatch])
+    }
+  }, [id, dispatch])
 
   const updatedValues = useSelector(state => state?.questionDefinitionSlice?.questionDataById);
 
@@ -21,8 +23,8 @@ const PainRelatedQuestion = () => {
 
   useEffect(() => {
     setValues({
-      question : updatedValues?.question ? updatedValues?.question : "",
-      questionEs : updatedValues?.questionEs ? updatedValues?.questionEs : "",
+      question: updatedValues?.question ? updatedValues?.question : "",
+      questionEs: updatedValues?.questionEs ? updatedValues?.questionEs : "",
     })
   }, [updatedValues]);
 
@@ -45,7 +47,7 @@ const PainRelatedQuestion = () => {
       setValues({
         question: "",
         questionEs: "",
-    
+
       })
     }
   }
@@ -59,13 +61,13 @@ const PainRelatedQuestion = () => {
 
     const hasErrors = Object.values(newErrors).some(error => error !== '');
 
-    if(!hasErrors) {
-       const payload = {
-        question : values.question,
-        questionEs : values.questionEs,
-       }
-       dispatch(patchQuestionDefinition({id: updatedValues._id, payload}));
-       setValues({
+    if (!hasErrors) {
+      const payload = {
+        question: values.question,
+        questionEs: values.questionEs,
+      }
+      dispatch(patchQuestionDefinition({ id: updatedValues._id, payload }));
+      setValues({
         question: "",
         questionEs: "",
       })
@@ -78,10 +80,10 @@ const PainRelatedQuestion = () => {
         <label className='form-label mt-4' htmlFor="english">Question in English</label>
         <TextField
           id="english"
-          placeholder='Enter the Question in English '
-          onChange={(e) => setValues({ ...values, question: e.target.value })} 
+          placeholder='Please enter the Question in English '
+          onChange={(e) => setValues({ ...values, question: e.target.value })}
           value={values.question}
-          />
+        />
         {error.question && <p className='error'>{error.question}</p>}
       </div>
 
@@ -89,17 +91,17 @@ const PainRelatedQuestion = () => {
         <label className='form-label mt-4' htmlFor="spanish">Question in Spanish</label>
         <TextField
           id="spanish"
-          placeholder='Enter the Question in Spanish'
+          placeholder='Please enter the Question in Spanish'
           onChange={(e) => setValues({ ...values, questionEs: e.target.value })}
           value={values.questionEs}
         />
         {error.questionEs && <p className='error'>{error.questionEs}</p>}
       </div>
       {
-          updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
-        }
+      }
 
     </div>
   )

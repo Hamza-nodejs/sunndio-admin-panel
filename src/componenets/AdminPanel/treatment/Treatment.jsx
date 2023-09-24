@@ -15,7 +15,10 @@ const Treatment = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getTreatmentById(id))
+    if (id) {
+      dispatch(getTreatmentById(id))
+    }
+
   }, [id, dispatch])
 
   const updatedValues = useSelector(state => state?.treatmentSlice?.treatmentDataById);
@@ -44,7 +47,7 @@ const Treatment = () => {
 
   const handleSubmit = () => {
     const newErrors = {
-      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis defintion*" : "",
+      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis definition*" : "",
       title: values.title === "" ? "Please enter the title*" : "",
       titleEs: values.titleEs === "" ? "Please enter the title in spanish" : "",
       duration: values.duration === "" ? "Please eneter the duration for video" : "",
@@ -78,7 +81,7 @@ const Treatment = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis defintion*" : "",
+      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis definition*" : "",
       title: values.title === "" ? "Please enter the title*" : "",
       titleEs: values.titleEs === "" ? "Please enter the title in spanish" : "",
       duration: values.duration === "" ? "Please eneter the duration for video" : "",
@@ -133,10 +136,10 @@ const Treatment = () => {
         isLoading ? <Loader /> :
           <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             <div>
-              <label className='form-label mt-4'>Select the diagnosis definition</label>
+              <label className='form-label mt-4'>Diagnosis Definition</label>
               <SelectField
                 onChange={(e) => setValues({ ...values, diagnosticId: e.target.value })}>
-                <option value="" selected={values.diagnosticId === ""}>select the diagnosis definition</option>
+                <option value="" selected={values.diagnosticId === ""}>Please select the diagnosis definition</option>
                 {
                   diagnosisData?.map(item => {
                     return <>
@@ -152,20 +155,20 @@ const Treatment = () => {
               {error.diagnosticId && <p className='error'>{error.diagnosticId}</p>}
             </div>
             <div>
-              <label className='form-label mt-4' htmlFor="english">Enter the title in english </label>
+              <label className='form-label mt-4' htmlFor="english">Title in English </label>
               <TextField
                 id="english"
-                placeholder='Enter the title in english'
+                placeholder='Please enter the title in English'
                 onChange={(e) => setValues({ ...values, title: e.target.value })}
                 value={values.title}
               />
               {error.title && <p className='error'>{error.title}</p>}
             </div>
             <div>
-              <label className='form-label mt-4' htmlFor="spanish">Enter the title in Spanish </label>
+              <label className='form-label mt-4' htmlFor="spanish">Title in Spanish </label>
               <TextField
                 id="spanish"
-                placeholder='Enter the title in spainsh'
+                placeholder='Please enter the title in Spainsh'
                 onChange={(e) => setValues({ ...values, titleEs: e.target.value })}
                 value={values.titleEs}
               />
@@ -173,20 +176,20 @@ const Treatment = () => {
             </div>
 
             <div className='mt-2'>
-              <label className='form-label mt-4' htmlFor="duration">Enter the video duration</label>
+              <label className='form-label mt-4' htmlFor="duration">Video duration</label>
               <TextField
                 id="duration"
-                placeholder='Enter the video duration'
+                placeholder='Please enter the video duration'
                 onChange={(e) => setValues({ ...values, duration: e.target.value })}
                 value={values.duration}
               />
               {error.duration && <p className='error'>{error.duration}</p>}
             </div>
             <div className='mt-2'>
-              <label className='form-label mt-4' htmlFor="level">Enter the treatment level</label>
+              <label className='form-label mt-4' htmlFor="level">Treatment level</label>
               <TextField
                 id="level"
-                placeholder='Enter the treatment level'
+                placeholder='Please enter the treatment level'
                 onChange={(e) => setValues({ ...values, treatmentLevel: e.target.value })}
                 value={values.treatmentLevel}
               />

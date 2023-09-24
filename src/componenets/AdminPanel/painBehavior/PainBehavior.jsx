@@ -11,11 +11,13 @@ import { useParams } from 'react-router-dom';
 
 const PainBehavior = () => {
   const dispatch = useDispatch();
-  const { id }  = useParams();
+  const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getPainBehaviorById(id))
-  },[id, dispatch])
+    if (id) {
+      dispatch(getPainBehaviorById(id))
+    }
+  }, [id, dispatch])
 
   const updateValues = useSelector(state => state?.painBehavior?.allPainBehaviorDataById);
 
@@ -23,13 +25,13 @@ const PainBehavior = () => {
 
   useEffect(() => {
     setValues({
-      name: updateValues?.name ? updateValues?.name :  "",
-      nameEs: updateValues?.nameEs ? updateValues?.nameEs :  "",
-      painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId :  "",
-      painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id :  "", 
-      imageUrl:  "",
+      name: updateValues?.name ? updateValues?.name : "",
+      nameEs: updateValues?.nameEs ? updateValues?.nameEs : "",
+      painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId : "",
+      painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id : "",
+      imageUrl: "",
     })
-  },[updateValues])
+  }, [updateValues])
 
   const [error, setError] = useState({
     name: "",
@@ -97,29 +99,29 @@ const PainBehavior = () => {
     }
     setError(newErrors);
     const hasErrors = Object.values(newErrors).some(error => error !== '');
-    if(!hasErrors) {
+    if (!hasErrors) {
       if (values.imageUrl === "") {
         const payload = {
-          name : values.name,
-          nameEs : values.nameEs,
+          name: values.name,
+          nameEs: values.nameEs,
           painDefinitionId: values.painDefinitionId,
-          imageUrl : updateValues.imageUrl,
+          imageUrl: updateValues.imageUrl,
         }
-       dispatch(patchPainBehavior({id: updateValues._id, payload}))
-       setValues({
-        name: "",
-        nameEs: "",
-        painAreaId: "",
-        painDefinitionId: "",
-        imageUrl: "",
-      })
+        dispatch(patchPainBehavior({ id: updateValues._id, payload }))
+        setValues({
+          name: "",
+          nameEs: "",
+          painAreaId: "",
+          painDefinitionId: "",
+          imageUrl: "",
+        })
       } else {
         const payload = new FormData();
         payload.append("name", values.name);
         payload.append("nameEs", values.nameEs);
         payload.append("painDefinitionId", values.painDefinitionId);
         payload.append("imageUrl", values.imageUrl);
-        dispatch(patchPainBehavior({id: updateValues._id, payload: payload}));
+        dispatch(patchPainBehavior({ id: updateValues._id, payload: payload }));
         setValues({
           name: "",
           nameEs: "",
@@ -138,7 +140,7 @@ const PainBehavior = () => {
         <label className='form-label mt-4'>Pain Area</label>
         <SelectField
           onChange={handlePainArea}>
-          <option value="" selected={values.painAreaId=== ""}>Please select the Pain Area</option>
+          <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
           {
             painAreaData?.map(item => {
               return <option value={item._id} selected={selectedPainArea?._id === item._id}>{item?.name}</option>
@@ -153,7 +155,7 @@ const PainBehavior = () => {
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
           <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
           {
-            painDefintionDataById.map(item => <option value={item._id} 
+            painDefintionDataById.map(item => <option value={item._id}
               selected={updateValues?.painDefinitionId?._id === item._id}>{item.name}</option>)
           }
         </SelectField>
@@ -165,9 +167,9 @@ const PainBehavior = () => {
         <TextField
           id="english"
           placeholder='Please enter Pain Behavior name in English'
-          onChange={(e) => setValues({ ...values, name: e.target.value })} 
+          onChange={(e) => setValues({ ...values, name: e.target.value })}
           value={values.name}
-          />
+        />
         {error.name && <p className='error'>{error.name}</p>}
       </div>
 
@@ -191,17 +193,17 @@ const PainBehavior = () => {
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
 
         {
-        updateValues?.imageUrl &&
-        <div style={{display: "flex" , justifyContent: "center"}}>
-         <img style={{width: "100px", height: "100px", alignSelf: "center"}} src={updateValues?.imageUrl} alt="" />
-        </div>
-      }
+          updateValues?.imageUrl &&
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img style={{ width: "100px", height: "100px", alignSelf: "center" }} src={updateValues?.imageUrl} alt="" />
+          </div>
+        }
       </div>
       {
-          updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
-        }
+      }
 
     </div>
   )

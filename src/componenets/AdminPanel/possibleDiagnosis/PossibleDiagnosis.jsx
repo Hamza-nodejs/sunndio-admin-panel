@@ -15,7 +15,10 @@ const PossibleDiagnosis = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        dispatch(getPossibleDiagnosisById(id))
+        if (id) {
+            dispatch(getPossibleDiagnosisById(id))
+        }
+
     }, [id, dispatch]);
 
     const updateValues = useSelector(state => state?.possibleDiagnosisSlice?.possibleDiagnosisDataById);
@@ -71,7 +74,7 @@ const PossibleDiagnosis = () => {
 
     const handleSubmit = async () => {
         const newErrors = {
-            diagnosticsId: values.diagnosticsId.trim() === '' ? 'Please select the Id*' : '',
+            diagnosticsId: values.diagnosticsId.trim() === '' ? 'Please select the diagnosis*' : '',
             isPossibleDiag: values.isPossibleDiag.trim() === '' ? 'Please select the possibble diagnosis*' : '',
             painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain behavior*' : '',
             painAreaId: values.painAreaId.trim() === '' ? 'Please select the pain area*' : '',
@@ -107,20 +110,20 @@ const PossibleDiagnosis = () => {
 
     const handleUpdate = () => {
         const newErrors = {
-            diagnosticsId: values.diagnosticsId.trim() === '' ? 'Please select the Id*' : '',
+            diagnosticsId: values.diagnosticsId.trim() === '' ? 'Please select the diagnosi*' : '',
             isPossibleDiag: values.isPossibleDiag === '' ? 'Please select the possibble diagnosis*' : '',
             painBehaviorId: values.painBehaviorId.trim() === '' ? 'Please select the pain behavior*' : '',
         }
         setError(newErrors);
         const hasErrors = Object.values(newErrors).some(error => error !== '');
-        if(!hasErrors) {
+        if (!hasErrors) {
             const payload = {
-                diagnosticsId : values.diagnosticsId,
-                painBehaviorId : values.painBehaviorId,
-                isPossibleDiag : values.isPossibleDiag,
+                diagnosticsId: values.diagnosticsId,
+                painBehaviorId: values.painBehaviorId,
+                isPossibleDiag: values.isPossibleDiag,
             }
-    
-            dispatch(patchPossibleDiagnosis({id: updateValues._id, payload}))
+
+            dispatch(patchPossibleDiagnosis({ id: updateValues._id, payload }))
             setValues({
                 diagnosticsId: '',
                 isPossibleDiag: '',
@@ -137,26 +140,26 @@ const PossibleDiagnosis = () => {
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
             {
                 !updateValues && <div>
-                    <label className='form-label mt-4'>Please select the pain area</label>
+                    <label className='form-label mt-4'>Pain Area</label>
                     <SelectField
                         onChange={handlePainArea}>
-                        <option value="" selected={values.painAreaId === ""}>Please select the pain definition</option>
+                        <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
                         {
                             painAreaData?.map(item => {
                                 return <option value={item._id}>{item?.name}</option>
                             })
                         }
                     </SelectField>
-                    {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
+                    {error.painAreaId && <p className='error'>{error.painAreaId}</p>}
                 </div>
             }
             {
                 !updateValues &&
                 <div>
-                    <label className='form-label mt-4'>Select the pain definition</label>
+                    <label className='form-label mt-4'>Pain Definition</label>
                     <SelectField
                         onChange={handlePainDefinition}>
-                        <option value="" selected={values.painDefinitionId === ""}>Please select the pain definition</option>
+                        <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
                         {
                             painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
                         }
@@ -166,10 +169,10 @@ const PossibleDiagnosis = () => {
             }
 
             <div>
-                <label className='form-label mt-4'>Please Select pain behavior</label>
+                <label className='form-label mt-4'>Pain Behavior</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, painBehaviorId: e.target.value })}>
-                    <option value="" selected={values.painBehaviorId === ""}>Please select the pain behavior</option>
+                    <option value="" selected={values.painBehaviorId === ""}>Please select the Pain Behavior</option>
                     {
                         painBehaviorDataById.map(item => <option
                             value={item._id}
@@ -181,10 +184,10 @@ const PossibleDiagnosis = () => {
                 {error.painBehaviorId && <p className='error'>{error.painBehaviorId}</p>}
             </div>
             <div>
-                <label className='form-label mt-4'>Select the diagnosis definition</label>
+                <label className='form-label mt-4'>Diagnosis Definition</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, diagnosticsId: e.target.value })}>
-                    <option value="" selected={values.diagnosticsId === ""}>select the diagnosis definition</option>
+                    <option value="" selected={values.diagnosticsId === ""}>Please select the diagnosis definition</option>
                     {
                         diagnosisData?.map(item => {
                             return <>
@@ -200,7 +203,7 @@ const PossibleDiagnosis = () => {
                 {error.diagnosticsId && <p className='error'>{error.diagnosticsId}</p>}
             </div>
             <div>
-                <label className='form-label mt-4'>Select the possible diagnosis</label>
+                <label className='form-label mt-4'>Possible Diagnosis</label>
                 <SelectField
                     onChange={(e) => setValues({ ...values, isPossibleDiag: e.target.value })}>
                     <option value="" selected={values.isPossibleDiag === ""}>Please select the possible diagnosis</option>
@@ -211,10 +214,10 @@ const PossibleDiagnosis = () => {
             </div>
             {
                 !updateValues && <div>
-                    <label htmlFor="pointX" className='form-label mt-4'>Enter the initial probability</label>
+                    <label htmlFor="pointX" className='form-label mt-4'>Initial probability</label>
                     <NumberField
                         id="pointX"
-                        placeholder='Enter the value horizontally'
+                        placeholder='Please enter the initial probability'
                         onChange={(e) => setValues({ ...values, initialProbability: parseInt(e.target.value) })}
                         value={values.initialProbability}
                     />

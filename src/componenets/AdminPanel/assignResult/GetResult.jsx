@@ -50,7 +50,7 @@ const GetResult = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData.length > 0 ? <table class="table" height='200px'>
+                showData.length > 0 ? <table className="table" height='200px'>
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -66,7 +66,7 @@ const GetResult = () => {
                     <tbody>
                         {
                             showData?.map((item, index) => {
-                                return <tr>
+                                return <tr key={item?._id}>
                                     <th scope="row">{firstNumber + index + 1}</th>
                                     <td>{item.painBehaviorId?.name}</td>
                                     <td>{item.painBehaviorQuestionId?.questionId?.question}</td>

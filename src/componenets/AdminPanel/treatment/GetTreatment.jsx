@@ -48,7 +48,7 @@ const GetTreatment = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData.length > 0 ? <table class="table">
+                showData.length > 0 ? <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -65,7 +65,7 @@ const GetTreatment = () => {
                     <tbody>
                         {
                             showData?.map((item, index) => {
-                                return <tr>
+                                return <tr key={item?._id}>
                                     <th scope="row">{index + 1 + firstNumber}</th>
                                     <td>{item?.diagnosticId?.diagnosisName}</td>
                                     <td>{item?.title}</td>
