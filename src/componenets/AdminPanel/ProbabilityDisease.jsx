@@ -68,7 +68,6 @@ const ProbabilityDisease = () => {
       }
 
       dispatch(postProbabilityDisease(probability));
-      console.log(values);
     }
   }
 

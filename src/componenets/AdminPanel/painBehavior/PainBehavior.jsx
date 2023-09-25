@@ -55,7 +55,9 @@ const PainBehavior = () => {
 
   const handlePainArea = (e) => {
     setValues({ ...values, painAreaId: e.target.value });
-    dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+    if(e.target.value) {
+      dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+    }
   }
 
   const painDefintionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionDataByAreaId);
@@ -143,7 +145,7 @@ const PainBehavior = () => {
           <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
           {
             painAreaData?.map(item => {
-              return <option value={item._id} selected={selectedPainArea?._id === item._id}>{item?.name}</option>
+              return <option key={item._id} value={item._id} selected={selectedPainArea?._id === item._id}>{item?.name}</option>
             })
           }
         </SelectField>
@@ -155,7 +157,7 @@ const PainBehavior = () => {
           onChange={(e) => setValues({ ...values, painDefinitionId: e.target.value })}>
           <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
           {
-            painDefintionDataById.map(item => <option value={item._id}
+            painDefintionDataById.map(item => <option key={item._id}  value={item._id}
               selected={updateValues?.painDefinitionId?._id === item._id}>{item.name}</option>)
           }
         </SelectField>

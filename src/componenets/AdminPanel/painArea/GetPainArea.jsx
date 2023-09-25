@@ -15,7 +15,7 @@ const GetPainArea = () => {
     
     const handlePainAreaDelete = (id) => {
         dispatch(deletePainArea(id));
-        window.location.reload()
+        dispatch(getAllPainArea());
     }
 
     const painAreaData = useSelector(state => state?.painArea?.allPainArea);

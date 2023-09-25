@@ -38,7 +38,7 @@ const GetTreatment = () => {
 
     const handleTreatmentDelete = (id) => {
         dispatch(deleteTreatment(id));
-        window.location.reload()
+        dispatch(getAllTreatment());
     }
 
     const handlePainAreaUpdate = (Values) => {

@@ -38,7 +38,7 @@ const GetPainBehavior = () => {
 
     const handlePainBehaviorDelete = (id) => {
         dispatch(deletPainBehavior(id));
-        window.location.reload()
+        dispatch(getAllPainBehaviorData());
     }
 
     const handlePainBehaviorUpdate = (Values) => {

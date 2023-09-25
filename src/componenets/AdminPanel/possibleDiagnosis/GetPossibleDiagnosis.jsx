@@ -38,7 +38,8 @@ const GetPossibleDiagnosis = () => {
 
     const handlePossibleDiagnosisDelete = (id) => {
         dispatch(deletePossibleDaignosis(id));
-        window.location.reload();
+        dispatch(getAllPossibleDiagnosis());
+       
     }
 
     const handlePossibleDiagnosisUpdate = (Values) => {

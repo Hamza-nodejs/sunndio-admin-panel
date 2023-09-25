@@ -144,6 +144,7 @@ const Treatment = () => {
                   diagnosisData?.map(item => {
                     return <>
                       <option
+                      key={item._id} 
                         value={item.id}
                         selected={updatedValues?.diagnosticId?._id === item.id}
                       >{item?.diagnostic}</option>

@@ -9,6 +9,7 @@ import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinit
 import { getQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
 import { getPainBehaviorQuestionById, patchPainBehaviorQuestion, postPainBehaviorQuestion } from '../../../redux/slices/painBehaviorQuestion';
 import { useParams } from 'react-router-dom';
+import Select from 'react-select';
 
 const PainBehaviorQuestion = () => {
     const dispatch = useDispatch();
@@ -25,6 +26,7 @@ const PainBehaviorQuestion = () => {
     const updateValue = useSelector(state => state?.painBehaviorQuestionSlice?.painBehaviorDataById);
 
     const [values, setValues] = useState({})
+    const [question, setQuestion] = useState(null)
 
     useEffect(() => {
         setValues({
@@ -54,18 +56,24 @@ const PainBehaviorQuestion = () => {
 
     const handlePainArea = (e) => {
         setValues({ ...values, painAreaId: e.target.value });
-        dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+        if (e.target.value) {
+            dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+        }
     }
 
     const painDefintionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionDataByAreaId);
 
     const handlePainDefinition = (e) => {
         setValues({ ...values, painDefinitionId: e.target.value });
-        dispatch(getPainBehaviorByPainAreaId(e.target.value));
+        if (e.target.value) {
+            dispatch(getPainBehaviorByPainAreaId(e.target.value));
+        }
     }
 
     useEffect(() => {
-        dispatch(getPainBehaviorByPainAreaId(updateValue?.painBehaviorId?.painDefinitionId));
+        if (updateValue?.painBehaviorId?.painDefinitionId) {
+            dispatch(getPainBehaviorByPainAreaId(updateValue?.painBehaviorId?.painDefinitionId));
+        }
     }, [updateValue, dispatch])
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
@@ -95,6 +103,7 @@ const PainBehaviorQuestion = () => {
                 questionId: '',
                 gifUrl: ''
             })
+            setQuestion(null)
         }
 
     }
@@ -110,7 +119,7 @@ const PainBehaviorQuestion = () => {
             if (values.gifUrl === "") {
                 const payload = {
                     questionId: values.questionId,
-                    painAreaId: values.painBehaviorId,
+                    painBehaviorId: values.painBehaviorId,
                     gifUrl: updateValue.gifUrl,
                 }
                 dispatch(patchPainBehaviorQuestion({ id: updateValue._id, payload }))
@@ -121,6 +130,7 @@ const PainBehaviorQuestion = () => {
                     questionId: '',
                     gifUrl: ''
                 })
+                setQuestion(null)
             }
             else {
                 const payload = new FormData();
@@ -136,6 +146,7 @@ const PainBehaviorQuestion = () => {
                     questionId: '',
                     gifUrl: ''
                 })
+                setQuestion(null)
             }
         }
     }
@@ -152,7 +163,7 @@ const PainBehaviorQuestion = () => {
                         <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
                         {
                             painAreaData?.map(item => {
-                                return <option value={item?._id}>{item?.name}</option>
+                                return <option key={item?._id} value={item?._id}>{item?.name}</option>
                             })
                         }
                     </SelectField>
@@ -167,7 +178,7 @@ const PainBehaviorQuestion = () => {
                         onChange={handlePainDefinition}>
                         <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
                         {
-                            painDefintionDataById.map(item => <option value={item?._id}>{item?.name}</option>)
+                            painDefintionDataById.map(item => <option key={item?._id} value={item?._id}>{item?.name}</option>)
                         }
                     </SelectField>
                     {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
@@ -182,6 +193,7 @@ const PainBehaviorQuestion = () => {
                     {
                         painBehaviorDataById?.map(item => <option
                             value={item?._id}
+                            key={item?._id}
                             selected={updateValue?.painBehaviorId?._id === item._id}
                         >{item?.name}</option>)
                     }
@@ -191,7 +203,7 @@ const PainBehaviorQuestion = () => {
             </div>
             <div>
                 <label className='form-label mt-4'>Question</label>
-                <SelectField
+                {/* <SelectField
                     onChange={(e) => setValues({ ...values, questionId: e.target.value })}>
                     <option value="" selected={values.questionId === ""}>Please select the Question</option>
                     {
@@ -201,7 +213,20 @@ const PainBehaviorQuestion = () => {
                         >{item.question}</option>)
                     }
 
-                </SelectField>
+                </SelectField> */}
+
+                <Select
+                    onChange={(e) => {
+                        setValues({ ...values, questionId: e.value });
+                        setQuestion(e)
+
+                    }}
+                    className='form-control'
+                    value={question}
+                    options={questionDefinitionData.map(option => ({ value: option._id, label: option.question }))}
+                    placeholder={updateValue.questionId ? updateValue?.questionId?.question : "Please select the Question"}
+                />
+
                 {error.questionId && <p className='error'>{error.questionId}</p>}
             </div>
 

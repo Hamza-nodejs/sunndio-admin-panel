@@ -9,7 +9,6 @@ const initialState = {
 
 const postDiagnosisDefinition = createAsyncThunk('diagnosisDefinition', async (values) => {
   const response = await api.postDiagnosisDefinition(values);
-  console.log(response);
   return response.data
 });
 

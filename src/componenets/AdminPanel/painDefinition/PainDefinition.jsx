@@ -126,7 +126,7 @@ const PainDefinition = () => {
           {
             painAreaData?.map(item => {
               return <>
-                <option value={item._id} selected={painDefinitionDataById?.painAreaId?._id === item._id}>{item.name}</option>
+                <option key={item._id} value={item._id} selected={painDefinitionDataById?.painAreaId?._id === item._id}>{item.name}</option>
               </>
             })
           }

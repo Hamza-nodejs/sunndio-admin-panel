@@ -38,7 +38,7 @@ const GetAllQuestion = () => {
 
     const handleDeleteQuestion = (id) => {
         dispatch(deleteQuestion(id));
-        window.location.reload()
+        dispatch(getAllQuestion());
     }
 
     const handleUpdateQuestion = (Values) => {

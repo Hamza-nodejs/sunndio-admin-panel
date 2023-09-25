@@ -147,7 +147,7 @@ const Result = () => {
               <option value="">Please select the Pain Area</option>
               {
                 painAreaData?.map(item => {
-                  return <option value={item._id}>{item?.name}</option>
+                  return <option key={item._id} value={item._id}>{item?.name}</option>
                 })
               }
             </SelectField>
@@ -159,7 +159,7 @@ const Result = () => {
               onChange={handlePainDefinition}>
               <option value="">Please select the Pain Definition</option>
               {
-                painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
+                painDefintionDataById.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
               }
             </SelectField>
             {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
@@ -170,7 +170,7 @@ const Result = () => {
               onChange={handlePainBehavior}>
               <option value="">Please select the Pain Behavior</option>
               {
-                painBehaviorDataById.map(item => <option value={item._id}>{item.name}</option>)
+                painBehaviorDataById.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
               }
 
             </SelectField>
@@ -182,7 +182,7 @@ const Result = () => {
               onChange={(e) => setValues({ ...values, behaviorQuestionId: e.target.value })}>
               <option value="">Please select the Question</option>
               {
-                painBehaviorQuestionData.map(item => <option value={item._id}>{item.question}</option>)
+                painBehaviorQuestionData.map(item => <option key={item._id} value={item._id}>{item.question}</option>)
               }
 
             </SelectField>
@@ -201,7 +201,7 @@ const Result = () => {
             <tbody>
               {
                 possibleDiagnosisData?.map(item => {
-                  return <tr>
+                  return <tr key={item._id} >
                     <td>{item.diagnosisName}</td>
                     <td>
                       <NumberField

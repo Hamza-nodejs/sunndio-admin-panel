@@ -39,7 +39,7 @@ const GetDiagnosisDefinitions = () => {
 
     const handlePainAreaDelete = (id) => {
         dispatch(deleteDianosisDefinition(id));
-        window.location.reload()
+        dispatch(getAllDiagnosisDefinition());
     }
 
     const handlePainAreaUpdate = (Values) => {

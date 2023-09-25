@@ -38,7 +38,7 @@ const GetPainDefinition = () => {
 
     const handlePainDefinitionDelete = (id) => {
         dispatch(deletePainDefinition(id));
-        window.location.reload()
+        dispatch(getPainDefintion());
     }
 
     const handlePainDefinitionUpdate = (Values) => {

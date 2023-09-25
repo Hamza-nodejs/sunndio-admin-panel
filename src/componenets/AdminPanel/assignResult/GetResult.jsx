@@ -28,7 +28,7 @@ const GetResult = () => {
 
     const handleAssignResultDelete = (id) => {
         dispatch(assignResultDelete(id));
-        window.location.reload();
+        dispatch(getAssignResult());
     }
 
     const handleAssignResultUpdate = (Values) => {
