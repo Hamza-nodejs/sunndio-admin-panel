@@ -46,8 +46,8 @@ const Diagnosis = () => {
     const newErrors = {
       diagnosisName: values.diagnosisName.trim() === '' ? 'Please enter the Diagnosis name in English*' : '',
       diagnosisNameEs: values.diagnosisNameEs.trim() === '' ? 'Please enter the Diagnosis name in Spanish*' : '',
-      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the Description*' : '',
-      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the Description*' : '',
+      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the Description in English*' : '',
+      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the Description in Spanish*' : '',
       treated: values.treated.trim() === '' ? 'Please enter the Treatment in English*' : '',
       treatedEs: values.treatedEs.trim() === '' ? 'Please enter the Treatment in Spanish*' : '',
       treatmentTime: values.treatmentTime.trim() === '' ? 'Please enter the Treatment Time in English*' : '',
@@ -76,8 +76,8 @@ const Diagnosis = () => {
     const newErrors = {
       diagnosisName: values.diagnosisName.trim() === '' ? 'Please enter the Diagnosis name in English*' : '',
       diagnosisNameEs: values.diagnosisNameEs.trim() === '' ? 'Please enter the Diagnosis name in Spanish*' : '',
-      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the Description*' : '',
-      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the Description*' : '',
+      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the Description in English*' : '',
+      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the Description Spanish*' : '',
       treated: values.treated.trim() === '' ? 'Please enter the Treatment in English*' : '',
       treatedEs: values.treatedEs.trim() === '' ? 'Please enter the Treatment in Spanish*' : '',
       treatmentTime: values.treatmentTime.trim() === '' ? 'Please enter the Treatment Time in English*' : '',
