@@ -104,20 +104,20 @@ const Diagnosis = () => {
   return (
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', padding: "30px" }}>
       <div>
-        <label className='form-label mt-4' htmlFor="diagnosis-eng">Pain diagnosis name in English </label>
+        <label className='form-label mt-4' htmlFor="diagnosis-eng">Pain Diagnosis name in English </label>
         <TextField
           id="diagnosis-eng"
-          placeholder='Please enter pain diagnosis name in English '
+          placeholder='Please enter Pain Diagnosis name in English '
           onChange={(e) => setValues({ ...values, diagnosisName: e.target.value })}
           value={values.diagnosisName}
         />
         {error.diagnosisName && <p className='error'>{error.diagnosisName}</p>}
       </div>
       <div>
-        <label className='form-label mt-4' htmlFor="diagnosis-spanish">Pain diagnosis name in Spanish </label>
+        <label className='form-label mt-4' htmlFor="diagnosis-spanish">Pain Diagnosis name in Spanish </label>
         <TextField
           id="diagnosis-spanish"
-          placeholder='Please enter pain diagnosis name in Spanish'
+          placeholder='Please enter Pain Diagnosis name in Spanish'
           onChange={(e) => setValues({ ...values, diagnosisNameEs: e.target.value })}
           value={values.diagnosisNameEs}
         />
@@ -128,7 +128,7 @@ const Diagnosis = () => {
         <label className='form-label mt-4' htmlFor="des-eng">Diagnosis description in English </label>
         <TextField
           id="des-eng"
-          placeholder='Please enter diagnosis description in English'
+          placeholder='Please enter Diagnosis description in English'
           onChange={(e) => setValues({ ...values, diagnosisDesc: e.target.value })}
           value={values.diagnosisDesc}
         />
@@ -138,7 +138,7 @@ const Diagnosis = () => {
         <label className='form-label mt-4' htmlFor="des-es">Diagnosis description in Spanish</label>
         <TextField
           id="des-es"
-          placeholder='Please enter diagnosis description in Spanish'
+          placeholder='Please enter Diagnosis description in Spanish'
           onChange={(e) => setValues({ ...values, diagnosisDescEs: e.target.value })}
           value={values.diagnosisDescEs}
         />
@@ -146,20 +146,20 @@ const Diagnosis = () => {
       </div>
 
       <div>
-        <label className='form-label mt-4' htmlFor="treated">Name of treatment in English</label>
+        <label className='form-label mt-4' htmlFor="treated">Name of Treatment in English</label>
         <TextField
           id="treated"
-          placeholder='Please enter the name of treatment in English'
+          placeholder='Please enter the name of Treatment in English'
           onChange={(e) => setValues({ ...values, treated: e.target.value })}
           value={values.treated}
         />
         {error.treated && <p className='error'>{error.treated}</p>}
       </div>
       <div>
-        <label className='form-label mt-4' htmlFor="treated-es">Name of treatment in Spanish</label>
+        <label className='form-label mt-4' htmlFor="treated-es">Name of Treatment in Spanish</label>
         <TextField
           id="treated-es"
-          placeholder='Please enter the name of treatment in Spanish'
+          placeholder='Please enter the name of Treatment in Spanish'
           onChange={(e) => setValues({ ...values, treatedEs: e.target.value })}
           value={values.treatedEs}
         />
@@ -167,20 +167,20 @@ const Diagnosis = () => {
       </div>
       <div>
 
-        <label className='form-label mt-4' htmlFor="traeted-time">Treatment time in English </label>
+        <label className='form-label mt-4' htmlFor="traeted-time">Treatment Time in English </label>
         <TextField
           id="traeted-time"
-          placeholder='Please enter the treatment time in English'
+          placeholder='Please enter the Treatment Time in English'
           onChange={(e) => setValues({ ...values, treatmentTime: e.target.value })}
           value={values.treatmentTime}
         />
         {error.treatmentTime && <p className='error'>{error.treatmentTime}</p>}
       </div>
       <div>
-        <label className='form-label mt-4' htmlFor="traeted-time-es">Treatment time in Spanish</label>
+        <label className='form-label mt-4' htmlFor="traeted-time-es">Treatment Time in Spanish</label>
         <TextField
           id="traeted-time-es"
-          placeholder='Please enter treatment time in Spanish'
+          placeholder='Please enter Treatment Time in Spanish'
           onChange={(e) => setValues({ ...values, treatmentTimeEs: e.target.value })}
           value={values.treatmentTimeEs}
         />

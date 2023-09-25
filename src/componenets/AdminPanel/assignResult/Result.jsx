@@ -122,7 +122,7 @@ const Result = () => {
         })
 
       } else {
-        setDiagnosisError("Please fill the all fields*");
+        setDiagnosisError("Please fill all the fields*");
       }
     }
   }
@@ -205,7 +205,7 @@ const Result = () => {
                     <td>{item.diagnosisName}</td>
                     <td>
                       <NumberField
-                        placeholder="Enter the percentage for yes"
+                        placeholder="Enter the Percentage for yes"
                         onBlur={(e) => {
                           const { value } = e.target;
                           const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
@@ -222,7 +222,7 @@ const Result = () => {
                     </td>
                     <td>
                       <NumberField
-                        placeholder="Enter the percentage for no"
+                        placeholder="Enter the Percentage for no"
                         onBlur={(e) => {
                           const { value } = e.target;
                           const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
@@ -247,9 +247,9 @@ const Result = () => {
             {isLoading ? "Loading..." : "Submit"}</button>
         </> :
           <>
-            <label className='form-label mt-4'>Enter the percentage</label>
+            <label className='form-label mt-4'>Enter the Percentage</label>
             <NumberField
-              placeholder="Enter the percentage for no"
+              placeholder="Enter the Percentage"
               value={percentage}
               onChange={(e) => setPercentage(e.target.value)}
             />

@@ -94,8 +94,8 @@ const PainBehavior = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      name: values.name.trim() === '' ? 'Please enter the name in English*' : '',
-      nameEs: values.nameEs.trim() === '' ? 'Please enter the name in Spanish*' : '',
+      name: values.name.trim() === '' ? 'Please enter Pain Behavior name in English*' : '',
+      nameEs: values.nameEs.trim() === '' ? 'Please enter Pain Behavior name in Spanish*' : '',
       painAreaId: values.painAreaId.trim() === '' ? 'Please select the Pain Area*' : '',
       painDefinitionId: values.painDefinitionId.trim() === '' ? 'Please select the Pain Definition*' : '',
     }

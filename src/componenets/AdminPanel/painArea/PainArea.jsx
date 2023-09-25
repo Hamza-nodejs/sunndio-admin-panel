@@ -136,17 +136,17 @@ const PainArea = () => {
         <label className='form-label mt-4'>Position of pain</label>
         <SelectField
           onChange={(e) => setValues({ ...values, position: e.target.value })}>
-          <option value="" selected={values.position === ""}>Please select the position</option>
+          <option value="" selected={values.position === ""}>Please select the Position</option>
           <option value="back" selected={values.position === "back"}>Back</option>
           <option value="front" selected={values.position === "front"}>Front</option>
         </SelectField>
         {error.position && <p className='error'>{error.position}</p>}
       </div>
       <div>
-        <label htmlFor="pointY" className='form-label mt-4'>Vertical points of pain</label>
+        <label htmlFor="pointY" className='form-label mt-4'>Vertical Points of pain</label>
         <NumberField
           id="pointY"
-          placeholder='Please enter the vertical points of pain'
+          placeholder='Please enter the Vertical Points of pain'
           onChange={(e) => setValues({ ...values, pointY: parseInt(e.target.value) })}
           value={values.pointY}
         />
@@ -154,10 +154,10 @@ const PainArea = () => {
       </div>
 
       <div>
-        <label htmlFor="pointX" className='form-label mt-4'>Horizontal points of pain</label>
+        <label htmlFor="pointX" className='form-label mt-4'>Horizontal Points of pain</label>
         <NumberField
           id="pointX"
-          placeholder='Please enter the horizontal points of pain'
+          placeholder='Please enter the Horizontal Points of pain'
           onChange={(e) => setValues({ ...values, pointX: parseInt(e.target.value) })}
           value={values.pointX}
         />

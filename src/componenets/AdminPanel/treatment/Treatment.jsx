@@ -47,12 +47,12 @@ const Treatment = () => {
 
   const handleSubmit = () => {
     const newErrors = {
-      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis definition*" : "",
-      title: values.title === "" ? "Please enter the title*" : "",
-      titleEs: values.titleEs === "" ? "Please enter the title in spanish" : "",
-      duration: values.duration === "" ? "Please eneter the duration for video" : "",
-      treatmentLevel: values.treatmentLevel === "" ? "Please enter the level" : "",
-      treatmentUrl: values.treatmentUrl === "" ? "Please select the video for treatment" : "",
+      diagnosticId: values?.diagnosticId === "" ? "Please select the Diagnosis Definition*" : "",
+      title: values.title === "" ? "Please enter the Title in English*" : "",
+      titleEs: values.titleEs === "" ? "Please enter the Title in Spanish" : "",
+      duration: values.duration === "" ? "Please enter the Duration for video" : "",
+      treatmentLevel: values.treatmentLevel === "" ? "Please enter the Level" : "",
+      treatmentUrl: values.treatmentUrl === "" ? "Please select the Video for Treatment" : "",
     }
     setError(newErrors);
 
@@ -81,11 +81,11 @@ const Treatment = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      diagnosticId: values?.diagnosticId === "" ? "Please select the diagnosis definition*" : "",
-      title: values.title === "" ? "Please enter the title*" : "",
-      titleEs: values.titleEs === "" ? "Please enter the title in spanish" : "",
-      duration: values.duration === "" ? "Please eneter the duration for video" : "",
-      treatmentLevel: values.treatmentLevel === "" ? "Please enter the level" : "",
+      diagnosticId: values?.diagnosticId === "" ? "Please select the Diagnosis Definition*" : "",
+      title: values.title === "" ? "Please enter the Title in English*" : "",
+      titleEs: values.titleEs === "" ? "Please enter the Title in Spanish" : "",
+      duration: values.duration === "" ? "Please enter the Duration for video" : "",
+      treatmentLevel: values.treatmentLevel === "" ? "Please enter the Level" : "",
     }
     setError(newErrors);
 
@@ -139,7 +139,7 @@ const Treatment = () => {
               <label className='form-label mt-4'>Diagnosis Definition</label>
               <SelectField
                 onChange={(e) => setValues({ ...values, diagnosticId: e.target.value })}>
-                <option value="" selected={values.diagnosticId === ""}>Please select the diagnosis definition</option>
+                <option value="" selected={values.diagnosticId === ""}>Please select the Diagnosis Definition</option>
                 {
                   diagnosisData?.map(item => {
                     return <>
@@ -159,7 +159,7 @@ const Treatment = () => {
               <label className='form-label mt-4' htmlFor="english">Title in English </label>
               <TextField
                 id="english"
-                placeholder='Please enter the title in English'
+                placeholder='Please enter the Title in English'
                 onChange={(e) => setValues({ ...values, title: e.target.value })}
                 value={values.title}
               />
@@ -169,7 +169,7 @@ const Treatment = () => {
               <label className='form-label mt-4' htmlFor="spanish">Title in Spanish </label>
               <TextField
                 id="spanish"
-                placeholder='Please enter the title in Spainsh'
+                placeholder='Please enter the Title in Spanish'
                 onChange={(e) => setValues({ ...values, titleEs: e.target.value })}
                 value={values.titleEs}
               />
@@ -177,27 +177,27 @@ const Treatment = () => {
             </div>
 
             <div className='mt-2'>
-              <label className='form-label mt-4' htmlFor="duration">Video duration</label>
+              <label className='form-label mt-4' htmlFor="duration">Video Duration</label>
               <TextField
                 id="duration"
-                placeholder='Please enter the video duration'
+                placeholder='Please enter the Video Duration'
                 onChange={(e) => setValues({ ...values, duration: e.target.value })}
                 value={values.duration}
               />
               {error.duration && <p className='error'>{error.duration}</p>}
             </div>
             <div className='mt-2'>
-              <label className='form-label mt-4' htmlFor="level">Treatment level</label>
+              <label className='form-label mt-4' htmlFor="level">Treatment Level</label>
               <TextField
                 id="level"
-                placeholder='Please enter the treatment level'
+                placeholder='Please enter the Treatment Level'
                 onChange={(e) => setValues({ ...values, treatmentLevel: e.target.value })}
                 value={values.treatmentLevel}
               />
               {error.treatmentLevel && <p className='error'>{error.treatmentLevel}</p>}
             </div>
             <div className='mt-2'>
-              <label htmlFor="">Choose the video for treatment</label>
+              <label htmlFor="">Choose the Video for Treatment</label>
               <FileField
                 onChange={(e) => setValues({ ...values, treatmentUrl: e.target.files[0] })}
 
