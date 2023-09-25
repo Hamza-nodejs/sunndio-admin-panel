@@ -74,14 +74,14 @@ const Diagnosis = () => {
 
   const handleUpdate = () => {
     const newErrors = {
-      diagnosisName: values.diagnosisName.trim() === '' ? 'Please enter the diagnosis name in English*' : '',
-      diagnosisNameEs: values.diagnosisNameEs.trim() === '' ? 'Please enter the diagnosis name in Spanish*' : '',
-      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the description*' : '',
-      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the description*' : '',
-      treated: values.treated.trim() === '' ? 'Please enter the treatment field in English*' : '',
-      treatedEs: values.treatedEs.trim() === '' ? 'Please enter the treatment field in Spanish*' : '',
-      treatmentTime: values.treatmentTime.trim() === '' ? 'Please enter the treatment time in English*' : '',
-      treatmentTimeEs: values.treatmentTimeEs.trim() === '' ? 'Please enter the treatment time in Spanish*' : '',
+      diagnosisName: values.diagnosisName.trim() === '' ? 'Please enter the Diagnosis name in English*' : '',
+      diagnosisNameEs: values.diagnosisNameEs.trim() === '' ? 'Please enter the Diagnosis name in Spanish*' : '',
+      diagnosisDesc: values.diagnosisDesc.trim() === '' ? 'Please enter the Description*' : '',
+      diagnosisDescEs: values.diagnosisDescEs.trim() === '' ? 'Please enter the Description*' : '',
+      treated: values.treated.trim() === '' ? 'Please enter the Treatment in English*' : '',
+      treatedEs: values.treatedEs.trim() === '' ? 'Please enter the Treatment in Spanish*' : '',
+      treatmentTime: values.treatmentTime.trim() === '' ? 'Please enter the Treatment Time in English*' : '',
+      treatmentTimeEs: values.treatmentTimeEs.trim() === '' ? 'Please enter the Treatment Time in Spanish*' : '',
     }
     setError(newErrors);
     const hasErrors = Object.values(newErrors).some(error => error !== '');
