@@ -39,7 +39,7 @@ const GetDiagnosisDefinitions = () => {
 
     const handlePainAreaDelete = (id) => {
         dispatch(deleteDianosisDefinition(id));
-        window.location.reload()
+        dispatch(getAllDiagnosisDefinition());
     }
 
     const handlePainAreaUpdate = (Values) => {
@@ -51,7 +51,7 @@ const GetDiagnosisDefinitions = () => {
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
                 showData.length > 0 ? <div style={{ width: "100%", overflowX: "auto" }}>
-                    <table class="table table-definition">
+                    <table className="table table-definition">
                         <thead >
                             <tr>
                                 <th scope="col">#</th>
@@ -59,8 +59,8 @@ const GetDiagnosisDefinitions = () => {
                                 <th scope="col">Diagnosis name in Spanish</th>
                                 <th scope="col">Diagnosis description in  English</th>
                                 <th scope="col">Diagnosis description in Spanish</th>
-                                <th scope="col">How to treated in  English</th>
-                                <th scope="col">How to treated in Spanish</th>
+                                <th scope="col">Treatment in English</th>
+                                <th scope="col">Treatment in Spanish</th>
                                 <th scope="col">Treatment time in  English</th>
                                 <th scope="col">Treatment time in Spanish</th>
                                 <th scope='col'>Update</th>
@@ -70,7 +70,7 @@ const GetDiagnosisDefinitions = () => {
                         <tbody>
                             {
                                 showData?.map((item, index) => {
-                                    return <tr>
+                                    return <tr key={item?._id}>
                                         <th scope="row">{firstNumber + index + 1}</th>
                                         <td>{item?.diagnosisName?.slice(0, 30)}...</td>
                                         <td>{item?.diagnosisNameEs?.slice(0, 30)}...</td>

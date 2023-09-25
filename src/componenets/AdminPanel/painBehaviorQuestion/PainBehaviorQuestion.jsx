@@ -9,6 +9,7 @@ import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinit
 import { getQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
 import { getPainBehaviorQuestionById, patchPainBehaviorQuestion, postPainBehaviorQuestion } from '../../../redux/slices/painBehaviorQuestion';
 import { useParams } from 'react-router-dom';
+import Select from 'react-select';
 
 const PainBehaviorQuestion = () => {
     const dispatch = useDispatch();
@@ -16,12 +17,16 @@ const PainBehaviorQuestion = () => {
     const { id } = useParams();
 
     useEffect(() => {
-        dispatch(getPainBehaviorQuestionById(id));
+        if (id) {
+            dispatch(getPainBehaviorQuestionById(id));
+        }
+
     }, [id, dispatch]);
 
     const updateValue = useSelector(state => state?.painBehaviorQuestionSlice?.painBehaviorDataById);
 
     const [values, setValues] = useState({})
+    const [question, setQuestion] = useState(null)
 
     useEffect(() => {
         setValues({
@@ -51,18 +56,24 @@ const PainBehaviorQuestion = () => {
 
     const handlePainArea = (e) => {
         setValues({ ...values, painAreaId: e.target.value });
-        dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+        if (e.target.value) {
+            dispatch(getPainDeifnitionByPainAreaId(e.target.value));
+        }
     }
 
     const painDefintionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionDataByAreaId);
 
     const handlePainDefinition = (e) => {
         setValues({ ...values, painDefinitionId: e.target.value });
-        dispatch(getPainBehaviorByPainAreaId(e.target.value));
+        if (e.target.value) {
+            dispatch(getPainBehaviorByPainAreaId(e.target.value));
+        }
     }
 
     useEffect(() => {
-        dispatch(getPainBehaviorByPainAreaId(updateValue?.painBehaviorId?.painDefinitionId));
+        if (updateValue?.painBehaviorId?.painDefinitionId) {
+            dispatch(getPainBehaviorByPainAreaId(updateValue?.painBehaviorId?.painDefinitionId));
+        }
     }, [updateValue, dispatch])
 
     const painBehaviorDataById = useSelector(state => state?.painBehavior?.painBehaviorDataById);
@@ -92,6 +103,7 @@ const PainBehaviorQuestion = () => {
                 questionId: '',
                 gifUrl: ''
             })
+            setQuestion(null)
         }
 
     }
@@ -103,29 +115,14 @@ const PainBehaviorQuestion = () => {
         }
         setError(newErrors);
         const hasErrors = Object.values(newErrors).some(error => error !== '');
-        if(!hasErrors) {
-            if(values.gifUrl === "") {
-             const payload = {
-                questionId : values.questionId,
-                painAreaId : values.painBehaviorId,
-                gifUrl : updateValue.gifUrl,
-             }
-             dispatch(patchPainBehaviorQuestion({id: updateValue._id, payload}))
-             setValues({
-                painAreaId: "",
-                painDefinitionId: "",
-                painBehaviorId: '',
-                questionId: '',
-                gifUrl: ''
-            })
-            }
-            else {
-                const payload = new FormData();
-                payload.append("questionId", values.questionId);
-                payload.append("painBehaviorId", values.painBehaviorId);
-                payload.append("gifUrl", values.gifUrl);
-
-                dispatch(patchPainBehaviorQuestion({id : updateValue._id, payload}))
+        if (!hasErrors) {
+            if (values.gifUrl === "") {
+                const payload = {
+                    questionId: values.questionId,
+                    painBehaviorId: values.painBehaviorId,
+                    gifUrl: updateValue.gifUrl,
+                }
+                dispatch(patchPainBehaviorQuestion({ id: updateValue._id, payload }))
                 setValues({
                     painAreaId: "",
                     painDefinitionId: "",
@@ -133,6 +130,23 @@ const PainBehaviorQuestion = () => {
                     questionId: '',
                     gifUrl: ''
                 })
+                setQuestion(null)
+            }
+            else {
+                const payload = new FormData();
+                payload.append("questionId", values.questionId);
+                payload.append("painBehaviorId", values.painBehaviorId);
+                payload.append("gifUrl", values.gifUrl);
+
+                dispatch(patchPainBehaviorQuestion({ id: updateValue._id, payload }))
+                setValues({
+                    painAreaId: "",
+                    painDefinitionId: "",
+                    painBehaviorId: '',
+                    questionId: '',
+                    gifUrl: ''
+                })
+                setQuestion(null)
             }
         }
     }
@@ -142,14 +156,14 @@ const PainBehaviorQuestion = () => {
 
             {
                 !updateValue &&
-                 <div>
+                <div>
                     <label className='form-label mt-4'>Pain Area</label>
                     <SelectField
                         onChange={handlePainArea}>
                         <option value="" selected={values.painAreaId === ""}>Please select the Pain Area</option>
                         {
                             painAreaData?.map(item => {
-                                return <option value={item?._id}>{item?.name}</option>
+                                return <option key={item?._id} value={item?._id}>{item?.name}</option>
                             })
                         }
                     </SelectField>
@@ -158,13 +172,13 @@ const PainBehaviorQuestion = () => {
             }
             {
                 !updateValue &&
-                 <div>
+                <div>
                     <label className='form-label mt-4'>Pain Definition</label>
                     <SelectField
                         onChange={handlePainDefinition}>
                         <option value="" selected={values.painDefinitionId === ""}>Please select the Pain Definition</option>
                         {
-                            painDefintionDataById.map(item => <option value={item?._id}>{item?.name}</option>)
+                            painDefintionDataById.map(item => <option key={item?._id} value={item?._id}>{item?.name}</option>)
                         }
                     </SelectField>
                     {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
@@ -178,9 +192,10 @@ const PainBehaviorQuestion = () => {
                     <option value="" selected={values.painBehaviorId === ""}>Please select the Pain Behavior</option>
                     {
                         painBehaviorDataById?.map(item => <option
-                             value={item?._id}
-                             selected = {updateValue?.painBehaviorId?._id === item._id}
-                             >{item?.name}</option>)
+                            value={item?._id}
+                            key={item?._id}
+                            selected={updateValue?.painBehaviorId?._id === item._id}
+                        >{item?.name}</option>)
                     }
 
                 </SelectField>
@@ -188,17 +203,30 @@ const PainBehaviorQuestion = () => {
             </div>
             <div>
                 <label className='form-label mt-4'>Question</label>
-                <SelectField
+                {/* <SelectField
                     onChange={(e) => setValues({ ...values, questionId: e.target.value })}>
                     <option value="" selected={values.questionId === ""}>Please select the Question</option>
                     {
                         questionDefinitionData?.map(item => <option
-                             value={item?._id}
-                             selected = {updateValue?.questionId?._id === item?._id}
-                             >{item.question}</option>)
+                            value={item?._id}
+                            selected={updateValue?.questionId?._id === item?._id}
+                        >{item.question}</option>)
                     }
 
-                </SelectField>
+                </SelectField> */}
+
+                <Select
+                    onChange={(e) => {
+                        setValues({ ...values, questionId: e.value });
+                        setQuestion(e)
+
+                    }}
+                    className='form-control'
+                    value={question}
+                    options={questionDefinitionData.map(option => ({ value: option._id, label: option.question }))}
+                    placeholder={updateValue.questionId ? updateValue?.questionId?.question : "Please select the Question"}
+                />
+
                 {error.questionId && <p className='error'>{error.questionId}</p>}
             </div>
 
@@ -208,17 +236,17 @@ const PainBehaviorQuestion = () => {
                     onChange={(e) => setValues({ ...values, gifUrl: e.target.files[0] })}
                 />
                 {error.gifUrl && <p className='error'>{error.gifUrl}</p>}
-                {updateValue?.gifUrl && 
-                  <div style={{display: "flex" , justifyContent: "center"}}>
-                  <img style={{width: "200px", height: "200px", alignSelf: "center"}} src={updateValue?.gifUrl} alt="" />
-                 </div>
+                {updateValue?.gifUrl &&
+                    <div style={{ display: "flex", justifyContent: "center" }}>
+                        <img style={{ width: "200px", height: "200px", alignSelf: "center" }} src={updateValue?.gifUrl} alt="" />
+                    </div>
                 }
             </div>
             {
-          updateValue ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
-          :
-          <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
-        }
+                updateValue ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+                    :
+                    <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
+            }
         </div>
     )
 }

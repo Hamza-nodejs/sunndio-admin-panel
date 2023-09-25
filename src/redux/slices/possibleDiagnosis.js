@@ -35,7 +35,6 @@ const getPossibleDiagnosisById =  createAsyncThunk('getPossibleDiagnosisById', a
 
 const patchPossibleDiagnosis =  createAsyncThunk('patchPossibleDiagnosis', async ({id, payload}) => {
     const response = await api.patchPossibleDiagnosis({id, payload});
-    console.log(payload)
     return response.data
 }); 
 
