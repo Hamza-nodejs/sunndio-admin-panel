@@ -15,7 +15,7 @@ const GetPainArea = () => {
     
     const handlePainAreaDelete = (id) => {
         dispatch(deletePainArea(id));
-        window.location.reload()
+        dispatch(getAllPainArea());
     }
 
     const painAreaData = useSelector(state => state?.painArea?.allPainArea);
@@ -49,7 +49,7 @@ const GetPainArea = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData?.length > 0 ? <table class="table">
+                showData?.length > 0 ? <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -66,7 +66,7 @@ const GetPainArea = () => {
                     <tbody>
                         {
                             showData?.map((item, index) => {
-                                return <tr>
+                                return <tr key={item?._id}>
                                     <th scope="row">{firstNumber + index + 1}</th>
                                     <td>{item.name}</td>
                                     <td>{item.nameEs}</td>

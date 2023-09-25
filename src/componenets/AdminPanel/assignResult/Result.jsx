@@ -15,7 +15,9 @@ const Result = () => {
   const { id } = useParams();
 
   useEffect(() => {
-    dispatch(getAssignResultById(id))
+    if (id) {
+      dispatch(getAssignResultById(id))
+    }
   }, [id, dispatch]);
 
   const updateValues = useSelector(state => state?.assignResultSlice?.assignResultDataById);
@@ -32,7 +34,7 @@ const Result = () => {
 
   useEffect(() => {
     setPercentage(updateValues.Percentage)
-  },[updateValues])
+  }, [updateValues])
 
   let [possibleDiagnosis, setPossibleDiagnosis] = useState([]);
 
@@ -78,10 +80,10 @@ const Result = () => {
 
   const handleSubmit = async () => {
     const newErrors = {
-      painBehaviorId: values.painBehaviorId ? '' : 'Please select the pain behavior*',
-      painAreaId: values.painAreaId ? '' : 'Please select the pain area*',
-      painDefinitionId: values.painDefinitionId ? '' : 'Please select the pain definition*',
-      behaviorQuestionId: values.behaviorQuestionId ? '' : 'Please select the pain behavior question*',
+      painBehaviorId: values.painBehaviorId ? '' : 'Please select the Pain Behavior*',
+      painAreaId: values.painAreaId ? '' : 'Please select the Pain Area*',
+      painDefinitionId: values.painDefinitionId ? '' : 'Please select the Pain Definition*',
+      behaviorQuestionId: values.behaviorQuestionId ? '' : 'Please select the Question*',
     };
 
     setError(newErrors);
@@ -120,17 +122,17 @@ const Result = () => {
         })
 
       } else {
-        setDiagnosisError("Please enter the all field data");
+        setDiagnosisError("Please fill all the fields*");
       }
     }
   }
 
   const handleUpdate = () => {
-       if(percentage !== "" ){
-       const  payload = { Percentage : percentage};
-       dispatch(patchAssignResult({id : updateValues._id, payload}))
-       setPercentage("")
-       }
+    if (percentage !== "") {
+      const payload = { Percentage: percentage };
+      dispatch(patchAssignResult({ id: updateValues._id, payload }))
+      setPercentage("")
+    }
   }
 
   return (
@@ -139,48 +141,48 @@ const Result = () => {
       {
         !updateValues ? <>
           <div>
-            <label className='form-label mt-4'>Please select the pain area</label>
+            <label className='form-label mt-4'>Pain Area</label>
             <SelectField
               onChange={handlePainArea}>
-              <option value="">Please select the pain area</option>
+              <option value="">Please select the Pain Area</option>
               {
                 painAreaData?.map(item => {
-                  return <option value={item._id}>{item?.name}</option>
+                  return <option key={item._id} value={item._id}>{item?.name}</option>
                 })
               }
             </SelectField>
             {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
           </div>
           <div>
-            <label className='form-label mt-4'>Select the pain definition</label>
+            <label className='form-label mt-4'>Pain Definition</label>
             <SelectField
               onChange={handlePainDefinition}>
-              <option value="">Select the pain definition</option>
+              <option value="">Please select the Pain Definition</option>
               {
-                painDefintionDataById.map(item => <option value={item._id}>{item.name}</option>)
+                painDefintionDataById.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
               }
             </SelectField>
             {error.painDefinitionId && <p className='error'>{error.painDefinitionId}</p>}
           </div>
           <div>
-            <label className='form-label mt-4'>Select pain behavior</label>
+            <label className='form-label mt-4'>Pain Behavior</label>
             <SelectField
               onChange={handlePainBehavior}>
-              <option value="">Select pain behavior</option>
+              <option value="">Please select the Pain Behavior</option>
               {
-                painBehaviorDataById.map(item => <option value={item._id}>{item.name}</option>)
+                painBehaviorDataById.map(item => <option key={item._id} value={item._id}>{item.name}</option>)
               }
 
             </SelectField>
             {error.painBehaviorId && <p className='error'>{error.painBehaviorId}</p>}
           </div>
           <div>
-            <label className='form-label mt-4'>Select the pain related question</label>
+            <label className='form-label mt-4'>Question</label>
             <SelectField
               onChange={(e) => setValues({ ...values, behaviorQuestionId: e.target.value })}>
-              <option value="">Select the pain related question</option>
+              <option value="">Please select the Question</option>
               {
-                painBehaviorQuestionData.map(item => <option value={item._id}>{item.question}</option>)
+                painBehaviorQuestionData.map(item => <option key={item._id} value={item._id}>{item.question}</option>)
               }
 
             </SelectField>
@@ -199,11 +201,11 @@ const Result = () => {
             <tbody>
               {
                 possibleDiagnosisData?.map(item => {
-                  return <tr>
+                  return <tr key={item._id} >
                     <td>{item.diagnosisName}</td>
                     <td>
                       <NumberField
-                        placeholder="Enter the percentage for yes"
+                        placeholder="Enter the Percentage for yes"
                         onBlur={(e) => {
                           const { value } = e.target;
                           const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
@@ -220,7 +222,7 @@ const Result = () => {
                     </td>
                     <td>
                       <NumberField
-                        placeholder="Enter the percentage for no"
+                        placeholder="Enter the Percentage for no"
                         onBlur={(e) => {
                           const { value } = e.target;
                           const index = possibleDiagnosis.findIndex(diag => diag.diagnosisId === item._id);
@@ -245,9 +247,9 @@ const Result = () => {
             {isLoading ? "Loading..." : "Submit"}</button>
         </> :
           <>
-            <label className='form-label mt-4'>Enter the percentage</label>
+            <label className='form-label mt-4'>Enter the Percentage</label>
             <NumberField
-              placeholder="Enter the percentage for no"
+              placeholder="Enter the Percentage"
               value={percentage}
               onChange={(e) => setPercentage(e.target.value)}
             />

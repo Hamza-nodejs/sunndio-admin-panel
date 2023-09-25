@@ -38,7 +38,7 @@ const GetAllQuestion = () => {
 
     const handleDeleteQuestion = (id) => {
         dispatch(deleteQuestion(id));
-        window.location.reload()
+        dispatch(getAllQuestion());
     }
 
     const handleUpdateQuestion = (Values) => {
@@ -48,7 +48,7 @@ const GetAllQuestion = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData.length > 0 ? <table class="table">
+                showData.length > 0 ? <table className="table">
                     <thead>
                         <tr>
                             <th scope="col">#</th>
@@ -61,7 +61,7 @@ const GetAllQuestion = () => {
                     <tbody>
                         {
                             showData?.map((item, index) => {
-                                return <tr>
+                                return <tr key={item?._id}>
                                     <th scope="row">{index + 1 + firstNumber}</th>
                                     <td>{item.question}</td>
                                     <td>{item.questionEs}</td>
