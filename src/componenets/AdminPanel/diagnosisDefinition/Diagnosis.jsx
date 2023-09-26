@@ -17,18 +17,36 @@ const Diagnosis = () => {
 
   const updateValues = useSelector(state => state?.diagnosis?.diagnosisDefinitonById);
   const [values, setValues] = useState({})
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      diagnosisName: updateValues?.diagnosisName ? updateValues?.diagnosisName : '',
-      diagnosisNameEs: updateValues?.diagnosisNameEs ? updateValues?.diagnosisNameEs : '',
-      diagnosisDesc: updateValues?.diagnosisDesc ? updateValues?.diagnosisDesc : '',
-      diagnosisDescEs: updateValues?.diagnosisDescEs ? updateValues?.diagnosisDescEs : '',
-      treated: updateValues?.treated ? updateValues?.treated : '',
-      treatedEs: updateValues?.treatedEs ? updateValues?.treatedEs : '',
-      treatmentTime: updateValues?.treatmentTime ? updateValues?.treatmentTime : '',
-      treatmentTimeEs: updateValues?.treatmentTimeEs ? updateValues?.treatmentTimeEs : ''
-    })
+    const isEdit = window.location.search.split("=").pop();
+    if (isEdit) {
+      setValues({
+        diagnosisName: updateValues?.diagnosisName ? updateValues?.diagnosisName : '',
+        diagnosisNameEs: updateValues?.diagnosisNameEs ? updateValues?.diagnosisNameEs : '',
+        diagnosisDesc: updateValues?.diagnosisDesc ? updateValues?.diagnosisDesc : '',
+        diagnosisDescEs: updateValues?.diagnosisDescEs ? updateValues?.diagnosisDescEs : '',
+        treated: updateValues?.treated ? updateValues?.treated : '',
+        treatedEs: updateValues?.treatedEs ? updateValues?.treatedEs : '',
+        treatmentTime: updateValues?.treatmentTime ? updateValues?.treatmentTime : '',
+        treatmentTimeEs: updateValues?.treatmentTimeEs ? updateValues?.treatmentTimeEs : ''
+      })
+      setIsUpdate(true);
+    } else {
+      setValues({
+        diagnosisName: '',
+        diagnosisNameEs: '',
+        diagnosisDesc: '',
+        diagnosisDescEs: '',
+        treated: '',
+        treatedEs: '',
+        treatmentTime: '',
+        treatmentTimeEs: ''
+      })
+      setIsUpdate(false)
+    }
+
   }, [updateValues]);
 
   const [error, setError] = useState({
@@ -187,7 +205,7 @@ const Diagnosis = () => {
         {error.treatmentTimeEs && <p className='error'>{error.treatmentTimeEs}</p>}
       </div>
       {
-        updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

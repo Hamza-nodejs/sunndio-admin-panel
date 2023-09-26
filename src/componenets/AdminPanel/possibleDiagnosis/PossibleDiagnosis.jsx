@@ -26,16 +26,32 @@ const PossibleDiagnosis = () => {
 
     const [values, setValues] = useState({});
     const [diagnosis, setDiagnosis] = useState(null)
+    const [isUpdate, setIsUpdate] = useState(false)
 
     useEffect(() => {
-        setValues({
-            diagnosticsId: updateValues ? updateValues?.diagnosticsId?._id : '',
-            isPossibleDiag: updateValues.isPossibleDiag ? updateValues.isPossibleDiag : "",
-            painBehaviorId: updateValues ? updateValues?.painBehaviorId?._id : '',
-            painAreaId: "",
-            painDefinitionId: "",
-            initialProbability: "",
-        })
+        const isEdit = window.location.search.split("=").pop();
+        if (isEdit) {
+            setValues({
+                diagnosticsId: updateValues ? updateValues?.diagnosticsId?._id : '',
+                isPossibleDiag: updateValues.isPossibleDiag ? updateValues.isPossibleDiag : "",
+                painBehaviorId: updateValues ? updateValues?.painBehaviorId?._id : '',
+                painAreaId: "",
+                painDefinitionId: "",
+                initialProbability: "",
+            })
+            setIsUpdate(true)
+        } else {
+            setValues({
+                diagnosticsId: '',
+                isPossibleDiag: "",
+                painBehaviorId: '',
+                painAreaId: "",
+                painDefinitionId: "",
+                initialProbability: "",
+            })
+            setIsUpdate(false)
+        }
+
     }, [updateValues])
 
     const [error, setError] = useState({
@@ -58,7 +74,7 @@ const PossibleDiagnosis = () => {
 
     const handlePainArea = (e) => {
         setValues({ ...values, painAreaId: e.target.value });
-        if(e.target.value) {
+        if (e.target.value) {
             dispatch(getPainDeifnitionByPainAreaId(e.target.value));
         }
     }
@@ -67,7 +83,7 @@ const PossibleDiagnosis = () => {
 
     const handlePainDefinition = (e) => {
         setValues({ ...values, painDefinitionId: e.target.value });
-        if(e.target.value) {
+        if (e.target.value) {
             dispatch(getPainBehaviorByPainAreaId(e.target.value));
         }
     }
@@ -205,7 +221,7 @@ const PossibleDiagnosis = () => {
                     className='form-control'
                     value={diagnosis}
                     options={diagnosisData.map(option => ({ value: option.id, label: option.diagnostic }))}
-                    placeholder={updateValues?.diagnosticsId ? updateValues?.diagnosticsId?.diagnosisName : "Please select the Diagnosis Definition"}
+                    placeholder={ isUpdate && updateValues?.diagnosticsId ? updateValues?.diagnosticsId?.diagnosisName : "Please select the Diagnosis Definition"}
                 />
                 {error.diagnosticsId && <p className='error'>{error.diagnosticsId}</p>}
             </div>
@@ -232,7 +248,7 @@ const PossibleDiagnosis = () => {
                 </div>
             }
 
-            {updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+            {isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
                 :
                 <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
             }

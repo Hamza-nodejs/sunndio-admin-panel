@@ -21,16 +21,31 @@ const PainBehavior = () => {
 
   const updateValues = useSelector(state => state?.painBehavior?.allPainBehaviorDataById);
 
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    setValues({
-      name: updateValues?.name ? updateValues?.name : "",
-      nameEs: updateValues?.nameEs ? updateValues?.nameEs : "",
-      painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId : "",
-      painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id : "",
-      imageUrl: "",
-    })
+    const isEdit = window.location.search.split("=").pop();
+    if(isEdit) {
+      setValues({
+        name: updateValues?.name ? updateValues?.name : "",
+        nameEs: updateValues?.nameEs ? updateValues?.nameEs : "",
+        painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId : "",
+        painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id : "",
+        imageUrl: "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        name: "",
+        nameEs: "",
+        painAreaId:  "",
+        painDefinitionId: "",
+        imageUrl: "",
+      })
+      setIsUpdate(false)
+    }
+
   }, [updateValues])
 
   const [error, setError] = useState({
@@ -195,14 +210,14 @@ const PainBehavior = () => {
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
 
         {
-          updateValues?.imageUrl &&
+          isUpdate &&
           <div style={{ display: "flex", justifyContent: "center" }}>
             <img style={{ width: "100px", height: "100px", alignSelf: "center" }} src={updateValues?.imageUrl} alt="" />
           </div>
         }
       </div>
       {
-        updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

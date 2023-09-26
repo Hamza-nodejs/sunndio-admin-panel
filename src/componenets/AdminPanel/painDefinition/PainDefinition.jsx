@@ -18,17 +18,30 @@ const PainDefinition = () => {
     }
   }, [id, dispatch])
 
-  const painDefinitionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionById)
+  let painDefinitionDataById = useSelector(state => state?.painDefinitionSlice?.painDefinitionById)
 
   const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      name: painDefinitionDataById?.name ? painDefinitionDataById?.name : "",
-      nameEs: painDefinitionDataById?.nameEs ? painDefinitionDataById?.nameEs : "",
-      painAreaId: painDefinitionDataById?.painAreaId ? painDefinitionDataById?.painAreaId?._id : "",
-      imageUrl: "",
-    })
+    const isEdit = window.location.search.split("=").pop();
+    if(isEdit) {
+      setValues({
+        name: painDefinitionDataById?.name ? painDefinitionDataById?.name : "",
+        nameEs: painDefinitionDataById?.nameEs ? painDefinitionDataById?.nameEs : "",
+        painAreaId: painDefinitionDataById?.painAreaId ? painDefinitionDataById?.painAreaId?._id : "",
+        imageUrl: "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        name: "",
+        nameEs:  "",
+        painAreaId: "",
+        imageUrl: "",
+      })
+      setIsUpdate(false)
+    }
   }, [painDefinitionDataById])
 
   const [error, setError] = useState({
@@ -165,14 +178,14 @@ const PainDefinition = () => {
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
         {
 
-          painDefinitionDataById?.imageUrl &&
+          isUpdate &&
           <div style={{ display: "flex", justifyContent: "center" }}>
             <img style={{ width: "200px", height: "200px", alignSelf: "center" }} src={painDefinitionDataById?.imageUrl} alt="" />
           </div>
         }
       </div>
       {
-        painDefinitionDataById ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

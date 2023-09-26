@@ -27,15 +27,30 @@ const PainBehaviorQuestion = () => {
 
     const [values, setValues] = useState({})
     const [question, setQuestion] = useState(null)
+    const [isUpdate, setIsUpdate] = useState(false)
 
     useEffect(() => {
-        setValues({
-            painAreaId: "",
-            painDefinitionId: "",
-            painBehaviorId: updateValue ? updateValue?.painBehaviorId?._id : '',
-            questionId: updateValue ? updateValue?.questionId?._id : '',
-            gifUrl: '',
-        })
+        const isEdit = window.location.search.split("=").pop();
+        if (isEdit) {
+            setValues({
+                painAreaId: "",
+                painDefinitionId: "",
+                painBehaviorId: updateValue ? updateValue?.painBehaviorId?._id : '',
+                questionId: updateValue ? updateValue?.questionId?._id : '',
+                gifUrl: '',
+            })
+            setIsUpdate(true)
+        } else {
+            setValues({
+                painAreaId: "",
+                painDefinitionId: "",
+                painBehaviorId: '',
+                questionId: '',
+                gifUrl: '',
+            })
+            setIsUpdate(false)
+        }
+
     }, [updateValue])
 
     const [error, setError] = useState({
@@ -224,7 +239,7 @@ const PainBehaviorQuestion = () => {
                     className='form-control'
                     value={question}
                     options={questionDefinitionData.map(option => ({ value: option._id, label: option.question }))}
-                    placeholder={updateValue.questionId ? updateValue?.questionId?.question : "Please select the Question"}
+                    placeholder={isUpdate && updateValue.questionId ? updateValue?.questionId?.question : "Please select the Question"}
                 />
 
                 {error.questionId && <p className='error'>{error.questionId}</p>}
@@ -236,14 +251,14 @@ const PainBehaviorQuestion = () => {
                     onChange={(e) => setValues({ ...values, gifUrl: e.target.files[0] })}
                 />
                 {error.gifUrl && <p className='error'>{error.gifUrl}</p>}
-                {updateValue?.gifUrl &&
+                {isUpdate &&
                     <div style={{ display: "flex", justifyContent: "center" }}>
                         <img style={{ width: "200px", height: "200px", alignSelf: "center" }} src={updateValue?.gifUrl} alt="" />
                     </div>
                 }
             </div>
             {
-                updateValue ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+                isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
                     :
                     <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
             }

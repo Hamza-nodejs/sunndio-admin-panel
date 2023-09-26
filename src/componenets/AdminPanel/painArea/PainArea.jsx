@@ -17,18 +17,34 @@ const PainArea = () => {
   }, [id, dispatch])
 
   const updateValue = useSelector(state => state?.painArea?.painAreaDataById);
+  const [isUpdate, setIsUpdate] = useState(false)
 
   const [values, setValues] = useState({})
 
   useEffect(() => {
-    setValues({
-      name: updateValue?.name ? updateValue.name : "",
-      nameEs: updateValue?.nameEs ? updateValue.nameEs : "",
-      position: updateValue?.position ? updateValue.position : "",
-      pointX: updateValue?.points ? updateValue.points[0] : "",
-      pointY: updateValue?.points ? updateValue.points[1] : "",
-      isLive: updateValue?.isLive ? updateValue.isLive : "",
-    });
+    const isEdit = window.location.search.split("=").pop();
+    if (isEdit) {
+      setValues({
+        name: updateValue?.name ? updateValue.name : "",
+        nameEs: updateValue?.nameEs ? updateValue.nameEs : "",
+        position: updateValue?.position ? updateValue.position : "",
+        pointX: updateValue?.points ? updateValue.points[0] : "",
+        pointY: updateValue?.points ? updateValue.points[1] : "",
+        isLive: updateValue?.isLive ? updateValue.isLive : "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        name: "",
+        nameEs: "",
+        position: "",
+        pointX: "",
+        pointY: "",
+        isLive: "",
+      })
+      setIsUpdate(false)
+    }
+
   }, [updateValue]);
 
   const [error, setError] = useState({
@@ -174,7 +190,7 @@ const PainArea = () => {
         {error.isLive && <p className='error'>{error.isLive}</p>}
       </div>
       {
-        updateValue ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

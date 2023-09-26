@@ -31,9 +31,16 @@ const Result = () => {
   })
 
   const [percentage, setPercentage] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setPercentage(updateValues.Percentage)
+    const isEdit = window.location.search.split("=").pop(); 
+    if(isEdit) {
+      setPercentage(updateValues.Percentage)
+      setIsUpdate(true)
+    } else {
+      setIsUpdate(false)
+    }
   }, [updateValues])
 
   let [possibleDiagnosis, setPossibleDiagnosis] = useState([]);
@@ -139,7 +146,7 @@ const Result = () => {
 
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       {
-        !updateValues ? <>
+        !isUpdate ? <>
           <div>
             <label className='form-label mt-4'>Pain Area</label>
             <SelectField

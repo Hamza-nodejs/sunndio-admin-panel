@@ -25,16 +25,32 @@ const Treatment = () => {
   const isLoading = useSelector(state => state?.treatmentSlice?.isLoading);
 
   const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      diagnosticId: updatedValues.diagnosticId?._id ? updatedValues?.diagnosticId?._id : "",
-      title: updatedValues?.title ? updatedValues.title : "",
-      titleEs: updatedValues?.titleEs ? updatedValues.titleEs : "",
-      duration: updatedValues?.duration ? updatedValues.duration : "",
-      treatmentLevel: updatedValues?.treatmentLevel ? updatedValues.treatmentLevel : "",
-      treatmentUrl: "",
-    })
+    const isEdit = window.location.search.split("=").pop();
+    if(isEdit) {
+      setValues({
+        diagnosticId: updatedValues.diagnosticId?._id ? updatedValues?.diagnosticId?._id : "",
+        title: updatedValues?.title ? updatedValues.title : "",
+        titleEs: updatedValues?.titleEs ? updatedValues.titleEs : "",
+        duration: updatedValues?.duration ? updatedValues.duration : "",
+        treatmentLevel: updatedValues?.treatmentLevel ? updatedValues.treatmentLevel : "",
+        treatmentUrl: "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        diagnosticId: "",
+        title: "",
+        titleEs: "",
+        duration: "",
+        treatmentLevel: "",
+        treatmentUrl: "",
+      }) 
+      setIsUpdate(false)
+    }
+  
   }, [updatedValues])
 
   const [error, setError] = useState({})
@@ -204,7 +220,7 @@ const Treatment = () => {
               />
               {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
               {
-                updatedValues?.treatmentUrl &&
+                isUpdate &&
                 <div style={{ display: "flex", justifyContent: "center" }}>
                   <video
                     style={{ width: "100px", height: "100px", alignSelf: "center" }}
@@ -219,7 +235,7 @@ const Treatment = () => {
             </div>
 
             {
-              updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+              isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
                 :
                 <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
             }

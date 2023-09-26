@@ -19,13 +19,24 @@ const PainRelatedQuestion = () => {
   const updatedValues = useSelector(state => state?.questionDefinitionSlice?.questionDataById);
 
 
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      question: updatedValues?.question ? updatedValues?.question : "",
-      questionEs: updatedValues?.questionEs ? updatedValues?.questionEs : "",
-    })
+    const isEdit = window.location.search.split("=").pop();
+    if (isEdit) {
+      setValues({
+        question: updatedValues?.question ? updatedValues?.question : "",
+        questionEs: updatedValues?.questionEs ? updatedValues?.questionEs : "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        question: "",
+        questionEs: "",
+      })
+      setIsUpdate(false)
+    }
   }, [updatedValues]);
 
   const [error, setError] = useState({
@@ -98,7 +109,7 @@ const PainRelatedQuestion = () => {
         {error.questionEs && <p className='error'>{error.questionEs}</p>}
       </div>
       {
-        updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }
