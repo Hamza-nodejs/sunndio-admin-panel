@@ -8,13 +8,14 @@ import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinition';
 import { getQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
 import { getPainBehaviorQuestionById, patchPainBehaviorQuestion, postPainBehaviorQuestion } from '../../../redux/slices/painBehaviorQuestion';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 const PainBehaviorQuestion = () => {
     const dispatch = useDispatch();
 
     const { id } = useParams();
+    const location = useLocation();
 
     useEffect(() => {
         if (id) {
@@ -30,7 +31,9 @@ const PainBehaviorQuestion = () => {
     const [isUpdate, setIsUpdate] = useState(false)
 
     useEffect(() => {
-        const isEdit = window.location.search.split("=").pop();
+        const queryParams = new URLSearchParams(location.search);
+        const isEdit = queryParams.get('edit');
+
         if (isEdit) {
             setValues({
                 painAreaId: "",
@@ -51,7 +54,7 @@ const PainBehaviorQuestion = () => {
             setIsUpdate(false)
         }
 
-    }, [updateValue])
+    }, [updateValue, location])
 
     const [error, setError] = useState({
         painAreaId: "",

@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPainBehaviorById, patchPainBehavior, postpainBehavior } from '../../../redux/slices/painBehavior';
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinition';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const PainBehavior = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -25,7 +26,9 @@ const PainBehavior = () => {
   const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    const isEdit = window.location.search.split("=").pop();
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
     if(isEdit) {
       setValues({
         name: updateValues?.name ? updateValues?.name : "",
@@ -46,7 +49,7 @@ const PainBehavior = () => {
       setIsUpdate(false)
     }
 
-  }, [updateValues])
+  }, [updateValues, location])
 
   const [error, setError] = useState({
     name: "",

@@ -6,11 +6,12 @@ import FileField from '../../common/FileField';
 import { useSelector, useDispatch } from "react-redux";
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDefinitionById, patchPainDefinition, postPainDefinition } from '../../../redux/slices/painDefinition';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const PainDefinition = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -24,7 +25,9 @@ const PainDefinition = () => {
   const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    const isEdit = window.location.search.split("=").pop();
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
     if(isEdit) {
       setValues({
         name: painDefinitionDataById?.name ? painDefinitionDataById?.name : "",
@@ -42,7 +45,7 @@ const PainDefinition = () => {
       })
       setIsUpdate(false)
     }
-  }, [painDefinitionDataById])
+  }, [painDefinitionDataById, location])
 
   const [error, setError] = useState({
     name: "",

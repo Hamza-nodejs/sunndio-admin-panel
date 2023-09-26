@@ -4,11 +4,12 @@ import { patchPainArea, postPainArea, getPainAaraeById } from '../../../redux/sl
 import TextField from '../../common/TextField';
 import NumberField from '../../common/NumberField';
 import SelectField from '../../common/SelectField';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const PainArea = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -22,7 +23,9 @@ const PainArea = () => {
   const [values, setValues] = useState({})
 
   useEffect(() => {
-    const isEdit = window.location.search.split("=").pop();
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
     if (isEdit) {
       setValues({
         name: updateValue?.name ? updateValue.name : "",
@@ -45,7 +48,7 @@ const PainArea = () => {
       setIsUpdate(false)
     }
 
-  }, [updateValue]);
+  }, [updateValue, location]);
 
   const [error, setError] = useState({
     name: "",

@@ -8,12 +8,13 @@ import { getDiagnosisDefinition } from '../../../redux/slices/diagnosis';
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPossibleDiagnosisById, patchPossibleDiagnosis, postPossibleDiagnosis } from '../../../redux/slices/possibleDiagnosis';
 import { postProbabilityDisease } from '../../../redux/slices/probabilityDisease';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 const PossibleDiagnosis = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
+    const location = useLocation();
 
     useEffect(() => {
         if (id) {
@@ -29,7 +30,9 @@ const PossibleDiagnosis = () => {
     const [isUpdate, setIsUpdate] = useState(false)
 
     useEffect(() => {
-        const isEdit = window.location.search.split("=").pop();
+        const queryParams = new URLSearchParams(location.search);
+        const isEdit = queryParams.get('edit');
+
         if (isEdit) {
             setValues({
                 diagnosticsId: updateValues ? updateValues?.diagnosticsId?._id : '',
@@ -52,7 +55,7 @@ const PossibleDiagnosis = () => {
             setIsUpdate(false)
         }
 
-    }, [updateValues])
+    }, [updateValues, location])
 
     const [error, setError] = useState({
         diagnosticsId: '',

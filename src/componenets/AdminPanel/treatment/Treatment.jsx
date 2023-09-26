@@ -8,11 +8,12 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiagnosisDefinition } from '../../../redux/slices/diagnosis';
 import { getTreatmentById, postTreatment, updateTreatment } from '../../../redux/slices/treatment';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Treatment = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -28,7 +29,9 @@ const Treatment = () => {
   const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    const isEdit = window.location.search.split("=").pop();
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
     if(isEdit) {
       setValues({
         diagnosticId: updatedValues.diagnosticId?._id ? updatedValues?.diagnosticId?._id : "",
@@ -51,7 +54,7 @@ const Treatment = () => {
       setIsUpdate(false)
     }
   
-  }, [updatedValues])
+  }, [updatedValues, location])
 
   const [error, setError] = useState({})
 

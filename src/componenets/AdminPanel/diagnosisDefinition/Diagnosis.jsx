@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import TextField from '../../common/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiagnosisDefinitonById, patchDiagnosisDefiniton, postDiagnosisDefinition } from '../../../redux/slices/diagnosis';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Diagnosis = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -20,7 +21,9 @@ const Diagnosis = () => {
   const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    const isEdit = window.location.search.split("=").pop();
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
     if (isEdit) {
       setValues({
         diagnosisName: updateValues?.diagnosisName ? updateValues?.diagnosisName : '',
@@ -47,7 +50,7 @@ const Diagnosis = () => {
       setIsUpdate(false)
     }
 
-  }, [updateValues]);
+  }, [updateValues, location]);
 
   const [error, setError] = useState({
     diagnosisName: '',
