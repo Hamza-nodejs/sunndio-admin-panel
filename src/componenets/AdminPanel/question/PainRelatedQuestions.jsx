@@ -3,12 +3,13 @@ import TextField from '../../common/TextField';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getQuestionById, patchQuestionDefinition, postQuestionDefinition } from '../../../redux/slices/questionDefinitionSlice';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const PainRelatedQuestion = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -19,14 +20,27 @@ const PainRelatedQuestion = () => {
   const updatedValues = useSelector(state => state?.questionDefinitionSlice?.questionDataById);
 
 
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      question: updatedValues?.question ? updatedValues?.question : "",
-      questionEs: updatedValues?.questionEs ? updatedValues?.questionEs : "",
-    })
-  }, [updatedValues]);
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
+    if (isEdit) {
+      setValues({
+        question: updatedValues?.question ? updatedValues?.question : "",
+        questionEs: updatedValues?.questionEs ? updatedValues?.questionEs : "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        question: "",
+        questionEs: "",
+      })
+      setIsUpdate(false)
+    }
+  }, [updatedValues, location]);
 
   const [error, setError] = useState({
     question: "",
@@ -98,7 +112,7 @@ const PainRelatedQuestion = () => {
         {error.questionEs && <p className='error'>{error.questionEs}</p>}
       </div>
       {
-        updatedValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

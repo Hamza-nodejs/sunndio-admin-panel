@@ -7,11 +7,12 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getPainBehaviorById, patchPainBehavior, postpainBehavior } from '../../../redux/slices/painBehavior';
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainDeifnitionByPainAreaId } from '../../../redux/slices/painDefinition';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const PainBehavior = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -21,17 +22,34 @@ const PainBehavior = () => {
 
   const updateValues = useSelector(state => state?.painBehavior?.allPainBehaviorDataById);
 
-  const [values, setValues] = useState({})
+  const [values, setValues] = useState({});
+  const [isUpdate, setIsUpdate] = useState(false);
 
   useEffect(() => {
-    setValues({
-      name: updateValues?.name ? updateValues?.name : "",
-      nameEs: updateValues?.nameEs ? updateValues?.nameEs : "",
-      painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId : "",
-      painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id : "",
-      imageUrl: "",
-    })
-  }, [updateValues])
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
+    if(isEdit) {
+      setValues({
+        name: updateValues?.name ? updateValues?.name : "",
+        nameEs: updateValues?.nameEs ? updateValues?.nameEs : "",
+        painAreaId: updateValues?.painDefinitionId?.painAreaId ? updateValues?.painDefinitionId?.painAreaId : "",
+        painDefinitionId: updateValues?.painDefinitionId ? updateValues?.painDefinitionId._id : "",
+        imageUrl: "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        name: "",
+        nameEs: "",
+        painAreaId:  "",
+        painDefinitionId: "",
+        imageUrl: "",
+      })
+      setIsUpdate(false)
+    }
+
+  }, [updateValues, location])
 
   const [error, setError] = useState({
     name: "",
@@ -195,14 +213,14 @@ const PainBehavior = () => {
         {error.imageUrl && <p className='error'>{error.imageUrl}</p>}
 
         {
-          updateValues?.imageUrl &&
+          isUpdate &&
           <div style={{ display: "flex", justifyContent: "center" }}>
             <img style={{ width: "100px", height: "100px", alignSelf: "center" }} src={updateValues?.imageUrl} alt="" />
           </div>
         }
       </div>
       {
-        updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

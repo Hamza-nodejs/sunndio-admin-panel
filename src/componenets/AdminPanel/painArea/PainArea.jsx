@@ -4,11 +4,12 @@ import { patchPainArea, postPainArea, getPainAaraeById } from '../../../redux/sl
 import TextField from '../../common/TextField';
 import NumberField from '../../common/NumberField';
 import SelectField from '../../common/SelectField';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const PainArea = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -17,19 +18,37 @@ const PainArea = () => {
   }, [id, dispatch])
 
   const updateValue = useSelector(state => state?.painArea?.painAreaDataById);
+  const [isUpdate, setIsUpdate] = useState(false)
 
   const [values, setValues] = useState({})
 
   useEffect(() => {
-    setValues({
-      name: updateValue?.name ? updateValue.name : "",
-      nameEs: updateValue?.nameEs ? updateValue.nameEs : "",
-      position: updateValue?.position ? updateValue.position : "",
-      pointX: updateValue?.points ? updateValue.points[0] : "",
-      pointY: updateValue?.points ? updateValue.points[1] : "",
-      isLive: updateValue?.isLive ? updateValue.isLive : "",
-    });
-  }, [updateValue]);
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
+    if (isEdit) {
+      setValues({
+        name: updateValue?.name ? updateValue.name : "",
+        nameEs: updateValue?.nameEs ? updateValue.nameEs : "",
+        position: updateValue?.position ? updateValue.position : "",
+        pointX: updateValue?.points ? updateValue.points[0] : "",
+        pointY: updateValue?.points ? updateValue.points[1] : "",
+        isLive: updateValue?.isLive ? updateValue.isLive : "",
+      })
+      setIsUpdate(true)
+    } else {
+      setValues({
+        name: "",
+        nameEs: "",
+        position: "",
+        pointX: "",
+        pointY: "",
+        isLive: "",
+      })
+      setIsUpdate(false)
+    }
+
+  }, [updateValue, location]);
 
   const [error, setError] = useState({
     name: "",
@@ -174,7 +193,7 @@ const PainArea = () => {
         {error.isLive && <p className='error'>{error.isLive}</p>}
       </div>
       {
-        updateValue ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }

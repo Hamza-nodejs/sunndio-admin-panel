@@ -8,11 +8,12 @@ import { getPainArea } from '../../../redux/slices/painArea';
 import { getPainBehaviorQuestion } from '../../../redux/slices/painBehaviorQuestion';
 import { getPossibleDiagnosis } from '../../../redux/slices/possibleDiagnosis';
 import { getAssignResultById, patchAssignResult, postAssignResult } from '../../../redux/slices/assignResult';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 
 const Result = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -31,10 +32,19 @@ const Result = () => {
   })
 
   const [percentage, setPercentage] = useState("");
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setPercentage(updateValues.Percentage)
-  }, [updateValues])
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
+    if(isEdit) {
+      setPercentage(updateValues.Percentage)
+      setIsUpdate(true)
+    } else {
+      setIsUpdate(false)
+    }
+  }, [updateValues, location])
 
   let [possibleDiagnosis, setPossibleDiagnosis] = useState([]);
 
@@ -139,7 +149,7 @@ const Result = () => {
 
     <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px' }}>
       {
-        !updateValues ? <>
+        !isUpdate ? <>
           <div>
             <label className='form-label mt-4'>Pain Area</label>
             <SelectField
