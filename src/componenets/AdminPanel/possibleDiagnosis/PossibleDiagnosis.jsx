@@ -8,12 +8,13 @@ import { getDiagnosisDefinition } from '../../../redux/slices/diagnosis';
 import { getPainArea } from '../../../redux/slices/painArea';
 import { getPossibleDiagnosisById, patchPossibleDiagnosis, postPossibleDiagnosis } from '../../../redux/slices/possibleDiagnosis';
 import { postProbabilityDisease } from '../../../redux/slices/probabilityDisease';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import Select from 'react-select';
 
 const PossibleDiagnosis = () => {
     const dispatch = useDispatch();
     const { id } = useParams();
+    const location = useLocation();
 
     useEffect(() => {
         if (id) {
@@ -26,17 +27,35 @@ const PossibleDiagnosis = () => {
 
     const [values, setValues] = useState({});
     const [diagnosis, setDiagnosis] = useState(null)
+    const [isUpdate, setIsUpdate] = useState(false)
 
     useEffect(() => {
-        setValues({
-            diagnosticsId: updateValues ? updateValues?.diagnosticsId?._id : '',
-            isPossibleDiag: updateValues.isPossibleDiag ? updateValues.isPossibleDiag : "",
-            painBehaviorId: updateValues ? updateValues?.painBehaviorId?._id : '',
-            painAreaId: "",
-            painDefinitionId: "",
-            initialProbability: "",
-        })
-    }, [updateValues])
+        const queryParams = new URLSearchParams(location.search);
+        const isEdit = queryParams.get('edit');
+
+        if (isEdit) {
+            setValues({
+                diagnosticsId: updateValues ? updateValues?.diagnosticsId?._id : '',
+                isPossibleDiag: updateValues.isPossibleDiag ? updateValues.isPossibleDiag : "",
+                painBehaviorId: updateValues ? updateValues?.painBehaviorId?._id : '',
+                painAreaId: "",
+                painDefinitionId: "",
+                initialProbability: "",
+            })
+            setIsUpdate(true)
+        } else {
+            setValues({
+                diagnosticsId: '',
+                isPossibleDiag: "",
+                painBehaviorId: '',
+                painAreaId: "",
+                painDefinitionId: "",
+                initialProbability: "",
+            })
+            setIsUpdate(false)
+        }
+
+    }, [updateValues, location])
 
     const [error, setError] = useState({
         diagnosticsId: '',
@@ -58,7 +77,7 @@ const PossibleDiagnosis = () => {
 
     const handlePainArea = (e) => {
         setValues({ ...values, painAreaId: e.target.value });
-        if(e.target.value) {
+        if (e.target.value) {
             dispatch(getPainDeifnitionByPainAreaId(e.target.value));
         }
     }
@@ -67,7 +86,7 @@ const PossibleDiagnosis = () => {
 
     const handlePainDefinition = (e) => {
         setValues({ ...values, painDefinitionId: e.target.value });
-        if(e.target.value) {
+        if (e.target.value) {
             dispatch(getPainBehaviorByPainAreaId(e.target.value));
         }
     }
@@ -205,7 +224,7 @@ const PossibleDiagnosis = () => {
                     className='form-control'
                     value={diagnosis}
                     options={diagnosisData.map(option => ({ value: option.id, label: option.diagnostic }))}
-                    placeholder={updateValues?.diagnosticsId ? updateValues?.diagnosticsId?.diagnosisName : "Please select the Diagnosis Definition"}
+                    placeholder={ isUpdate && updateValues?.diagnosticsId ? updateValues?.diagnosticsId?.diagnosisName : "Please select the Diagnosis Definition"}
                 />
                 {error.diagnosticsId && <p className='error'>{error.diagnosticsId}</p>}
             </div>
@@ -232,7 +251,7 @@ const PossibleDiagnosis = () => {
                 </div>
             }
 
-            {updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+            {isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
                 :
                 <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
             }

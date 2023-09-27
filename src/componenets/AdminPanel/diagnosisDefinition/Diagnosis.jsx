@@ -2,12 +2,13 @@ import React, { useState } from 'react'
 import TextField from '../../common/TextField';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiagnosisDefinitonById, patchDiagnosisDefiniton, postDiagnosisDefinition } from '../../../redux/slices/diagnosis';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { useEffect } from 'react';
 
 const Diagnosis = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const location = useLocation();
 
   useEffect(() => {
     if (id) {
@@ -17,19 +18,39 @@ const Diagnosis = () => {
 
   const updateValues = useSelector(state => state?.diagnosis?.diagnosisDefinitonById);
   const [values, setValues] = useState({})
+  const [isUpdate, setIsUpdate] = useState(false)
 
   useEffect(() => {
-    setValues({
-      diagnosisName: updateValues?.diagnosisName ? updateValues?.diagnosisName : '',
-      diagnosisNameEs: updateValues?.diagnosisNameEs ? updateValues?.diagnosisNameEs : '',
-      diagnosisDesc: updateValues?.diagnosisDesc ? updateValues?.diagnosisDesc : '',
-      diagnosisDescEs: updateValues?.diagnosisDescEs ? updateValues?.diagnosisDescEs : '',
-      treated: updateValues?.treated ? updateValues?.treated : '',
-      treatedEs: updateValues?.treatedEs ? updateValues?.treatedEs : '',
-      treatmentTime: updateValues?.treatmentTime ? updateValues?.treatmentTime : '',
-      treatmentTimeEs: updateValues?.treatmentTimeEs ? updateValues?.treatmentTimeEs : ''
-    })
-  }, [updateValues]);
+    const queryParams = new URLSearchParams(location.search);
+    const isEdit = queryParams.get('edit');
+
+    if (isEdit) {
+      setValues({
+        diagnosisName: updateValues?.diagnosisName ? updateValues?.diagnosisName : '',
+        diagnosisNameEs: updateValues?.diagnosisNameEs ? updateValues?.diagnosisNameEs : '',
+        diagnosisDesc: updateValues?.diagnosisDesc ? updateValues?.diagnosisDesc : '',
+        diagnosisDescEs: updateValues?.diagnosisDescEs ? updateValues?.diagnosisDescEs : '',
+        treated: updateValues?.treated ? updateValues?.treated : '',
+        treatedEs: updateValues?.treatedEs ? updateValues?.treatedEs : '',
+        treatmentTime: updateValues?.treatmentTime ? updateValues?.treatmentTime : '',
+        treatmentTimeEs: updateValues?.treatmentTimeEs ? updateValues?.treatmentTimeEs : ''
+      })
+      setIsUpdate(true);
+    } else {
+      setValues({
+        diagnosisName: '',
+        diagnosisNameEs: '',
+        diagnosisDesc: '',
+        diagnosisDescEs: '',
+        treated: '',
+        treatedEs: '',
+        treatmentTime: '',
+        treatmentTimeEs: ''
+      })
+      setIsUpdate(false)
+    }
+
+  }, [updateValues, location]);
 
   const [error, setError] = useState({
     diagnosisName: '',
@@ -187,7 +208,7 @@ const Diagnosis = () => {
         {error.treatmentTimeEs && <p className='error'>{error.treatmentTimeEs}</p>}
       </div>
       {
-        updateValues ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
+        isUpdate ? <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleUpdate}>Update</button>
           :
           <button className='btn btn-primary w-100 p-3 mt-4 button-common' onClick={handleSubmit}>Submit</button>
       }
