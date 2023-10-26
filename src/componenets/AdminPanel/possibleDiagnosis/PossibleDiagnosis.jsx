@@ -244,7 +244,7 @@ const PossibleDiagnosis = () => {
                     <NumberField
                         id="pointX"
                         placeholder='Please enter the Initial Probability'
-                        onChange={(e) => setValues({ ...values, initialProbability: parseInt(e.target.value) })}
+                        onChange={(e) => setValues({ ...values, initialProbability: (e.target.value) })}
                         value={values.initialProbability}
                     />
                     {error.initialProbability && <p className='error'>{error.initialProbability}</p>}

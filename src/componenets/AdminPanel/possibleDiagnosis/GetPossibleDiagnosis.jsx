@@ -20,9 +20,9 @@ const GetPossibleDiagnosis = () => {
 
     useEffect(() => {
         if (Array.isArray(possibleDiagnosisData)) {
-          setShowData(possibleDiagnosisData?.slice(firstNumber, secondNumber));
+            setShowData(possibleDiagnosisData?.slice(firstNumber, secondNumber));
         }
-      }, [possibleDiagnosisData, firstNumber, secondNumber]);
+    }, [possibleDiagnosisData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -37,9 +37,12 @@ const GetPossibleDiagnosis = () => {
     }
 
     const handlePossibleDiagnosisDelete = (id) => {
-        dispatch(deletePossibleDaignosis(id));
-        dispatch(getAllPossibleDiagnosis());
-       
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(deletePossibleDaignosis(id));
+            dispatch(getAllPossibleDiagnosis());
+        }
+
     }
 
     const handlePossibleDiagnosisUpdate = (Values) => {
@@ -82,7 +85,7 @@ const GetPossibleDiagnosis = () => {
                     Previous
                 </button>
 
-                <button disabled={secondNumber > possibleDiagnosisData.length} className='btn btn-primary px-5 p-3' onClick={handleNext}>
+                <button disabled={secondNumber > possibleDiagnosisData.length-1} className='btn btn-primary px-5 p-3' onClick={handleNext}>
                     Next
                 </button>
             </div>

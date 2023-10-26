@@ -38,8 +38,11 @@ const GetDiagnosisDefinitions = () => {
     }
 
     const handlePainAreaDelete = (id) => {
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
         dispatch(deleteDianosisDefinition(id));
         dispatch(getAllDiagnosisDefinition());
+        }
     }
 
     const handlePainAreaUpdate = (Values) => {
