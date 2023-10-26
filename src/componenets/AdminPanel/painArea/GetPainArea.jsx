@@ -18,7 +18,6 @@ const GetPainArea = () => {
         if (result) {
             dispatch(deletePainArea(id));
             dispatch(getAllPainArea());
-            console.log({showData})
         }
     }
 
