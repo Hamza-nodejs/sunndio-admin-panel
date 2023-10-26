@@ -27,8 +27,11 @@ const GetResult = () => {
     }, [assignResultData, firstNumber, secondNumber]);
 
     const handleAssignResultDelete = (id) => {
-        dispatch(assignResultDelete(id));
-        dispatch(getAssignResult());
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(assignResultDelete(id));
+            dispatch(getAssignResult());
+        }
     }
 
     const handleAssignResultUpdate = (Values) => {
@@ -50,40 +53,42 @@ const GetResult = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData.length > 0 ? <table className="table" height='200px'>
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Pain Behavior</th>
-                            <th scope="col">Question</th>
-                            <th>Possible Diagnosis</th>
-                            <th scope='col'>Percentage</th>
-                            <th scope='col'>Diagnosis Answer</th>
-                            <th scope='col'>Update</th>
-                            <th scope='col'>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            showData?.map((item, index) => {
-                                return <tr key={item?._id}>
-                                    <th scope="row">{firstNumber + index + 1}</th>
-                                    <td>{item.painBehaviorId?.name}</td>
-                                    <td>{item.painBehaviorQuestionId?.questionId?.question}</td>
-                                    <td>{item?.possibleDiagnosticId?.diagnosticsId?.diagnosisName}</td>
-                                    <td>{item?.Percentage}</td>
-                                    <td>{item?.DiagAnswer ? "true" : "false"}</td>
-                                    <td onClick={() => handleAssignResultUpdate(item)}><i className='fa fa-pencil-square'></i></td>
-                                    <td onClick={() => handleAssignResultDelete(item._id)}><i className='fa fa-trash'></i></td>
-                                </tr>
-                            })
-                        }
+                showData.length > 0 ? <div style={{ width: "100%", overflowX: "auto" }}>
+                    <table className="table table-definition" height='200px'>
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Pain Behavior</th>
+                                <th scope="col">Question</th>
+                                <th>Possible Diagnosis</th>
+                                <th scope='col'>Percentage</th>
+                                <th scope='col'>Diagnosis Answer</th>
+                                <th scope='col'>Update</th>
+                                <th scope='col'>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                showData?.map((item, index) => {
+                                    return <tr key={item?._id}>
+                                        <th scope="row">{firstNumber + index + 1}</th>
+                                        <td>{item.painBehaviorId?.name}</td>
+                                        <td>{item.painBehaviorQuestionId?.questionId?.question.slice(0, 50)}...</td>
+                                        <td>{item?.possibleDiagnosticId?.diagnosticsId?.diagnosisName.slice(0, 40)}...</td>
+                                        <td>{item?.Percentage}</td>
+                                        <td>{item?.DiagAnswer ? "true" : "false"}</td>
+                                        <td onClick={() => handleAssignResultUpdate(item)}><i className='fa fa-pencil-square'></i></td>
+                                        <td onClick={() => handleAssignResultDelete(item._id)}><i className='fa fa-trash'></i></td>
+                                    </tr>
+                                })
+                            }
 
-                    </tbody>
-                </table> : <Loader />
+                        </tbody>
+                    </table>
+                </div> : <Loader />
             }
 
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "30px" }}>
                 <button disabled={firstNumber <= 0} className='btn btn-primary px-5 p-3' onClick={handlePrevious}>
                     Previous
                 </button>

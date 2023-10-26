@@ -20,9 +20,9 @@ const GetPainDefinition = () => {
 
     useEffect(() => {
         if (Array.isArray(painDefinitionData)) {
-          setShowData(painDefinitionData?.slice(firstNumber, secondNumber));
+            setShowData(painDefinitionData?.slice(firstNumber, secondNumber));
         }
-      }, [painDefinitionData, firstNumber, secondNumber]);
+    }, [painDefinitionData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -37,8 +37,11 @@ const GetPainDefinition = () => {
     }
 
     const handlePainDefinitionDelete = (id) => {
-        dispatch(deletePainDefinition(id));
-        dispatch(getPainDefintion());
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(deletePainDefinition(id));
+            dispatch(getPainDefintion());
+        }
     }
 
     const handlePainDefinitionUpdate = (Values) => {
