@@ -12,10 +12,13 @@ const GetPainArea = () => {
         dispatch(getAllPainArea());
     }, [dispatch]);
 
-    
+
     const handlePainAreaDelete = (id) => {
-        dispatch(deletePainArea(id));
-        dispatch(getAllPainArea());
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(deletePainArea(id));
+            dispatch(getAllPainArea());
+        }
     }
 
     const painAreaData = useSelector(state => state?.painArea?.allPainArea);
@@ -26,9 +29,9 @@ const GetPainArea = () => {
 
     useEffect(() => {
         if (Array.isArray(painAreaData)) {
-          setShowData(painAreaData.slice(firstNumber, secondNumber));
+            setShowData(painAreaData.slice(firstNumber, secondNumber));
         }
-      }, [painAreaData, firstNumber, secondNumber]);
+    }, [painAreaData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();

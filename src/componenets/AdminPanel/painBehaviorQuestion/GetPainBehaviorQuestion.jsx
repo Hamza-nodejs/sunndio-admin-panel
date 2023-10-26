@@ -19,9 +19,9 @@ const GetPainBehaviorQuestion = () => {
 
     useEffect(() => {
         if (Array.isArray(painBehaviorQuestionData)) {
-          setShowData(painBehaviorQuestionData?.slice(firstNumber, secondNumber));
+            setShowData(painBehaviorQuestionData?.slice(firstNumber, secondNumber));
         }
-      }, [painBehaviorQuestionData, firstNumber, secondNumber]);
+    }, [painBehaviorQuestionData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -36,8 +36,11 @@ const GetPainBehaviorQuestion = () => {
     }
 
     const handlePianBehaviorQuestionDelete = (id) => {
-        dispatch(deletePainBehaviorQuestion(id));
-        dispatch(getAllPainBehaviorQuestion());
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(deletePainBehaviorQuestion(id));
+            dispatch(getAllPainBehaviorQuestion());
+        }
     }
 
     const handlePainBehaviorQuestionUpdate = (Values) => {
@@ -46,36 +49,36 @@ const GetPainBehaviorQuestion = () => {
 
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
-           {
-            showData.length > 0 ?  <table className="table">
-            <thead>
-                <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Pain Behavior Name</th>
-                    <th scope="col">Question</th>
-                    <th scope="col">Image</th>
-                    <th scope='col'>Update</th>
-                    <th scope='col'>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-                {
-                    showData?.map((item, index) => {
-                        return <tr key={item?._id}>
-                            <th scope="row">{firstNumber + index + 1}</th>
-                            <td>{item.painBehaviorId?.name}</td>
-                            <td>{item?.questionId?.question}</td>
-                            <td><img src={item.gifUrl} alt="pain-definition" style={{ width: "75px", height: "75px" }} /></td>
-                            <td onClick={() => handlePainBehaviorQuestionUpdate(item)}><i className='fa fa-pencil-square'></i></td>
-                            <td onClick={() => handlePianBehaviorQuestionDelete(item._id)}><i className='fa fa-trash'></i></td>
+            {
+                showData.length > 0 ? <table className="table table-definition">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pain Behavior Name</th>
+                            <th scope="col">Question</th>
+                            <th scope="col">Image</th>
+                            <th scope='col'>Update</th>
+                            <th scope='col'>Delete</th>
                         </tr>
-                    })
-                }
+                    </thead>
+                    <tbody>
+                        {
+                            showData?.map((item, index) => {
+                                return <tr key={item?._id}>
+                                    <th scope="row">{firstNumber + index + 1}</th>
+                                    <td>{item.painBehaviorId?.name}</td>
+                                    <td>{item?.questionId?.question.slice(0, 50)}...</td>
+                                    <td><img src={item.gifUrl} alt="pain-definition" style={{ width: "75px", height: "75px" }} /></td>
+                                    <td onClick={() => handlePainBehaviorQuestionUpdate(item)}><i className='fa fa-pencil-square'></i></td>
+                                    <td onClick={() => handlePianBehaviorQuestionDelete(item._id)}><i className='fa fa-trash'></i></td>
+                                </tr>
+                            })
+                        }
 
-            </tbody>
-        </table> : <Loader/>
-           }
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+                    </tbody>
+                </table> : <Loader />
+            }
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 <button disabled={firstNumber <= 0} className='btn btn-primary px-5 p-3' onClick={handlePrevious}>
                     Previous
                 </button>

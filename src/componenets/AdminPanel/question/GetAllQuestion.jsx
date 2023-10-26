@@ -20,9 +20,9 @@ const GetAllQuestion = () => {
 
     useEffect(() => {
         if (Array.isArray(allQuestionData)) {
-          setShowData(allQuestionData?.slice(firstNumber, secondNumber));
+            setShowData(allQuestionData?.slice(firstNumber, secondNumber));
         }
-      }, [allQuestionData, firstNumber, secondNumber]);
+    }, [allQuestionData, firstNumber, secondNumber]);
 
     const handlePrevious = (e) => {
         e.preventDefault();
@@ -37,8 +37,11 @@ const GetAllQuestion = () => {
     }
 
     const handleDeleteQuestion = (id) => {
-        dispatch(deleteQuestion(id));
-        dispatch(getAllQuestion());
+        const result = window.confirm("Are you sure want to delete?");
+        if (result) {
+            dispatch(deleteQuestion(id));
+            dispatch(getAllQuestion());
+        }
     }
 
     const handleUpdateQuestion = (Values) => {
@@ -48,33 +51,35 @@ const GetAllQuestion = () => {
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
-                showData.length > 0 ? <table className="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">Question in English</th>
-                            <th scope="col">Question in Spanish</th>
-                            <th scope='col'>Update</th>
-                            <th scope='col'>Delete</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {
-                            showData?.map((item, index) => {
-                                return <tr key={item?._id}>
-                                    <th scope="row">{index + 1 + firstNumber}</th>
-                                    <td>{item.question}</td>
-                                    <td>{item.questionEs}</td>
-                                    <td onClick={() => handleUpdateQuestion(item)}><i className='fa fa-pencil-square'></i></td>
-                                    <td onClick={() => handleDeleteQuestion(item._id)}><i className='fa fa-trash'></i></td>
-                                </tr>
-                            })
-                        }
+                showData.length > 0 ? <div style={{ width: "100%", overflowX: "auto" }}>
+                    <table className="table table-definition">
+                        <thead>
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">Question in English</th>
+                                <th scope="col">Question in Spanish</th>
+                                <th scope='col'>Update</th>
+                                <th scope='col'>Delete</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                showData?.map((item, index) => {
+                                    return <tr key={item?._id}>
+                                        <th scope="row">{index + 1 + firstNumber}</th>
+                                        <td>{item?.question?.slice(0, 50)}...</td>
+                                        <td>{item?.questionEs?.slice(0,50)}...</td>
+                                        <td onClick={() => handleUpdateQuestion(item)}><i className='fa fa-pencil-square'></i></td>
+                                        <td onClick={() => handleDeleteQuestion(item._id)}><i className='fa fa-trash'></i></td>
+                                    </tr>
+                                })
+                            }
 
-                    </tbody>
-                </table> : <Loader />
+                        </tbody>
+                    </table>
+                </div> : <Loader />
             }
-            <div style={{ display: "flex", justifyContent: "space-between" }}>
+            <div style={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 <button disabled={firstNumber <= 0} className='btn btn-primary px-5 p-3' onClick={handlePrevious}>
                     Previous
                 </button>
