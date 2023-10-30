@@ -87,7 +87,6 @@ const Result = () => {
 
   const possibleDiagnosisData = useSelector(state => state?.possibleDiagnosisSlice?.possibleDiagnosisData);
 
-
   const handleSubmit = async () => {
     const newErrors = {
       painBehaviorId: values.painBehaviorId ? '' : 'Please select the Pain Behavior*',
@@ -109,7 +108,7 @@ const Result = () => {
             painBehaviorId: values.painBehaviorId,
             painBehaviorQuestionId: values.behaviorQuestionId,
             DiagAnswer: true,
-            possibleDiagnosticId: item.diagnosisId,
+            possibleDiagnosticId: item?.diagnosisId,
             Percentage: item.percentageTrue
           }
           const payloadFalse = {
@@ -212,7 +211,7 @@ const Result = () => {
               {
                 possibleDiagnosisData?.map(item => {
                   return <tr key={item._id} >
-                    <td>{item.diagnosisName}</td>
+                    <td>{item?.diagnosticsId?.diagnosisName}</td>
                     <td>
                       <NumberField
                         placeholder="Enter the Percentage for yes"
