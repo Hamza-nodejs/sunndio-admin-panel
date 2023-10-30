@@ -47,7 +47,8 @@ const api = {
     patchPainBehaviorQuestion : async ({id, payload}) => await axios.put(`${host}/editPainBehaviorQustion/${id}`, payload),
 
     postPossibleDiagnosis: async (payload) => await axios.post(`${host}/addPainPossibleDiagnosis`, payload),
-    getPossibleDiagnosis: async (painBehaviorId) => await axios.get(`${host}/painPossibleDiagBypainBehaviorId/en/${painBehaviorId}`),
+    // getPossibleDiagnosis: async (painBehaviorId) => await axios.get(`${host}/painPossibleDiagBypainBehaviorId/en/${painBehaviorId}`),
+    getPossibleDiagnosis : async (painBehaviorId) => await axios.get(`${host}/getPossibleDiagnosisByPainBehavior/${painBehaviorId}`),
     getAllPossibleDiagnosis : async () => await axios.get(`${host}/getAllPainPossibleDiag`),
     deletePossibleDaignosis : async (id) => await axios.delete(`${host}/painPossibleDiag/${id}`),
     getPossibleDiagnosisById : async (id) => await axios.get(`${host}/getPainPossibleDiagById/${id}`),
