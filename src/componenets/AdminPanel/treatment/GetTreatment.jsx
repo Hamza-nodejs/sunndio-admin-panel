@@ -48,6 +48,8 @@ const GetTreatment = () => {
         navigate(`/treatment/${Values._id}?edit=true`)
     }
 
+    console.log({})
+
     return (
         <div style={{ paddingTop: '40px', paddingLeft: '100px', paddingRight: '100px', paddingBottom: "30px" }}>
             {
@@ -60,6 +62,7 @@ const GetTreatment = () => {
                             <th scope='col'>Title in Spanish</th>
                             <th scope='col'>Treatment Level</th>
                             <th scope='col'>Video Duration</th>
+                            <th scope='col'>Thumbnail</th>
                             <th scope='col'>Video</th>
                             <th scope='col'>Update</th>
                             <th scope='col'>Delete</th>
@@ -75,6 +78,7 @@ const GetTreatment = () => {
                                     <td>{item?.titleEs}</td>
                                     <td>{item?.treatmentLevel}</td>
                                     <td>{item?.duration}</td>
+                                     <td><img src={item?.thumbnail} alt="Thumbnail" style={{ width: "75px", height: "75px", padding: "0px" }}/></td>
                                     <td><video style={{ width: "75px", height: "75px", padding: "0px" }} src={item?.treatmentUrl}></video></td>
                                     <td onClick={() => handlePainAreaUpdate(item)}><i className='fa fa-pencil-square'></i></td>
                                     <td onClick={() => handleTreatmentDelete(item._id)}><i className='fa fa-trash'></i></td>

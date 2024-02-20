@@ -7,8 +7,9 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getDiagnosisDefinition } from '../../../redux/slices/diagnosis';
-import { getTreatmentById, postTreatment, updateTreatment } from '../../../redux/slices/treatment';
+import { getTreatmentById, updateTreatment } from '../../../redux/slices/treatment';
 import { useLocation, useParams } from 'react-router-dom';
+import api from '../../../config/api';
 
 const Treatment = () => {
   const dispatch = useDispatch();
@@ -32,7 +33,7 @@ const Treatment = () => {
     const queryParams = new URLSearchParams(location.search);
     const isEdit = queryParams.get('edit');
 
-    if(isEdit) {
+    if (isEdit) {
       setValues({
         diagnosticId: updatedValues.diagnosticId?._id ? updatedValues?.diagnosticId?._id : "",
         title: updatedValues?.title ? updatedValues.title : "",
@@ -40,6 +41,7 @@ const Treatment = () => {
         duration: updatedValues?.duration ? updatedValues.duration : "",
         treatmentLevel: updatedValues?.treatmentLevel ? updatedValues.treatmentLevel : "",
         treatmentUrl: "",
+        thumbnail: "",
       })
       setIsUpdate(true)
     } else {
@@ -50,10 +52,12 @@ const Treatment = () => {
         duration: "",
         treatmentLevel: "",
         treatmentUrl: "",
-      }) 
+        thumbnail: "",
+        treatmentUrlVideo: "",
+      })
       setIsUpdate(false)
     }
-  
+
   }, [updatedValues, location])
 
   const [error, setError] = useState({})
@@ -64,29 +68,54 @@ const Treatment = () => {
 
   const diagnosisData = useSelector(state => state?.diagnosis?.diagnosisData);
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
+    console.log({ values })
     const newErrors = {
       diagnosticId: values?.diagnosticId === "" ? "Please select the Diagnosis Definition*" : "",
       title: values.title === "" ? "Please enter the Title in English*" : "",
       titleEs: values.titleEs === "" ? "Please enter the Title in Spanish" : "",
       duration: values.duration === "" ? "Please enter the Duration for video" : "",
       treatmentLevel: values.treatmentLevel === "" ? "Please enter the Level" : "",
-      treatmentUrl: values.treatmentUrl === "" ? "Please select the Video for Treatment" : "",
+      treatmentUrl: values.treatmentUrl === "" && values.treatmentUrlVideo === "" ? "Please select the Video for Treatment" : "",
+      thumbnail: values.thumbnail === "" ? "Please select the thumbnail for video" : "",
     }
     setError(newErrors);
 
     const hasErrors = Object.values(newErrors).some(error => error !== '');
 
     if (!hasErrors) {
-      const formData = new FormData();
-      formData.append("title", values.title);
-      formData.append("titleEs", values.titleEs);
-      formData.append("duration", values.duration);
-      formData.append("treatmentLevel", values.treatmentLevel);
-      formData.append("diagnosticId", values.diagnosticId);
-      formData.append("treatmentUrl", values.treatmentUrl);
+      let response = undefined;
 
-      dispatch(postTreatment(formData));
+      if (values.treatmentUrlVideo) {
+        const payload = {
+          diagnosticId: values.diagnosticId,
+          title: values.title,
+          titleEs: values.titleEs,
+          duration: values.duration,
+          treatmentLevel: values.treatmentLevel,
+          treatmentUrl: values?.treatmentUrlVideo
+        };
+        response = await api.postTreatment(payload);
+      } else {
+
+        const formData = new FormData();
+        formData.append("title", values.title);
+        formData.append("titleEs", values.titleEs);
+        formData.append("duration", values.duration);
+        formData.append("treatmentLevel", values.treatmentLevel);
+        formData.append("diagnosticId", values.diagnosticId);
+        formData.append("treatmentUrl", values.treatmentUrl);
+
+        response = await api.postTreatment(formData);
+      }
+
+      if (response.status === 200) {
+        const newFormData = new FormData()
+        newFormData.append("thumbnail", values.thumbnail);
+        const thumbnailData = await api.postThumbnail({ id: response.data._id, payload: newFormData });
+        console.log({ thumbnailData })
+      }
+
       setValues({
         diagnosticId: "",
         title: "",
@@ -94,11 +123,13 @@ const Treatment = () => {
         duration: "",
         treatmentLevel: "",
         treatmentUrl: "",
+        thumbnail: "",
+        treatmentUrlVideo: ""
       })
     }
   }
 
-  const handleUpdate = () => {
+  const handleUpdate = async () => {
     const newErrors = {
       diagnosticId: values?.diagnosticId === "" ? "Please select the Diagnosis Definition*" : "",
       title: values.title === "" ? "Please enter the Title in English*" : "",
@@ -110,6 +141,15 @@ const Treatment = () => {
 
     const hasErrors = Object.values(newErrors).some(error => error !== '');
     if (!hasErrors) {
+
+      if (values.thumbnail) {
+        const newFormData = new FormData()
+        newFormData.append("thumbnail", values.thumbnail);
+        const thumbnailData = await api.postThumbnail({ id: updatedValues?._id, payload: newFormData });
+        console.log({ thumbnailData })
+      }
+
+
       if (values.treatmentUrl === "") {
         const payload = {
           diagnosticId: values.diagnosticId,
@@ -163,7 +203,7 @@ const Treatment = () => {
                   diagnosisData?.map(item => {
                     return <>
                       <option
-                      key={item._id} 
+                        key={item._id}
                         value={item.id}
                         selected={updatedValues?.diagnosticId?._id === item.id}
                       >{item?.diagnostic}</option>
@@ -216,15 +256,34 @@ const Treatment = () => {
               {error.treatmentLevel && <p className='error'>{error.treatmentLevel}</p>}
             </div>
             <div className='mt-2'>
-              <label htmlFor="">Choose the Video for Treatment</label>
+              <label htmlFor="">Choose the thumbnail for video</label>
+              <FileField
+                onChange={(e) => setValues({ ...values, thumbnail: e.target.files[0] })}
+
+              />
+              {error.thumbnail && <p className='error'>{error.thumbnail}</p>}
+            </div>
+            <div className='mt-2'>
+              <label htmlFor="">Choose the video for Treatment</label>
               <FileField
                 onChange={(e) => setValues({ ...values, treatmentUrl: e.target.files[0] })}
 
               />
-              {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
+
+              <div className='mt-2'>
+                <label className='form-label mt-4' htmlFor="duration">You can also set the URL for video</label>
+                <TextField
+                  id="treatmentUrlVideo"
+                  placeholder='Please enter the URL for video'
+                  onChange={(e) => setValues({ ...values, treatmentUrlVideo: e.target.value })}
+                  value={values.treatmentUrlVideo}
+                />
+
+                {error.treatmentUrl && <p className='error'>{error.treatmentUrl}</p>}
+              </div>
               {
                 isUpdate &&
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div style={{ display: "flex", justifyContent: "center", marginTop: "5px" }}>
                   <video
                     style={{ width: "100px", height: "100px", alignSelf: "center" }}
                     autoPlay

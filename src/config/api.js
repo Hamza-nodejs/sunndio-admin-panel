@@ -67,6 +67,7 @@ const api = {
     updateTreatment : async ({id, payload}) => await axios.put(`${host}/updateTheTreatment/${id}`, payload),
     getTreatmentById : async (id) => await axios.get(`${host}/getTreatmentById/${id}`),
     deleteTreatment : async (id) => await axios.delete(`${host}/deleteTreatment/${id}`),
+    postThumbnail : async ({id, payload}) => await axios.post(`${host}/addTreatmentThumbnail/${id}`, payload)
 };
 
 
